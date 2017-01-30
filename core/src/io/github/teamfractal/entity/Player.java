@@ -15,6 +15,7 @@ import java.util.Map;
 import java.util.Random;
 import java.util.Set;
 
+
 import com.badlogic.gdx.utils.Array;
 
 public class Player {
@@ -341,6 +342,38 @@ public class Player {
 		roboticonAmountList.add("Uncustomised x "    + uncustomised);
 		return roboticonAmountList;
 	}
+	
+	///////// Added method - Josh Neil - don't want to place uncustomised roboticons
+	/**
+	 * Get a string list of customised roboticons available for the player.
+	 * Mainly for the dropdown selection.
+	 *
+	 * @return  The string list of roboticons.
+	 */
+	public Array<String> getCustomisedRoboticonAmountList() {
+		int ore = 0;
+		int energy = 0;
+		Array<String> roboticonAmountList = new Array<String>();
+
+		for (Roboticon r : roboticonList) {
+			if (!r.isInstalled()) {
+				switch (r.getCustomisation()) {
+					case ORE:
+						ore += 1;
+						break;
+					case ENERGY:
+						energy += 1;
+						break;
+					default:
+						break;
+				}
+			}
+		}
+
+		roboticonAmountList.add("Ore Specific x "    + ore);
+		roboticonAmountList.add("Energy Specific x " + energy);
+		return roboticonAmountList;
+	}
 	public Array<Roboticon> getRoboticons(){
 		return this.roboticonList;
 	}
@@ -372,5 +405,14 @@ public class Player {
 			}
 		});
 		game.gameScreen.addAnimation(animation);
+	}
+	
+	/////// Added by Josh Neil to support the random event where a roboticon is faulty and breaks - Josh Neil
+	/**
+	 * Removes a given roboticon from the player's inventory
+	 * @param roboticon The roboticon to be removed from the players inventory
+	 */
+	public void removeRoboticon(Roboticon roboticon){
+		roboticonList.removeValue(roboticon, true);
 	}
 }
