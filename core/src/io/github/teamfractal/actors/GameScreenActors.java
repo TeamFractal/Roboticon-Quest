@@ -19,6 +19,8 @@ import io.github.teamfractal.entity.Roboticon;
 import io.github.teamfractal.entity.enums.ResourceType;
 import io.github.teamfractal.screens.AbstractAnimationScreen;
 import io.github.teamfractal.screens.GameScreen;
+import io.github.teamfractal.util.MessagePopUp;
+import io.github.teamfractal.util.RandomEvents;
 import io.github.teamfractal.util.TileConverter;
 
 public class GameScreenActors {
@@ -197,10 +199,20 @@ public class GameScreenActors {
 						}
 
 						if (roboticon != null) {
-							selectedPlot.installRoboticon(roboticon);
-							TiledMapTileLayer.Cell roboticonTile = selectedPlot.getRoboticonTile();
-							roboticonTile.setTile(TileConverter.getRoboticonTile(roboticon.getCustomisation()));
-							selectedPlot.setHasRoboticon(true);
+							///// Modified by Josh Neil - 
+							///// Added if else branches previously was just the instructions in the 
+							///// else branch followed by textUpdate()
+							if(RandomEvents.RoboticonIsFaulty()){
+								// Roboticon was faulty and has broken (cannot be placed)
+								game.getPlayer().removeRoboticon(roboticon);
+								stage.addActor(new MessagePopUp("That roboticon was faulty","That roboticon was faulty and exploded!"));
+							}
+							else{
+								selectedPlot.installRoboticon(roboticon);
+								TiledMapTileLayer.Cell roboticonTile = selectedPlot.getRoboticonTile();
+								roboticonTile.setTile(TileConverter.getRoboticonTile(roboticon.getCustomisation()));
+								selectedPlot.setHasRoboticon(true);
+							}
 							textUpdate();
 						}
 

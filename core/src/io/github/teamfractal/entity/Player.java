@@ -15,6 +15,7 @@ import java.util.Map;
 import java.util.Random;
 import java.util.Set;
 
+
 import com.badlogic.gdx.utils.Array;
 
 public class Player {
@@ -404,5 +405,14 @@ public class Player {
 			}
 		});
 		game.gameScreen.addAnimation(animation);
+	}
+	
+	/////// Added by Josh Neil to support the random event where a roboticon is faulty and breaks - Josh Neil
+	/**
+	 * Removes a given roboticon from the player's inventory
+	 * @param roboticon The roboticon to be removed from the players inventory
+	 */
+	public void removeRoboticon(Roboticon roboticon){
+		roboticonList.removeValue(roboticon, true);
 	}
 }
