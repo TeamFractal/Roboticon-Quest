@@ -13,6 +13,10 @@ public class Market {
 		setEnergy(16);
 		setOre(0);
 		setRoboticon(12);
+		
+		// Added by Josh Neil so that we can implement the feature that 
+		// allows players to make the market convert some of its ore to roboticons
+		roboticonOreConversionRate = 4;
 	}
 
 	//<editor-fold desc="Resource getters and setters">
@@ -20,6 +24,10 @@ public class Market {
 	private int energy;
 	private int ore;
 	private int roboticon;
+	
+	// Added by Josh Neil so that we can implement the feature that 
+	// allows players to make the market convert some of its ore to roboticons
+	private int roboticonOreConversionRate; 
 
 	/**
 	 * Get the amount of food in the market
@@ -258,6 +266,28 @@ public class Market {
 	 */
 	public synchronized void sellResource(ResourceType resource, int amount) {
 		setResource(resource, getResource(resource) - amount);
+	}
+	
+	// Added by Josh Neil so that we can implement the feature that 
+    // allows players to make the market convert some of its ore to roboticons
+		
+	/**
+	 * If the market has enough ore then that ore will be converted
+	 * into a roboticon and this method will return true. Otherwise
+	 * nothing will happen and it will return false.
+	 * @return
+	 */
+	public boolean attemptToProduceRoboticon(){
+		if(hasEnoughResources(ResourceType.ORE, roboticonOreConversionRate)){
+			int roboticonsBefore = getResource(ResourceType.ROBOTICON);
+			int oreBefore = getResource(ResourceType.ORE);
+			
+			setResource(ResourceType.ROBOTICON,roboticonsBefore+1);
+			setResource(ResourceType.ORE,oreBefore-roboticonOreConversionRate);
+			return true;
+		}
+		return false;
+		
 	}
 }
 
