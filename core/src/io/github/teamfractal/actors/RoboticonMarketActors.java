@@ -255,14 +255,11 @@ public class RoboticonMarketActors extends Table {
 		
 		// Added by Josh Neil so that players can make the market produce a roboticon
 		row();
-		add(produceRoboticonButton);
+		add(produceRoboticonButton).padTop(40);
 		
-		row();
 		add();
 		add();
 		add();
-		add();
-
 		add();
 		add(nextButton).padTop(40);
 		
