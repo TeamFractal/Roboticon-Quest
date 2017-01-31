@@ -415,4 +415,14 @@ public class Player {
 	public void removeRoboticon(Roboticon roboticon){
 		roboticonList.removeValue(roboticon, true);
 	}
+	
+	
+	////// Added by Josh Neil to support the game over screen where each player needs a final score
+	/**
+	 * Returns the player's score
+	 * @return The player's score
+	 */
+	public int getScore(){
+		return getMoney();		
+	}
 }
