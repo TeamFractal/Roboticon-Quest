@@ -4,13 +4,16 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import io.github.teamfractal.RoboticonQuest;
+import io.github.teamfractal.entity.Market;
 import io.github.teamfractal.entity.Roboticon;
 import io.github.teamfractal.entity.enums.ResourceType;
 import io.github.teamfractal.screens.RoboticonMarketScreen;
+import io.github.teamfractal.util.MessagePopUp;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -41,14 +44,31 @@ public class RoboticonMarketActors extends Table {
 		no_robotic_texture = new Texture(Gdx.files.internal("roboticon_images/no_roboticons.png"));
 	}
 
-	public RoboticonMarketActors(final RoboticonQuest game, RoboticonMarketScreen screen) {
+	// Josh Neil modified constructor to accept market object
+	public RoboticonMarketActors(final RoboticonQuest game, RoboticonMarketScreen screen, final Market market) {
 		this.game = game;
 		this.screen = screen;
+		final Stage stage = screen.getStage(); // Added by Josh Neil
 
 		this.roboticonID = new Label("", game.skin);
 		this.marketStats = new Label("", game.skin);
 
 		widgetUpdate();
+		
+		// Added by Josh Neil so players can make the market produce a roboticon
+		final TextButton produceRoboticonButton = new TextButton("Produce roboticon", game.skin);
+		produceRoboticonButton.addListener(new ChangeListener() {
+			@Override
+			public void changed(ChangeEvent event, Actor actor) {
+				
+				if(!market.attemptToProduceRoboticon()){
+					stage.addActor(new MessagePopUp("Not enough ore!","The market does not have enough ore to produce a roboticon!"));
+				}
+				else{
+					widgetUpdate(); // Display the new roboticon quantity on screen
+				}
+			}
+		});
 
 		// Buy Roboticon Text: Top Left
 		final Label lblBuyRoboticon = new Label("Purchase Roboticons:", game.skin);
@@ -232,15 +252,18 @@ public class RoboticonMarketActors extends Table {
 		add();
 		add(buyCustomisationButton).padLeft(-235);
 
+		
+		// Added by Josh Neil so that players can make the market produce a roboticon
 		row();
-
+		add(produceRoboticonButton).padTop(40);
+		
 		add();
 		add();
 		add();
-		add();
-
 		add();
 		add(nextButton).padTop(40);
+		
+	
 
 	}
 
