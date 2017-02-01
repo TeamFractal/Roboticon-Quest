@@ -39,12 +39,13 @@ public class Player {
 
 		
 	}
+	//Made mutator (money, food, ore, energy) methods public so we can use it in RandomEvents - Christian Beddows
 	/**
 	 * Set the amount of money player has
 	 * @param money                      The amount of new money.
 	 * @throws IllegalArgumentException  If the new money if negative, this exception will be thrown.
 	 */
-	synchronized void setMoney(int money) throws IllegalArgumentException {
+	public synchronized void setMoney(int money) throws IllegalArgumentException {
 		if (money < 0) {
 			throw new IllegalArgumentException("Error: Money can't be negative.");
 		}
@@ -57,7 +58,7 @@ public class Player {
 	 * @param amount                     The new amount for ore.
 	 * @throws IllegalArgumentException  If the new ore amount if negative, this exception will be thrown.
 	 */
-	synchronized void setOre(int amount) {
+	public synchronized void setOre(int amount) {
 		if (amount < 0) {
 			throw new IllegalArgumentException("Error: Ore can't be negative.");
 		}
@@ -71,7 +72,7 @@ public class Player {
 	 * @throws IllegalArgumentException  If the new energy amount if negative, this exception will be thrown.
 	 */
 
-	synchronized void setEnergy(int amount) {
+	public synchronized void setEnergy(int amount) {
 		if (amount < 0) {
 			throw new IllegalArgumentException("Error: Energy can't be negative.");
 		}
@@ -85,7 +86,7 @@ public class Player {
 	 * @throws IllegalArgumentException  If the new food amount if negative, this exception will be thrown.
 	 */
 
-	synchronized void setFood(int amount) {
+	public synchronized void setFood(int amount) {
 		if (amount < 0) {
 			throw new IllegalArgumentException("Error: Food can't be negative.");
 		}
