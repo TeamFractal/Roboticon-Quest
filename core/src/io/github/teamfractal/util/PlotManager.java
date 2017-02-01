@@ -59,8 +59,6 @@ public class PlotManager {
 	 * @return True if all plots are owned by a player, otherwise returns false
 	 */ 
 	public boolean allOwned(){
-		System.out.println(plots.length);
-		System.out.println(plots[0].length);
 		for(int row=0;row<plots.length;row++){
 			for(int column=0;column<plots[0].length;column++){
 				

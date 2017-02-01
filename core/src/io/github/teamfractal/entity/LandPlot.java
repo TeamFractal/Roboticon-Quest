@@ -59,6 +59,7 @@ public class LandPlot {
 			return ;
 
 		owner.removeLandPlot(this);
+		owner = null;
 	}
 	
 	//</editor-fold>
@@ -124,12 +125,14 @@ public class LandPlot {
 	 * @param roboticon    The roboticon to be installed.
 	 */
 	public synchronized boolean installRoboticon(Roboticon roboticon) {
+		
 		// Check if supplied roboticon is already installed.
 		if (roboticon.isInstalled()) {
 			return false;
 		}
-
+		
 		if (roboticon.getCustomisation() != ResourceType.Unknown){
+			
 			int index = resourceTypeToIndex(roboticon.getCustomisation());
 			if (roboticon.setInstalledLandplot(this)) {
 				productionModifiers[index] += 1;
@@ -147,18 +150,20 @@ public class LandPlot {
 		return false;
 	}
 
+	// Method removed by Josh Neil as it is not used and does the same thing as the method below
+	/*
 	/**
 	 * Calculate the amount of resources to be produced.
 	 *
 	 * @return The amount of resources to be produced in an 2D array.
-	 */
+	 *
 	public int[] produceResources() {
 		int[] produced = new int[3];
 		for (int i = 0; i < 2; i++) {
 			produced[i] = productionAmounts[i] * productionModifiers[i];
 		}
 		return produced;
-	}
+	}*/
 
 	/**
 	 * Calculate the amount of resources to be produced for specific resource.
