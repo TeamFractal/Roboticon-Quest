@@ -140,7 +140,7 @@ public class GameScreenActors {
 					if (RandomEvents.tileHasChest()){
 						int playerTreasure = RandomEvents.treasureChest(game);
 						stage.addActor(new MessagePopUp("You found a treasure chest!","On your new tile you "
-								+ "find a buried treasure chest containing " + Integer.toString(playerTreasure) + "money!"));
+								+ "find a buried treasure chest containing " + Integer.toString(playerTreasure) + " money!"));
 					}
 					TiledMapTileLayer.Cell playerTile = selectedPlot.getPlayerTile();
 					playerTile.setTile(screen.getPlayerTile(player));
