@@ -273,6 +273,7 @@ public class Player {
 		for (LandPlot plot : landList) {
 			energy += plot.produceResource(ResourceType.ENERGY);
 			ore += plot.produceResource(ResourceType.ORE);
+			food += plot.produceResource(ResourceType.FOOD);
 		}
 	}
 	/**
@@ -319,6 +320,8 @@ public class Player {
 	public Array<String> getRoboticonAmountList() {
 		int ore = 0;
 		int energy = 0;
+		//added by andrew
+		int food = 0;
 		int uncustomised = 0;
 		Array<String> roboticonAmountList = new Array<String>();
 
@@ -331,6 +334,10 @@ public class Player {
 					case ENERGY:
 						energy += 1;
 						break;
+					//Added by andrew
+					case FOOD:
+						food += 1;
+						break;
 					default:
 						uncustomised += 1;
 						break;
@@ -340,6 +347,8 @@ public class Player {
 
 		roboticonAmountList.add("Ore Specific x "    + ore);
 		roboticonAmountList.add("Energy Specific x " + energy);
+		//added by andrew
+		roboticonAmountList.add("Food Specific x " + food);
 		roboticonAmountList.add("Uncustomised x "    + uncustomised);
 		return roboticonAmountList;
 	}
@@ -354,6 +363,8 @@ public class Player {
 	public Array<String> getCustomisedRoboticonAmountList() {
 		int ore = 0;
 		int energy = 0;
+		//added by andrew
+		int food = 0;
 		Array<String> roboticonAmountList = new Array<String>();
 
 		for (Roboticon r : roboticonList) {
@@ -365,6 +376,10 @@ public class Player {
 					case ENERGY:
 						energy += 1;
 						break;
+					//added by andrew
+					case FOOD:
+						food += 1;
+						break;
 					default:
 						break;
 				}
@@ -373,6 +388,8 @@ public class Player {
 
 		roboticonAmountList.add("Ore Specific x "    + ore);
 		roboticonAmountList.add("Energy Specific x " + energy);
+		//added by andrew
+		roboticonAmountList.add("Food Specific x " + food);
 		return roboticonAmountList;
 	}
 	public Array<Roboticon> getRoboticons(){
@@ -390,6 +407,8 @@ public class Player {
 		for (LandPlot land : landList) {
 			energy += land.produceResource(ResourceType.ENERGY);
 			ore += land.produceResource(ResourceType.ORE);
+			//added by ab
+			food += land.produceResource(ResourceType.FOOD);
 		}
 
 		setEnergy(getEnergy() + energy);
