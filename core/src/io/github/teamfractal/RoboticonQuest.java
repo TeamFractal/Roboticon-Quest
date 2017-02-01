@@ -117,7 +117,9 @@ public class RoboticonQuest extends Game {
 		switch (newPhaseState) {
 			// Phase 2: Purchase Roboticon
 			case 2:
-				RoboticonMarketScreen roboticonMarket = new RoboticonMarketScreen(this);
+				
+				// Modified by Josh Neil - now passes market to roboticonMarket via constructor
+				RoboticonMarketScreen roboticonMarket = new RoboticonMarketScreen(this,market);
 				roboticonMarket.addAnimation(new AnimationPhaseTimeout(getPlayer(), this, newPhaseState, 30));
 				setScreen(roboticonMarket);
 				break;
@@ -149,10 +151,19 @@ public class RoboticonQuest extends Game {
 
 			// End phase - CLean up and move to next player.
 			case 6:
-				phase = newPhaseState = 1;
-				this.nextPlayer();
-				// No "break;" here!
-				// Let the game to do phase 1 preparation.
+				// Added by Josh Neil so that the game ends once all players have been
+				// acquired by a player (which will happen once each player has had their turn
+				// as there are an even number of plots) we go to the game over screen.
+				if(plotManager.allOwned()){ 
+					setScreen(new GameOverScreen(this));
+					break;
+				}
+				else{
+					phase = newPhaseState = 1;
+					this.nextPlayer();
+					// No "break;" here!
+					// Let the game to do phase 1 preparation.
+				}
 
 			// Phase 1: Enable of purchase LandPlot
 			case 1:
