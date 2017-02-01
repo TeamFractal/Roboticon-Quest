@@ -33,6 +33,8 @@ public class RoboticonMarketActors extends Table {
 	private static final Texture no_cust_texture;
 	private static final Texture energy_texture;
 	private static final Texture ore_texture;
+	//added by andrew
+	private static final Texture food_texture;
 	private static final Texture no_robotic_texture;
 
 	private ArrayList<Roboticon> roboticons = new ArrayList<Roboticon>();
@@ -42,6 +44,8 @@ public class RoboticonMarketActors extends Table {
 		energy_texture = new Texture(Gdx.files.internal("roboticon_images/robot_energy.png"));
 		ore_texture = new Texture(Gdx.files.internal("roboticon_images/robot_ore.png"));
 		no_robotic_texture = new Texture(Gdx.files.internal("roboticon_images/no_roboticons.png"));
+		//added by andrew
+		food_texture = new Texture(Gdx.files.internal("roboticon_images/robot_food.png"));
 	}
 
 	// Josh Neil modified constructor to accept market object
@@ -150,7 +154,8 @@ public class RoboticonMarketActors extends Table {
 
 		// Drop down menu to select how to customise the selected roboticion
 		final SelectBox<String> customisationDropDown = new SelectBox<String>(game.skin);
-		String[] customisations = {"Energy", "Ore"};
+		//modified by andrew
+		String[] customisations = {"Energy", "Ore", "Food"};
 		customisationDropDown.setItems(customisations);
 
 		// Button to buy the selected customisation and customise the selected roboticon
@@ -165,6 +170,8 @@ public class RoboticonMarketActors extends Table {
 				HashMap<String, ResourceType> converter = new HashMap<String, ResourceType>();
 				converter.put("Energy", ResourceType.ENERGY);
 				converter.put("Ore", ResourceType.ORE);
+				//added by andrew
+				converter.put("Food", ResourceType.FOOD);
 				Roboticon roboticonToCustomise = roboticons.get(currentlySelectedRoboticonPos);
 
 				game.getPlayer().purchaseCustomisationFromMarket(converter.get(customisationDropDown.getSelected()), roboticonToCustomise, game.market);
@@ -289,6 +296,10 @@ public class RoboticonMarketActors extends Table {
 					break;
 				case ENERGY:
 					roboticonTexture = energy_texture;
+					break;
+				//added by andrew
+				case FOOD:
+					roboticonTexture = food_texture;
 					break;
 				case ORE:
 					roboticonTexture = ore_texture;
