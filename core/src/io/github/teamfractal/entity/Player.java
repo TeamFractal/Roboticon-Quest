@@ -272,6 +272,7 @@ public class Player {
 		for (LandPlot plot : landList) {
 			energy += plot.produceResource(ResourceType.ENERGY);
 			ore += plot.produceResource(ResourceType.ORE);
+			food += plot.produceResource(ResourceType.FOOD); // Added by Josh Neil - now plots can produce food
 		}
 	}
 	/**
