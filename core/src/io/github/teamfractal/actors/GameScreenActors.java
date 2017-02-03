@@ -133,9 +133,15 @@ public class GameScreenActors {
 				if (selectedPlot.hasOwner()) {
 					return;
 				}
-
+		 
 				Player player = game.getPlayer();
 				if (player.purchaseLandPlot(selectedPlot)) {
+					//Added a random event where the player finds a chest containing money - Christian Beddows
+					if (RandomEvents.tileHasChest()){
+						int playerTreasure = RandomEvents.treasureChest(game);
+						stage.addActor(new MessagePopUp("You found a treasure chest!","On your new tile you "
+								+ "find a buried treasure chest containing " + Integer.toString(playerTreasure) + " money!"));
+					}
 					TiledMapTileLayer.Cell playerTile = selectedPlot.getPlayerTile();
 					playerTile.setTile(screen.getPlayerTile(player));
 					textUpdate();
@@ -186,6 +192,10 @@ public class GameScreenActors {
 							case 1:
 								type = ResourceType.ENERGY;
 								break;
+							//added by andrew
+							case 2:
+								type = ResourceType.FOOD;
+								break;
 							default:
 								type = ResourceType.Unknown;
 								break;
@@ -202,7 +212,7 @@ public class GameScreenActors {
 							///// Modified by Josh Neil - 
 							///// Added if else branches previously was just the instructions in the 
 							///// else branch followed by textUpdate()
-							if(RandomEvents.RoboticonIsFaulty()){
+							if(RandomEvents.roboticonIsFaulty()){
 								// Roboticon was faulty and has broken (cannot be placed)
 								game.getPlayer().removeRoboticon(roboticon);
 								stage.addActor(new MessagePopUp("That roboticon was faulty","That roboticon was faulty and exploded!"));
@@ -334,7 +344,8 @@ public class GameScreenActors {
 	 */
 	public void showPlotStats(LandPlot plot, float x, float y) {
 		String plotStatText = "Ore: " + plot.getResource(ResourceType.ORE)
-				+ "  Energy: " + plot.getResource(ResourceType.ENERGY);
+				+ "  Energy: " + plot.getResource(ResourceType.ENERGY)
+				+ "  Food: " + plot.getResource(ResourceType.FOOD);
 
 		plotStats.setText(plotStatText);
 		plotStats.setPosition(x, y);
