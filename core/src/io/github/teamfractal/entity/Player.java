@@ -273,7 +273,7 @@ public class Player {
 		for (LandPlot plot : landList) {
 			energy += plot.produceResource(ResourceType.ENERGY);
 			ore += plot.produceResource(ResourceType.ORE);
-			food += plot.produceResource(ResourceType.FOOD);
+			food += plot.produceResource(ResourceType.FOOD); // Added by Josh Neil - now plots can produce food
 		}
 	}
 	/**
@@ -407,7 +407,6 @@ public class Player {
 		for (LandPlot land : landList) {
 			energy += land.produceResource(ResourceType.ENERGY);
 			ore += land.produceResource(ResourceType.ORE);
-			//added by ab
 			food += land.produceResource(ResourceType.FOOD);
 		}
 
