@@ -269,8 +269,7 @@ public class Market {
 	}
 	
 	// Added by Josh Neil so that we can implement the feature that 
-    // allows players to make the market convert some of its ore to roboticons
-		
+    // allows players to make the market convert some of its ore to roboticons	
 	/**
 	 * If the market has enough ore then that ore will be converted
 	 * into a roboticon and this method will return true. Otherwise
