@@ -79,6 +79,15 @@ public class PlayerTest {
 			assertEquals(playerMoney - 10 * energyPrice, player.getMoney());
 			assertEquals(10, player.getEnergy());
 			assertEquals(6, market.getEnergy());
+			
+			// Added by Josh Neil
+			playerMoney = player.getMoney();
+			int foodPrice = market.getSellPrice(ResourceType.FOOD);
+			//purchase 11 food
+			player.purchaseResourceFromMarket(11, market, ResourceType.FOOD);
+			assertEquals(playerMoney - 11 * foodPrice, player.getMoney());
+			assertEquals(11, player.getFood());
+			assertEquals(5, market.getFood());
 		}
 	
 		/**
@@ -93,6 +102,7 @@ public class PlayerTest {
 			player.setMoney(1000);
 			player.setResource(ResourceType.ORE, 15);
 			player.setResource(ResourceType.ENERGY, 15);
+			player.setResource(ResourceType.FOOD, 15); // Added by Josh Neil
 	
 	
 			int orePrice = market.getBuyPrice(ResourceType.ORE);
@@ -109,6 +119,15 @@ public class PlayerTest {
 			assertEquals(1000 + 5 * energyPrice, player.getMoney());
 			assertEquals(10, player.getEnergy());
 			assertEquals(21, market.getEnergy());
+			
+			// Added by Josh Neil
+			int foodPrice = market.getBuyPrice(ResourceType.FOOD);
+			player.setMoney(1000);
+			//sell 5 food
+			player.sellResourceToMarket(5, market, ResourceType.FOOD);
+			assertEquals(1000 + 5 * foodPrice, player.getMoney());
+			assertEquals(10, player.getFood());
+			assertEquals(21, market.getFood());
 		}
 	
 		/**
@@ -135,6 +154,12 @@ public class PlayerTest {
 				} catch (Exception exception2) {
 					assertEquals(100, player.getMoney());
 					assertEquals(0, player.getEnergy());
+					try {// Added by Josh Neil
+						player.purchaseResourceFromMarket(100, market, ResourceType.FOOD);
+					} catch (Exception exception3) {
+						assertEquals(100, player.getMoney());
+						assertEquals(0, player.getFood());
+					}
 				}
 			}
 		}
@@ -167,6 +192,22 @@ public class PlayerTest {
 	
 			exception.expect(NotEnoughResourceException.class);
 			player.sellResourceToMarket(20, market, ResourceType.ORE);
+		}
+		
+		// Added by Josh Neil
+		/**
+		 * Tests {@link Player#sellResourceToMarket(int, Market, ResourceType)} ensures
+		 * that the player cannot sell more food than they have in their possession
+		 * @throws Exception An exception should be thrown when the player tries to do this
+		 */
+		@Test
+		public void testPlayerCannotSellMoreFoodThanAllowed() throws Exception {
+			Market market = new Market();
+	
+			player.setFood(15);
+	
+			exception.expect(NotEnoughResourceException.class);
+			player.sellResourceToMarket(20, market, ResourceType.FOOD);
 		}
 	
 		/**
@@ -269,10 +310,50 @@ public class PlayerTest {
 			player.produceResources();
 			assertEquals(foodBefore+5,player.getFood());
 		}
+		
+		/**
+		 * Tests {@link Player#setEnergy(int)} ensures that an exception is thrown if a negative value is used
+		 */
+		@Test(expected=IllegalArgumentException.class)
+		public void testNegativeSetEnergy(){
+			player.setEnergy(-1);
+		}
+		
+		/**
+		 * Tests {@link Player#setOre(int)} ensures that an exception is thrown if a negative value is used
+		 */
+		@Test(expected=IllegalArgumentException.class)
+		public void testNegativeSetOre(){
+			player.setOre(-1);
+		}
+		
+		/**
+		 * Tests {@link Player#setFood(int)} ensures that an exception is thrown if a negative value is used
+		 */
+		@Test(expected=IllegalArgumentException.class)
+		public void testNegativeSetFood(){
+			player.setFood(-1);
+		}
+		
+		/**
+		 * Tests {@link Player#setMoney(int)} ensures that an exception is thrown if a negative value is used
+		 */
+		@Test(expected=IllegalArgumentException.class)
+		public void testNegativeSetMoney(){
+			player.setMoney(-1);
+		}
+		
+		
 	}
 	
 	
 	/// Tests added by Josh Neil
+	/**
+	 * Tests {@link Player#purchaseRoboticonsFromMarket(int, Market)} using various input values and ensures
+	 * that the correct results are returned and the attributes of the various objects involved are altered correctly
+	 * @author jcn509
+	 *
+	 */
 	@RunWith(Parameterized.class)
 	public static class MarketPurchaseRoboticonParamaterisedTests{
 		 Player player;
@@ -480,6 +561,110 @@ public class PlayerTest {
 			public void roboticonCustomisationCorrect(){
 				player.purchaseCustomisationFromMarket(customisation, roboticon, market);
 				assertEquals(roboticon.getCustomisation(),expectedRoboticonCustomisation);
+			}
+			
+		}
+		
+		/**
+		 * Tests {@link Player#purchaseLandPlot(LandPlot)} using various input values and ensures that the correct result
+		 * is returned, the correct amount of money is removed from the player's inventory 
+		 * and the plot is set to be owned by the player if appropriate
+		 * @author jcn509
+		 *
+		 */
+		@RunWith(Parameterized.class)
+		public static class PlayerPurhaseLandPlotParamaterisedTests{
+			 private Player player;
+			 private LandPlot plot;
+			 private boolean landPlotAlreadyOwned;
+			 private boolean landPlotShouldBeOwnedByPlayer;
+			 private int initialMoney;
+			 private int moneyRemoved;
+			 private RoboticonQuest game;
+			 private boolean expectedReturnValue;
+			
+			 /**
+			  * Runs before every test and sets up the values of variables needed in / used by those tests
+			  * @param landPlotAlreadyOwned Is the land plot that the player wants to buy aready owned by a player
+			  * @param landPlotShouldBeOwnedByPlayer After the player has attempted to purchase the land plot should they own it
+			  * @param initialMoney How much money does the player have before trying to purchase the land plot
+			  * @param moneyRemoved How much money should be removed from the players inventory
+			  * @param expectedReturnValue What value should {@link Player#purchaseLandPlot(LandPlot)} return
+			  */
+			public PlayerPurhaseLandPlotParamaterisedTests(boolean landPlotAlreadyOwned, boolean landPlotShouldBeOwnedByPlayer,int initialMoney, int moneyRemoved, boolean expectedReturnValue){
+				this.landPlotAlreadyOwned = landPlotAlreadyOwned;
+				this.landPlotShouldBeOwnedByPlayer = landPlotShouldBeOwnedByPlayer;
+				this.initialMoney = initialMoney;
+				this.moneyRemoved = moneyRemoved;
+				this.expectedReturnValue = expectedReturnValue;
+			}
+			
+			// Added by Josh Neil
+			/**
+			 * Defines the values to be used in each test
+			 */
+			@Parameterized.Parameters
+			public static Collection landPurchaseValues(){
+				 int landPrice = 10;
+				 return Arrays.asList(new Object[][] {
+			         {false,true,landPrice,landPrice,true},
+			         {false,true,landPrice*20,landPrice,true},
+			         {false,false,landPrice-1,0,false},
+			         {true,false,landPrice-1,0,false},
+			         {true,false,landPrice,0,false},
+			         {true,false,landPrice*100,0,false},
+			      });
+			}
+			/**
+			 * Runs before every test and creates the necessary objects
+			 */
+			@Before
+			public void setup(){
+				game = new RoboticonQuest();
+				player = new Player(game);
+				plot = new LandPlot(0, 0, 0);
+				if(landPlotAlreadyOwned){
+					plot.setOwner(new Player(null));
+				}
+				player.setMoney(initialMoney);
+			}
+			
+			/**
+			 * Tests {@link Player#purchaseLandPlot(LandPlot)} ensures that the land is owned after attempting to purchase it if it should be
+			 */
+			@Test
+			public void testLandOwnedIfShouldBe(){
+				player.purchaseLandPlot(plot);
+				assertEquals(plot.hasOwner(),landPlotShouldBeOwnedByPlayer || landPlotAlreadyOwned);
+			}
+			
+			/**
+			 * Tests {@link Player#purchaseLandPlot(LandPlot)} ensures that the land is owned by the player after attempting to purchase it if it should be
+			 */
+			@Test
+			public void testLandOwnedByPlayerIfShouldBe(){
+				player.purchaseLandPlot(plot);
+				if(landPlotShouldBeOwnedByPlayer){
+					assertEquals(player,plot.getOwner());
+				}
+			}
+			
+			/**
+			 * Tests {@link Player#purchaseLandPlot(LandPlot)} ensures that the correct amount of money is removed from the players inventory
+			 */
+			@Test
+			public void testCorrectMoneyRemoved(){
+				int moneyBefore = player.getMoney();
+				player.purchaseLandPlot(plot);
+				assertEquals(moneyBefore-moneyRemoved,player.getMoney());
+			}
+			
+			/**
+			 * Tests {@link Player#purchaseLandPlot(LandPlot)} ensures that the correct value is returned when it is called
+			 */
+			@Test
+			public void testCorrectMoneyReturnValue(){
+				assertEquals(player.purchaseLandPlot(plot),expectedReturnValue);
 			}
 			
 		}

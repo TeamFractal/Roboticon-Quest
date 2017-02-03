@@ -390,6 +390,7 @@ public class Player {
 		for (LandPlot land : landList) {
 			energy += land.produceResource(ResourceType.ENERGY);
 			ore += land.produceResource(ResourceType.ORE);
+			food += land.produceResource(ResourceType.FOOD);
 		}
 
 		setEnergy(getEnergy() + energy);
