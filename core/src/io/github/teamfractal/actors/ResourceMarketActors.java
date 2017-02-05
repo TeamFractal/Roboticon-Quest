@@ -95,7 +95,7 @@ public class ResourceMarketActors extends Table {
 					player.purchaseResourceFromMarket(adjustableActor.getValue(), game.market, resource);
 					//Added popup if player doesnt have enough money - ben
 					if (player.getMoney() < adjustableActor.getValue()){
-						stage.addActor(new MessagePopUp("Not enough money!","You dont have enough Money to buy this plot."));
+						stage.addActor(new MessagePopUp("Not enough money!","You dont have enough Money to buy this."));
 					}
 				}
 
