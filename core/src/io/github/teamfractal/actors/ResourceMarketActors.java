@@ -14,6 +14,7 @@ import io.github.teamfractal.RoboticonQuest;
 import io.github.teamfractal.entity.Player;
 import io.github.teamfractal.entity.enums.ResourceType;
 import io.github.teamfractal.screens.ResourceMarketScreen;
+import io.github.teamfractal.util.MessagePopUp;
 
 public class ResourceMarketActors extends Table {
 	private final AdjustableActor oreBuy;
@@ -33,7 +34,7 @@ public class ResourceMarketActors extends Table {
 	private TextButton nextButton;
 	private Label marketStats;
 	private Integer sellEnergyAmount;
-
+	private final Stage stage;
 	/**
 	 * Get price in string format
 	 *
@@ -92,6 +93,10 @@ public class ResourceMarketActors extends Table {
 				} else {
 					// Player buy from market.
 					player.purchaseResourceFromMarket(adjustableActor.getValue(), game.market, resource);
+					//Added popup if player doesnt have enough money - ben
+					if (player.getMoney() < adjustableActor.getValue()){
+						stage.addActor(new MessagePopUp("Not enough money!","You dont have enough Money to buy this plot."));
+					}
 				}
 
 				ResourceMarketActors.this.widgetUpdate();
@@ -111,7 +116,7 @@ public class ResourceMarketActors extends Table {
 		Skin skin = game.skin;
 		this.game = game;
 		this.screen = screen;
-		Stage stage = screen.getStage();
+		this.stage = screen.getStage();
 
 
 		// Create UI Components
