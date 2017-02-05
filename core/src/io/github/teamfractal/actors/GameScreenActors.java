@@ -142,6 +142,12 @@ public class GameScreenActors {
 						stage.addActor(new MessagePopUp("You found a treasure chest!","On your new tile you "
 								+ "find a buried treasure chest containing " + Integer.toString(playerTreasure) + " money!"));
 					}
+					//Added a random event where you disturb a flock of geese on a plot
+					if (RandomEvents.GeeseAttack()){
+						int food = RandomEvents.Geese(game);
+						stage.addActor(new MessagePopUp("Disturbed a flock of Geese!","On your new tile you "
+								+ "discover a flock of geese they attack!, you lost " + Integer.toString(food) + " food!"));
+					}
 					TiledMapTileLayer.Cell playerTile = selectedPlot.getPlayerTile();
 					playerTile.setTile(screen.getPlayerTile(player));
 					textUpdate();
