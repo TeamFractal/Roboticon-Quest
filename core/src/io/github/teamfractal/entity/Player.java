@@ -1,5 +1,6 @@
 package io.github.teamfractal.entity;
 
+import com.badlogic.gdx.utils.Array;
 import io.github.teamfractal.RoboticonQuest;
 import io.github.teamfractal.animation.AnimationAddResources;
 import io.github.teamfractal.animation.IAnimation;
@@ -10,13 +11,11 @@ import io.github.teamfractal.exception.NotCommonResourceException;
 import io.github.teamfractal.exception.NotEnoughResourceException;
 
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.Random;
-import java.util.Set;
 
-
-import com.badlogic.gdx.utils.Array;
+import static io.github.teamfractal.entity.enums.ResourceType.ENERGY;
+import static io.github.teamfractal.entity.enums.ResourceType.FOOD;
+import static io.github.teamfractal.entity.enums.ResourceType.ORE;
 
 public class Player {
 	//<editor-fold desc="Resource getter and setter">
@@ -271,7 +270,7 @@ public class Player {
 	 */
 	public void produceResources(){
 		for (LandPlot plot : landList) {
-			energy += plot.produceResource(ResourceType.ENERGY);
+			energy += plot.produceResource(ENERGY);
 			ore += plot.produceResource(ResourceType.ORE);
 			food += plot.produceResource(ResourceType.FOOD); // Added by Josh Neil - now plots can produce food
 		}
@@ -405,7 +404,7 @@ public class Player {
 		int ore = 0;
 
 		for (LandPlot land : landList) {
-			energy += land.produceResource(ResourceType.ENERGY);
+			energy += land.produceResource(ENERGY);
 			ore += land.produceResource(ResourceType.ORE);
 			food += land.produceResource(ResourceType.FOOD);
 		}
@@ -437,11 +436,13 @@ public class Player {
 	
 	
 	////// Added by Josh Neil to support the game over screen where each player needs a final score
+	////// Modified by Christian Beddows to account for the resources and roboticons that the player owns
 	/**
 	 * Returns the player's score
 	 * @return The player's score
 	 */
 	public int getScore(){
-		return getMoney();		
+		int score = getMoney() + (getResource(ENERGY)*18) + (getResource(ORE)*9) + (getResource(FOOD)*27);
+		return score;
 	}
 }

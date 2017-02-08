@@ -33,6 +33,8 @@ public class ResourceMarketActors extends Table {
 	private AdjustableActor priceDropDown;
 	private AdjustableActor quantityDropDown;
 	private Label[] playerStatsLabels;
+	private Integer sellEnergyAmount;
+	private final Stage stage;
 	/**
 	 * Get price in string format
 	 *
