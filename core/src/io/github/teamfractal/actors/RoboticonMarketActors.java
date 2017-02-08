@@ -109,15 +109,16 @@ public class RoboticonMarketActors extends Table {
 		buyRoboticonsButton.addListener(new ChangeListener() {
 			@Override
 			public void changed(ChangeEvent event, Actor actor) {
-				game.getPlayer().purchaseRoboticonsFromMarket(roboticonAmount, game.market);
+				
 				//added a popup if player doesnt have enough money to buy roboticons - ben
 				if (game.getPlayer().getMoney() < (roboticonAmount*game.market.getSellPrice(ResourceType.ROBOTICON))){
 					stage.addActor(new MessagePopUp("Not enough money!","You dont have enough Money to buy these roboticons."));
 				}
 				else{
-				roboticonAmount = 0;
-				lblRoboticonAmount.setText(roboticonAmount.toString());
-				widgetUpdate();
+					game.getPlayer().purchaseRoboticonsFromMarket(roboticonAmount, game.market);
+					roboticonAmount = 0;
+					lblRoboticonAmount.setText(roboticonAmount.toString());
+					widgetUpdate();
 				}
 			}
 		});
