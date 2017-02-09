@@ -26,7 +26,6 @@ public class ResourceMarketActors extends Table {
 	private ResourceMarketScreen screen;
 	private TextButton nextButton;
 	private Label marketStats;
-	private final Stage stage;
 	private SelectBox<String> playerToPlayerResourceDropDown;
 	private SelectBox<String> playerToPlayerSellerDropDown;
 	private SelectBox<String> playerToPlayerBuyerDropDown;
@@ -38,6 +37,8 @@ public class ResourceMarketActors extends Table {
 	private AdjustableActor marketQuantityDropDown;
 	private SelectBox<String> markerBuyOrSellDropDown;
 	private Label[] playerStatsLabels;
+	private Integer sellEnergyAmount;
+	private final Stage stage;
 	/**
 	 * Get price in string format
 	 *
