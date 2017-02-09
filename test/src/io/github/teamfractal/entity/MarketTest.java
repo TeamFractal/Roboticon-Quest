@@ -23,7 +23,6 @@ public class MarketTest {
 	}
 
 	/**
-	 * test start mo
 	 * The market should start with correct amount of resources.
 	 * 16 Food & Energy, 0 Ore, 12 Robotics
 	 */
@@ -123,5 +122,100 @@ public class MarketTest {
 		assertEquals(5, market.getRoboticon() );
 
 	}
-
+	
+	// Tests below this comment added by Josh Neil
+	/**
+	 * Tests {@link Market#setOre(int)} ensures that an exception is thrown when a negative value is passed to it
+	 */
+	@Test(expected = IllegalArgumentException.class)
+	public void setOreNegativeValue(){
+		market.setOre(-1);
+	}
+	
+	/**
+	 * Tests {@link Market#setEnergy(int)} ensures that an exception is thrown when a negative value is passed to it
+	 */
+	@Test(expected = IllegalArgumentException.class)
+	public void setEnergyNegativeValue(){
+		market.setEnergy(-1);
+	}
+	
+	/**
+	 * Tests {@link Market#setFood(int)} ensures that an exception is thrown when a negative value is passed to it
+	 */
+	@Test(expected = IllegalArgumentException.class)
+	public void setFoodNegativeValue(){
+		market.setFood(-1);
+	}
+	
+	/**
+	 * Tests {@link Market#setRoboticon(int)} ensures that an exception is thrown when a negative value is passed to it
+	 */
+	@Test(expected = IllegalArgumentException.class)
+	public void setRoboticonNegativeValue(){
+		market.setRoboticon(-1);
+	}
+	
+	/**
+	 * Tests {@link Market#attemptToProduceRoboticon()} ensures that it returns true when the market has enough ore
+	 */
+	@Test
+	public void testAttemptToProduceRoboticonReturnTrue(){
+		market.setOre(4); // The exact correct amount of ore
+		assertTrue(market.attemptToProduceRoboticon());
+	}
+	
+	/**
+	 * Tests {@link Market#attemptToProduceRoboticon()} ensures that one roboticon is added to the market when the market has enough ore
+	 */
+	@Test
+	public void testAttemptToProduceRoboticonRoboticonAdded(){
+		market.setOre(4); // The exact correct amount of ore
+		int roboticonsBefore = market.getRoboticon();
+		market.attemptToProduceRoboticon();
+		assertEquals(roboticonsBefore+1,market.getRoboticon());
+	}
+	
+	/**
+	 * Tests {@link Market#attemptToProduceRoboticon()} ensures that the correct amount of ore is removed from the market
+	 */
+	@Test
+	public void testAttemptToProduceRoboticonOreRemoved(){
+		market.setOre(6); // Enough ore
+		int oreBefore = market.getOre();
+		market.attemptToProduceRoboticon();
+		assertEquals(oreBefore-4,market.getOre());
+	}
+	
+	/**
+	 * Tests {@link Market#attemptToProduceRoboticon()} ensures that it returns false when the market does have enough ore
+	 */
+	@Test
+	public void testAttemptToProduceRoboticonReturnFalse(){
+		market.setOre(3); // Not enough ore
+		assertFalse(market.attemptToProduceRoboticon());
+	}
+	
+	/**
+	 * Tests {@link Market#attemptToProduceRoboticon()} ensures that no roboticons are added to the market when the market does have enough ore
+	 */
+	@Test
+	public void testAttemptToProduceRoboticonNoRoboticonAdded(){
+		market.setOre(3); // Not enough ore
+		int roboticonsBefore = market.getRoboticon();
+		market.attemptToProduceRoboticon();
+		assertEquals(roboticonsBefore,market.getRoboticon());
+	}
+	
+	/**
+	 * Tests {@link Market#attemptToProduceRoboticon()} ensures that no ore is removed from the market
+	 * (when the market does not have enough ore to produce a roboticon)
+	 */
+	@Test
+	public void testAttemptToProduceRoboticonNoOreRemoved(){
+		market.setOre(3); // Not enough ore
+		int oreBefore = market.getOre();
+		market.attemptToProduceRoboticon();
+		assertEquals(oreBefore,market.getOre());
+	}
 }

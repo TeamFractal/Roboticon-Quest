@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" orientation="staggered" renderorder="right-down" width="7" height="12" tilewidth="100" tileheight="50" staggeraxis="y" staggerindex="odd" nextobjectid="1">
- <tileset firstgid="1" name="york" tilewidth="100" tileheight="80" tilecount="53" columns="0">
+<map version="1.0" orientation="staggered" renderorder="right-down" width="4" height="1" tilewidth="100" tileheight="50" staggeraxis="y" staggerindex="odd" nextobjectid="1">
+ <tileset firstgid="1" name="york" tilewidth="100" tileheight="80" tilecount="4" columns="0">
   <tile id="0" probability="2">
    <image width="100" height="66" source="city/raw/dirtHigh.png"/>
   </tile>
@@ -213,18 +213,6 @@
   <tile id="16">
    <image width="100" height="65" source="city/Player1/player4Uncustomised.png"/>
   </tile>
-  <tile id="17">
-   <image width="104" height="69" source="city/Player1/player1food.png"/>
-  </tile>
-  <tile id="18">
-   <image width="100" height="65" source="city/Player1/player2food.png"/>
-  </tile>
-  <tile id="19">
-   <image width="100" height="65" source="city/Player1/player3food.png"/>
-  </tile>
-  <tile id="20">
-   <image width="100" height="65" source="city/Player1/player4food.png"/>
-  </tile>
  </tileset>
  <tileset firstgid="100" name="roboticon" tilewidth="104" tileheight="69" tilecount="3" columns="0">
   <tile id="0">
@@ -239,56 +227,20 @@
   <tile id="3">
    <image width="100" height="65" source="city/roboticon/ore.png"/>
   </tile>
-  <tile id="4">
-   <image width="100" height="65" source="city/roboticon/food.png"/>
-  </tile>
  </tileset>
- <layer name="MapData" width="7" height="12">
+ <layer name="MapData" width="4" height="1">
   <data encoding="csv">
-2,2,7,61,61,61,61,
-2,6,5,61,61,2,61,
-2,61,4,65,61,61,61,
-61,61,61,50,50,61,61,
-2,61,50,51,48,56,10,
-61,51,57,10,64,31,61,
-2,51,10,31,10,10,60,
-47,10,10,31,10,51,53,
-2,31,50,50,60,51,61,
-61,48,48,57,48,61,61,
-2,61,2,61,49,2,61,
-66,2,2,52,2,2,2
+2,2,7,61
 </data>
  </layer>
- <layer name="PlayerOverlay" width="7" height="12">
+ <layer name="PlayerOverlay" width="4" height="1">
   <data encoding="csv">
-67,67,67,67,67,67,67,
-67,67,67,67,67,67,67,
-67,67,67,67,67,67,67,
-67,67,67,67,67,67,67,
-67,67,67,67,67,67,67,
-67,67,67,67,67,67,67,
-67,67,67,67,67,67,67,
-67,67,67,67,67,67,67,
-67,67,67,67,67,67,67,
-67,67,67,67,67,67,67,
-67,67,67,67,67,67,67,
-67,67,67,67,67,67,67
+67,67,67,67
 </data>
  </layer>
- <layer name="RoboticonOverlay" width="7" height="12">
+ <layer name="RoboticonOverlay" width="4" height="1">
   <data encoding="csv">
-100,100,100,100,100,100,100,
-100,100,100,100,100,100,100,
-100,100,100,100,100,100,100,
-100,100,100,100,100,100,100,
-100,100,100,100,100,100,100,
-100,100,100,100,100,100,100,
-100,100,100,100,100,100,100,
-100,100,100,100,100,100,100,
-100,100,100,100,100,100,100,
-100,100,100,100,100,100,100,
-100,100,100,100,100,100,100,
-100,100,100,100,100,100,100
+100,100,100,100
 </data>
  </layer>
 </map>
