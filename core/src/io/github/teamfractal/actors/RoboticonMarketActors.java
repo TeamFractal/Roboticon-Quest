@@ -1,12 +1,14 @@
 package io.github.teamfractal.actors;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.ai.btree.utils.DistributionAdapters;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
+import com.badlogic.gdx.utils.Align;
 import io.github.teamfractal.RoboticonQuest;
 import io.github.teamfractal.entity.Roboticon;
 import io.github.teamfractal.entity.enums.ResourceType;
@@ -51,7 +53,7 @@ public class RoboticonMarketActors extends Table {
 		widgetUpdate();
 
 		// Buy Roboticon Text: Top Left
-		final Label lblBuyRoboticon = new Label("Purchase Roboticons:", game.skin);
+		final Label lblBuyRoboticon = new Label("PURCHASE ROBOTICONS IN THIS SECTION", game.skin);
 
 		//Roboticon text to go next to + and - buttons
 		final Label lblRoboticons = new Label("Roboticons:", game.skin);
@@ -81,7 +83,7 @@ public class RoboticonMarketActors extends Table {
 		});
 
 		// Button to buy the selected amount of roboticons from the market
-		final TextButton buyRoboticonsButton = new TextButton("Buy Roboticons", game.skin);
+		final TextButton buyRoboticonsButton = new TextButton("Buy Roboticons (Unit Cost: " + (Integer.toString(game.market.getSellPrice(ResourceType.ROBOTICON))) + ")", game.skin);
 		buyRoboticonsButton.addListener(new ChangeListener() {
 			@Override
 			public void changed(ChangeEvent event, Actor actor) {
@@ -91,12 +93,9 @@ public class RoboticonMarketActors extends Table {
 				widgetUpdate();
 			}
 		});
-		
-		final Label marketStatistics = new Label("Market Statistics:", game.skin);
-		
 
 		// Current Roboticon Text: Top Right
-		String playerRoboticonText = "Player " + (game.getPlayerInt() + 1) + "'s Roboticons:";
+		String playerRoboticonText = "CUSTOMISE PLAYER " + (game.getPlayerInt() + 1) + "'S ROBOTICONS HERE";
 		final Label lblCurrentRoboticon = new Label(playerRoboticonText, game.skin);
 
 		// Image widget which displays the roboticon in the player's inventory
@@ -128,13 +127,13 @@ public class RoboticonMarketActors extends Table {
 		// Purchase Customisation Text: Bottom Right
 		final Label lblPurchaseCustomisation = new Label("Customisation Type:", game.skin);
 
-		// Drop down menu to select how to customise the selected roboticion
+		// Drop down menu to select how to customise the selected roboticon
 		final SelectBox<String> customisationDropDown = new SelectBox<String>(game.skin);
-		String[] customisations = {"Energy", "Ore"};
+		String[] customisations = {"Energy", "Ore", "Food"};
 		customisationDropDown.setItems(customisations);
 
 		// Button to buy the selected customisation and customise the selected roboticon
-		final TextButton buyCustomisationButton = new TextButton("Buy Roboticon Customisation", game.skin);
+		final TextButton buyCustomisationButton = new TextButton("Buy Roboticon Customisation (Cost: " + Integer.toString(game.market.getSellPrice(ResourceType.CUSTOMISATION)) + ")", game.skin);
 		buyCustomisationButton.addListener(new ChangeListener() {
 			@Override
 			public void changed(ChangeEvent event, Actor actor) {
@@ -145,6 +144,7 @@ public class RoboticonMarketActors extends Table {
 				HashMap<String, ResourceType> converter = new HashMap<String, ResourceType>();
 				converter.put("Energy", ResourceType.ENERGY);
 				converter.put("Ore", ResourceType.ORE);
+				converter.put("Food", ResourceType.FOOD);
 				Roboticon roboticonToCustomise = roboticons.get(currentlySelectedRoboticonPos);
 
 				game.getPlayer().purchaseCustomisationFromMarket(converter.get(customisationDropDown.getSelected()), roboticonToCustomise, game.market);
@@ -160,88 +160,70 @@ public class RoboticonMarketActors extends Table {
 			}
 		});
 
-		// Top Row Text
-		add(lblBuyRoboticon).padTop(40).padLeft(68);
-		add();
-		add();
-		add(lblCurrentRoboticon).padTop(40).padLeft(150);
+		align(Align.center);
+		//padTop(30);
+
+		int span = 4; //This is the largest number of columns on any given row
+
+		//Row 1
+		add(lblBuyRoboticon).colspan(span);
 
 		row();
 
-		// Roboticon inc & dec buttons,
-		add(lblRoboticons).padTop(40);
-		add(subRoboticonButton).padTop(40).padLeft(-90);
-		add(lblRoboticonAmount).padTop(40).padLeft(-80);
-		add(addRoboticonButton).padTop(40).padLeft(-320);
-
-		add();
-		add();
-		add();
+		//Row 2
+		add(lblRoboticons);
+		add(subRoboticonButton);
+		add(lblRoboticonAmount);
+		add(addRoboticonButton);
 
 		row();
 
-		// Roboticon in inventory selection (moved to different row to preserve position of other buttons)
-		add();
-		add(buyRoboticonsButton).padLeft(-100).padBottom(160);
-		add();
-		add();
-
-		add(moveLeftRoboticonInventoryBtn).padTop(40).padLeft(-350).padBottom(200);
-		add(roboticonImage).padLeft(-150).padRight(75).padBottom(100).padTop(-50);
-		add(moveRightRoboticonInventoryBtn).padTop(40).padLeft(-100).padBottom(200);
+		//Row 3
+		add(buyRoboticonsButton).colspan(span);
 
 		row();
 
-		add();
-		add(marketStatistics).padLeft(-100).padTop(-170);
-		add();
-		add();
+		//Row 4
+		add(marketStats).colspan(span);
 
-		add();
-		add(roboticonID).padLeft(-235).padTop(-170);
-		
+		row().height(20);
+		add().colspan(span);
 		row();
-		// Purchase customisation label
-		add();
-		add(marketStats).padLeft(-100).padTop(-100);
-		add();
-		add();
 
-		add();
-		add(lblPurchaseCustomisation).padLeft(-235).padTop(-100);
+		//Row 5
+		add(lblCurrentRoboticon).colspan(span);
 
 		row();
 
-		// Customisation Drop Down Menu
-		add();
-		add();
-		add();
-		add();
-
-		add();
-		add(customisationDropDown).padLeft(-235).padTop(-50);
+		//Row 6
+		add(roboticonImage).colspan(span);
 
 		row();
 
-		// Buy Customisation Button
-		add();
-		add();
-		add();
-		add();
-
-		add();
-		add(buyCustomisationButton).padLeft(-235);
+		//Row 7
+		add(roboticonID).colspan(span);
 
 		row();
 
-		add();
-		add();
-		add();
-		add();
+		//Row 8
+		add(lblPurchaseCustomisation).colspan(span);
 
-		add();
-		add(nextButton).padTop(40);
+		row();
 
+		//Row 9
+		add(customisationDropDown).colspan(span);
+
+		row();
+
+		//Row 10
+		add(buyCustomisationButton).colspan(span);
+
+		row().height(20);
+		add().colspan(span);
+		row();
+
+		//Row 11
+		add(nextButton).colspan(span);
 	}
 
 	public String padZero(int number, int length) {
