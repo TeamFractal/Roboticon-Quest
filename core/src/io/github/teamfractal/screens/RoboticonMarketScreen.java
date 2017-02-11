@@ -27,7 +27,6 @@ public class RoboticonMarketScreen extends AbstractAnimationScreen implements Sc
 		table.setFillParent(true);
 		table.top().left().add(actors);
 		table.align(Align.center);
-		//table.debugAll();
 		stage.addActor(table);
 	}
 	
