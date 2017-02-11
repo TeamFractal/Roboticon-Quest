@@ -75,8 +75,11 @@ public class PlotManager {
 		
 		for (LandPlot[] plotColumns : plots) {
 			for(LandPlot plot : plotColumns){
-				if(!plot.hasOwner()){
-					numUnownedTiles ++;
+				if(plot != null)
+				{
+					if(!plot.hasOwner()){
+						numUnownedTiles ++;
+					}
 				}
 			}
 		}
