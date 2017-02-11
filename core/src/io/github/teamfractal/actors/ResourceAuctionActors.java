@@ -1,5 +1,6 @@
 package io.github.teamfractal.actors;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
@@ -17,46 +18,45 @@ import io.github.teamfractal.screens.ResourceMarketScreen;
 
 public class ResourceAuctionActors extends Table {
 	private RoboticonQuest game;
-	private Label playerStats;
 	private Label auctionTitle;
 	private Label bidTitle;
 	private Label putUpItemTitle;
+	private TextButton placeBid;
 	
 	public ResourceAuctionActors(final RoboticonQuest game, ResourceMarketScreen screen) {
 		center();
 
 		Skin skin = game.skin;
 		this.game = game;
-
+		Stage stage = screen.getStage();
+		
 		// Create UI Components
 		auctionTitle = new Label("Auction: ", skin);
 		bidTitle = new Label("Place a bid: ", skin);
 		putUpItemTitle = new Label("Put an item up for Auction:", skin);
-		playerStats = new Label("", skin);
+		placeBid = new TextButton("Place Bid", skin);
 
 		// Adjust properties.
 		auctionTitle.setAlignment(Align.left);
 		bidTitle.setAlignment(Align.left);
 		putUpItemTitle.setAlignment(Align.left);
-		playerStats.setAlignment(Align.left);
-
-
+		
 		// Add UI components to screen.
-		add(auctionTitle);
-		rowWithHeight(40);
+		add(auctionTitle).width(Gdx.graphics.getWidth() / 2);
+		rowWithHeight(20);
 
 		// Setup UI Layout.
-		add(playerStats);
-		rowWithHeight(40);
-		add(bidTitle);
+		add(bidTitle).width(Gdx.graphics.getWidth() / 2);
+		add().spaceRight(20);
+		add(placeBid);
 		rowWithHeight(200);
 		
-		add(putUpItemTitle);
+		add(putUpItemTitle).width(Gdx.graphics.getWidth() / 2);
 
-		pad(100);
 		debugAll();
+		pad(50);
+		
 		bindEvents();
-		widgetUpdate();
 	}
 	
 	/**
@@ -74,20 +74,5 @@ public class ResourceAuctionActors extends Table {
 		row();
 		add().spaceTop(height);
 		row();
-	}
-
-	/**
-	 * Updates all widgets on screen
-	 */
-	public void widgetUpdate() {
-		// update player stats, phase text, and the market stats.
-
-		String statText = "Your resources:\n\n" + 
-				"Ore: "    + game.getPlayer().getOre()    + "\n" +
-				"Energy: " + game.getPlayer().getEnergy() + "\n" +
-				"Food: "   + game.getPlayer().getFood()   + "\n" +
-				"Money: "  + game.getPlayer().getMoney()  + "\n" ;
-
-		playerStats.setText(statText);
 	}
 }

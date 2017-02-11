@@ -110,12 +110,11 @@ public class ResourceMarketActors extends Table {
 		this.screen = screen;
 		Stage stage = screen.getStage();
 
-
 		// Create UI Components
 		phaseInfo = new Label("", game.skin);
 		nextButton = new TextButton("Next ->", game.skin);
 
-		playerStats = new Label("", game.skin);
+		playerStats = new Label("Your Resources\n\n\n\n\n", game.skin); //Pad out the initial string with new lines as the label width property does not correctly update
 		marketStats = new Label("", game.skin);
 		Label buyLabel  = new Label("Buy",  skin);
 		Label sellLabel = new Label("Sell", skin);
@@ -131,16 +130,16 @@ public class ResourceMarketActors extends Table {
 
 		buyLabel.setAlignment(Align.center);
 		sellLabel.setAlignment(Align.center);
-
+		
+		playerStats.setAlignment(Align.center);
 
 		// Add UI components to screen.
 		stage.addActor(phaseInfo);
 		stage.addActor(nextButton);
-
+		stage.addActor(playerStats);
 
 		// Setup UI Layout.
 		// Row: Player and Market Stats.
-		add(playerStats);
 		add().spaceRight(20);
 		add(marketStats);
 		rowWithHeight(20);
@@ -163,7 +162,8 @@ public class ResourceMarketActors extends Table {
 		add(energySell);
 		rowWithHeight(10);
 
-		pad(100);
+		pad(50);
+		debugAll();
 		
 		bindEvents();
 		widgetUpdate();
@@ -200,11 +200,11 @@ public class ResourceMarketActors extends Table {
 				"Player " + (game.getPlayerInt() + 1) + "; " +
 				"Phase " + game.getPhase() + " - " + game.getPhaseString();
 
-		String statText =
-				"Ore: "    + game.getPlayer().getOre()    + "  " +
-				"Energy: " + game.getPlayer().getEnergy() + "  " +
-				"Food: "   + game.getPlayer().getFood()   + "  " +
-				"Money: "  + game.getPlayer().getMoney();
+		String statText = "Your resources:\n\n" + 
+				" Ore: "    + game.getPlayer().getOre()    + "\n" +
+				" Energy: " + game.getPlayer().getEnergy() + "\n" +
+				" Food: "   + game.getPlayer().getFood()   + "\n" +
+				" Money: "  + game.getPlayer().getMoney()  + "\n" ;
 
 		String marketStatText =
 				"Ore: " +    game.market.getResource(ResourceType.ORE   ) + "  " +
@@ -232,6 +232,10 @@ public class ResourceMarketActors extends Table {
 		// Bottom Left
 		phaseInfo.setPosition(0, height - 20);
 		phaseInfo.setWidth(width - 10);
+		
+		// Center top
+		playerStats.setPosition(width / 2 - width / 8, height - playerStats.getHeight() - 20);
+		playerStats.setWidth(width / 4);
 
 		// Bottom Right
 		nextButton.setPosition(width - nextButton.getWidth() - 10, 10);
