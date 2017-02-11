@@ -27,7 +27,6 @@ public class RoboticonQuest extends Game {
 		return _instance;
 	}
 
-
 	private PlotManager plotManager;
 	SpriteBatch batch;
 	public Skin skin;
@@ -53,15 +52,12 @@ public class RoboticonQuest extends Game {
 	@Override
 	public void create () {
 		batch = new SpriteBatch();
-		setupSkin();
-		
-	
+		setupSkin();	
 		gameScreen = new GameScreen(this);
 
 		// Setup other screens.
 		mainMenuScreen = new MainMenuScreen(this);
 		
-
 		setScreen(mainMenuScreen);
 	}
 
@@ -113,7 +109,6 @@ public class RoboticonQuest extends Game {
 		phase = newPhaseState;
 		// phase = newPhaseState = 4;
 
-		System.out.println("RoboticonQuest::nextPhase -> newPhaseState: " + newPhaseState);
 		switch (newPhaseState) {
 			// Phase 2: Purchase Roboticon
 			case 2:
@@ -145,9 +140,8 @@ public class RoboticonQuest extends Game {
 			case 5:
 				setScreen(new ResourceMarketScreen(this));
 				break;
-			
 
-			// End phase - CLean up and move to next player.
+			// End phase - Clean up and move to next player.
 			case 6:
 				phase = newPhaseState = 1;
 				this.nextPlayer();
@@ -162,8 +156,9 @@ public class RoboticonQuest extends Game {
 				break;
 		}
 
-		if (gameScreen != null)
+		if (gameScreen != null){
 			gameScreen.getActors().textUpdate();
+		}
 	}
 
 	/**
@@ -221,15 +216,37 @@ public class RoboticonQuest extends Game {
 	public int getPlayerInt(){
 		return this.currentPlayer;
 	}
+	
 	public void nextPlayer(){
 		if (this.currentPlayer == playerList.size() - 1){
-			this.currentPlayer = 0; 
+			if(isGameEnded()){
+				endGame();
+			}
+			else {
+				this.currentPlayer = 0; 
+			}
 		}
 		else{
 			this.currentPlayer ++;
 		}
 	}
+	
+	private boolean isGameEnded() {
+		return plotManager.getNumUnownedTiles() == 0;
+	}
 
+	private void endGame() {
+		int highestScore = Integer.MIN_VALUE;
+		Player winningPlayer;
+		
+		for (Player player : playerList) {
+			if(player.getScore() > highestScore){
+				winningPlayer = player;
+				highestScore = player.getScore();
+			}
+		}		
+	}
+	
 	public PlotManager getPlotManager() {
 		return plotManager;
 	}

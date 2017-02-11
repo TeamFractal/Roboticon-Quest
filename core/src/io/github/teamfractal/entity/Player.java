@@ -35,9 +35,8 @@ public class Player {
 	public Player(RoboticonQuest game){
 		this.game = game;
 		this.roboticonList = new Array<Roboticon>();
-
-		
 	}
+	
 	/**
 	 * Set the amount of money player has
 	 * @param money                      The amount of new money.
@@ -137,6 +136,22 @@ public class Player {
 				throw new NotCommonResourceException(type);
 		}
 	}
+	
+	public int getScore() {
+		int score = 0;
+		
+		for (LandPlot plot : landList) {
+			score += plot.produceResource(ResourceType.ENERGY);
+			score += plot.produceResource(ResourceType.ORE);
+			score += plot.produceResource(ResourceType.ENERGY);
+			score += money;
+			score += food;
+			score += energy;
+			score += ore;
+		}
+		
+		return score;
+	}
 
 	/**
 	 * Purchase roboticon from the market.
@@ -146,7 +161,6 @@ public class Player {
 	 */
 	public PurchaseStatus purchaseRoboticonsFromMarket(int amount, Market market) {
 		Random random = new Random();
-		
 		
 		if (!market.hasEnoughResources(ResourceType.ROBOTICON, amount)) {
 			return PurchaseStatus.FailMarketNotEnoughResource;
