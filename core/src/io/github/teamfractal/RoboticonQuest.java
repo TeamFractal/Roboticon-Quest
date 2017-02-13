@@ -37,6 +37,8 @@ public class RoboticonQuest extends Game {
 	public ArrayList<Player> playerList;
 	public Market market;
 	private int landBoughtThisTurn;
+	
+	public Auction auction;
 
 	public int getPlayerIndex (Player player) {
 		return playerList.indexOf(player);
@@ -57,6 +59,10 @@ public class RoboticonQuest extends Game {
 
 		// Setup other screens.
 		mainMenuScreen = new MainMenuScreen(this);
+		
+		auction = new Auction();
+		auction.addItemToAuction("Roboticon");
+		auction.addItemToAuction(55);
 		
 		setScreen(mainMenuScreen);
 	}

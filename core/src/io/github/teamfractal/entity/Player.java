@@ -115,6 +115,14 @@ public class Player {
 		}
 	}
 
+	public void addResource(ResourceType resource, int amount) {
+		setResource(resource, getResource(resource) + amount);
+	}
+	
+	public void addMoney(int amount) {
+		money += amount;
+	}
+	
 	/**
 	 * Get the resource amount current player have.
 	 * @param type   The {@link ResourceType}
@@ -296,6 +304,14 @@ public class Player {
 	public Roboticon customiseRoboticon(Roboticon roboticon, ResourceType type) {
 		roboticon.setCustomisation(type);
 		return roboticon;
+	}
+	
+	public void addRoboticon(Roboticon roboticon) {
+		roboticonList.add(roboticon);
+	}
+	
+	public void removeRoboticon(Roboticon roboticon) {
+		roboticonList.removeIndex(roboticonList.indexOf(roboticon, true));
 	}
 
 	/**

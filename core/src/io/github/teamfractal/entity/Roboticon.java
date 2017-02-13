@@ -41,4 +41,29 @@ public class Roboticon {
 		System.out.println("Already installed to LandPlot! Cancel.");
 		return false;
 	}
+	
+	@Override
+	public String toString(){
+		String returnString = "Roboticon " + ID;
+		
+		switch (customisation) {
+		case ORE:
+			returnString += ": Ore";
+			break;
+			
+		case ENERGY:
+			returnString += ": Energy";
+			break;
+
+		case FOOD:
+			returnString += ": Food";
+			break;
+			
+		default:
+			returnString += ": Uncustomised";
+			break;
+		}
+		
+		return returnString;
+	}
 }
