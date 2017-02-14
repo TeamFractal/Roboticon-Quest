@@ -35,48 +35,10 @@ public class ResourceMarketActors extends Table {
 	private SelectBox<String> marketResourceDropDown;
 	private SelectBox<String> marketPlayerDropDown;
 	private AdjustableActor marketQuantityDropDown;
-	private SelectBox<String> markerBuyOrSellDropDown;
+	private SelectBox<String> marketBuyOrSellDropDown;
 	private Label[] playerStatsLabels;
-	private Integer sellEnergyAmount;
 	private final Stage stage;
-	/**
-	 * Get price in string format
-	 *
-	 * @param resource   The resource type.
-	 * @param bIsSell    <code>true</code> if is for sell,
-	 *                   or <code>false</code> if is for buy in.
-	 * @return           The formatted string for the resource.
-	 */
-	private String getPriceString(ResourceType resource, boolean bIsSell) {
-		// getBuyPrice: market buy-in price (user sell price)
-		// getSellPrice: market sell price (user buy price)
-		return resource.toString() + ": "
-				+ (bIsSell
-					? game.market.getBuyPrice(resource)
-					: game.market.getSellPrice(resource))
-				+ " Gold";
-	}
-
-	/**
-	 * Sync. information with the adjustable.
-	 * @param adjustableActor     The adjustable to manipulate with.
-	 * @param resource            The resource type.
-	 * @param bIsSell             <code>true</code> if the adjustable is for sell,
-	 *                            <code>false</code> if is for buy.
-	 */
-	private void updateAdjustable(AdjustableActor adjustableActor, ResourceType resource,
-	                              boolean bIsSell) {
-		if (bIsSell) {
-			adjustableActor.setMax(game.getPlayer().getResource(resource));
-		} else {
-			adjustableActor.setMax(game.market.getResource(resource));
-		}
-
-		adjustableActor.setTitle(getPriceString(resource, bIsSell));
-	}
-
-
-	
+		
 	private void createResourceSelectBoxes(){
 		playerToPlayerResourceDropDown = new SelectBox<String>(game.skin);
 		marketResourceDropDown = new SelectBox<String>(game.skin);
@@ -86,13 +48,13 @@ public class ResourceMarketActors extends Table {
 	}
 	
 	private ResourceType stringToResource(String resourceString){
-		if(resourceString.toLowerCase() == "food"){
+		if(resourceString.toLowerCase().contains("food")){
 			return ResourceType.FOOD;
 		}
-		else if(resourceString.toLowerCase() == "energy"){
+		else if(resourceString.toLowerCase().contains("energy")){
 			return ResourceType.ENERGY;
 		}
-		else if(resourceString.toLowerCase() == "ore"){
+		else if(resourceString.toLowerCase().contains("ore")){
 			return ResourceType.ORE;
 		}
 		else{ // Shouldn't use this method for other kinds of resource
@@ -101,19 +63,18 @@ public class ResourceMarketActors extends Table {
 	}
 	
 	private void completeMarketTransaction(){
-		int sellingPlayerIndex = playerToPlayerBuyerDropDown.getSelectedIndex();
-		int buyingPlayerIndex = playerToPlayerSellerDropDown.getSelectedIndex();
-		int quantity = playerToPlayerQuantityDropDown.getValue();
-		Player sellingPlayer = game.playerList.get(sellingPlayerIndex);
+		int playerIndex = marketPlayerDropDown.getSelectedIndex();
+		int quantity = marketQuantityDropDown.getValue();
+		Player player = game.playerList.get(playerIndex);
 		ResourceType resource = stringToResource(playerToPlayerResourceDropDown.getSelected());
-		if(sellingPlayerIndex == -1 || resource == null){
+		if(playerIndex == -1 || resource == null){
 			return; // Not enough information has been supplied, cannot complete transaction
 		}
-		if(markerBuyOrSellDropDown.getSelectedIndex() == 0){ // Buying is the first option
-			sellingPlayer.purchaseResourceFromMarket(quantity, game.market, resource);
+		if(marketBuyOrSellDropDown.getSelectedIndex() == 0){ // Buying is the first option
+			player.purchaseResourceFromMarket(quantity, game.market, resource);
 		}
 		else{ // Selling
-			sellingPlayer.purchaseResourceFromMarket(quantity, game.market, resource);
+			player.sellResourceToMarket(quantity, game.market, resource);
 		}
 		widgetUpdate();
 	}
@@ -136,9 +97,9 @@ public class ResourceMarketActors extends Table {
 	}
 	
 	private void createBuyOrSellDropDown(){
-		markerBuyOrSellDropDown = new SelectBox<String>(game.skin);
+		marketBuyOrSellDropDown = new SelectBox<String>(game.skin);
 		String[] options = {"buy","sell"};
-		markerBuyOrSellDropDown.setItems(options);
+		marketBuyOrSellDropDown.setItems(options);
 	}
 
 	private void createQuantityDropDowns(){
@@ -195,8 +156,6 @@ public class ResourceMarketActors extends Table {
 		});
 	}
 	
-	
-	
 	private Table createPlayerToPlayerTransactionWidget(){
 		// All placed in a table so treated like 1 single widget for a clean layout
 		Table container = new Table();
@@ -209,7 +168,7 @@ public class ResourceMarketActors extends Table {
 		container.add(new Label("for",game.skin)).padRight(10);
 		container.add(playerToPlayerPriceDropDown).padRight(10);
 		container.add(new Label("money per unit",game.skin)).padRight(10);
-		TextButton playerToPlayerTransactionButton = new TextButton(" SELL ", game.skin);
+		TextButton playerToPlayerTransactionButton = new TextButton(" Sell ", game.skin);
 		setPlayerToPlayerTransactionButtonBehaviour(playerToPlayerTransactionButton);
 		container.add(playerToPlayerTransactionButton);
 		return container;
@@ -219,28 +178,19 @@ public class ResourceMarketActors extends Table {
 		// All placed in a table so treated like 1 single widget for a clean layout
 		Table container = new Table();
 		container.add(marketPlayerDropDown).padRight(10);
-		container.add(markerBuyOrSellDropDown).padRight(10);
+		container.add(marketBuyOrSellDropDown).padRight(10);
 		container.add(marketQuantityDropDown).padRight(10);
 		container.add(marketResourceDropDown).padRight(10);
-		container.add(new Label("from/to the market",game.skin)).padRight(10);
+		container.add(new Label("to / from the market",game.skin)).padRight(10);
 		TextButton marketTransactionButton = new TextButton(" Complete transaction ", game.skin);
 		setMarketTransactionButtonBehaviour(marketTransactionButton);
 		container.add(marketTransactionButton);
 		return container;
 	}
 	
-	public Table createMarketCostDisplayWidget(Market market){
+	private Table createMarketCostDisplayWidget(Market market){
 		Table marketCostsTable = new Table();
 		
-		Label oreBuyCostLabel = new Label(Integer.toString(market.getSellPrice(ResourceType.ORE)),game.skin);
-		Label oreSellCostLabel = new Label(Integer.toString(market.getBuyPrice(ResourceType.ORE)),game.skin);
-		
-		Label energyBuyCostLabel = new Label(Integer.toString(market.getSellPrice(ResourceType.ENERGY)),game.skin);
-		Label energySellCostLabel = new Label(Integer.toString(market.getBuyPrice(ResourceType.ENERGY)),game.skin);
-		
-		Label foodBuyCostLabel = new Label(Integer.toString(market.getSellPrice(ResourceType.FOOD)),game.skin);
-		Label foodSellCostLabel = new Label(Integer.toString(market.getBuyPrice(ResourceType.FOOD)),game.skin);
-				
 		marketCostsTable.add(new Label("Market prices",game.skin)).colspan(3).left();
 		marketCostsTable.row();
 		
@@ -249,20 +199,17 @@ public class ResourceMarketActors extends Table {
 		marketCostsTable.add(new Label("We buy for  ",game.skin)).left();
 		marketCostsTable.row();
 		
-		marketCostsTable.add(new Label("Ore",game.skin)).left();
-		marketCostsTable.add(oreBuyCostLabel).left();
-		marketCostsTable.add(oreSellCostLabel).left();
-		marketCostsTable.row();
-		
-		marketCostsTable.add(new Label("Energy",game.skin)).left();
-		marketCostsTable.add(energyBuyCostLabel).left();
-		marketCostsTable.add(energySellCostLabel).left();
-		marketCostsTable.row();
-		
-		marketCostsTable.add(new Label("Food",game.skin)).left();
-		marketCostsTable.add(foodBuyCostLabel).left();
-		marketCostsTable.add(foodSellCostLabel).left();
-		marketCostsTable.row();
+		String resourceStrings[] = {"Ore","Energy","Food"};
+		ResourceType resourceTypes[] = {ResourceType.ORE,ResourceType.ENERGY,ResourceType.FOOD};
+		for (int resource =0;resource<3;resource++) {
+			Label buyCostLabel = new Label(Integer.toString(market.getSellPrice(resourceTypes[resource])),game.skin);
+			Label sellCostLabel = new Label(Integer.toString(market.getBuyPrice(resourceTypes[resource])),game.skin);
+			
+			marketCostsTable.add(new Label(resourceStrings[resource],game.skin)).left();
+			marketCostsTable.add(buyCostLabel).left();
+			marketCostsTable.add(sellCostLabel).left();
+			marketCostsTable.row();
+		}	
 		
 		return marketCostsTable;
 	}
@@ -309,30 +256,72 @@ public class ResourceMarketActors extends Table {
 		// Setup UI Layout.
 		// Row: Player and Market Stats.
 		
+		Table marketTransactionWidget = createMarketTransactionWidget();
+		Table playerToPlayerTransactionWidget = createPlayerToPlayerTransactionWidget();
+		
+		
 		addPlayerStatsLabels();
 		row();
 		add(marketStats).left().padBottom(20);
 		row();
 		add(createMarketCostDisplayWidget(game.market)).left().padBottom(45);
 		row();
-		add(createPlayerToPlayerTransactionWidget()).expand().fill();
+		add(playerToPlayerTransactionWidget).left().padBottom(30);
 		row();
-		add(createMarketTransactionWidget()).expand().fill().padTop(10);
+		add(marketTransactionWidget).left();
 		
-		bindEvents();
+		
+		bindEvents(marketTransactionWidget,playerToPlayerTransactionWidget);
 		widgetUpdate();
+	}
+	
+	private void updateMaxMarketQuantity(){
+		ResourceType resource = stringToResource(marketResourceDropDown.getSelected());
+		if(marketBuyOrSellDropDown.getSelectedIndex() == 0){ // Buying is the first option
+			
+			marketQuantityDropDown.setMax(game.market.getResource(resource));
+		}
+		else{
+			int playerIndex = marketPlayerDropDown.getSelectedIndex();
+			Player player = game.playerList.get(playerIndex);
+			marketQuantityDropDown.setMax(player.getResource(resource));			
+		}
+	}
+	
+	private void updateMaxPlayerQuantity(){
+		ResourceType resource = stringToResource(playerToPlayerResourceDropDown.getSelected());
+		int playerIndex = playerToPlayerSellerDropDown.getSelectedIndex();
+		Player player = game.playerList.get(playerIndex);
+		playerToPlayerQuantityDropDown.setMax(player.getResource(resource));
 	}
 
 	/**
 	 * Bind button events.
 	 */
-	private void bindEvents() {
+	private void bindEvents(Table marketTransactionWidget, Table playerToPlayerTransactionWidget) {
 		nextButton.addListener(new ClickListener() {
 			@Override
 			public void clicked(InputEvent event, float x, float y) {
 				game.nextPhase();
 			}
 		});
+		
+		marketTransactionWidget.addListener(new ChangeListener() {
+			@Override
+			public void changed(ChangeEvent event, Actor actor) {
+				updateMaxMarketQuantity();
+				System.out.println("clicked");
+			}
+
+		});
+		
+		playerToPlayerTransactionWidget.addListener(new ClickListener() {
+			@Override
+			public void clicked(InputEvent event, float x, float y) {
+				updateMaxPlayerQuantity();
+			}
+		});
+		
 	}
 
 	/**
