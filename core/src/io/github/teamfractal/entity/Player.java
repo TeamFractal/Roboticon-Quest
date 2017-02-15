@@ -221,6 +221,37 @@ public class Player {
 		setResource(resource, getResource(resource) + amount);
 		return PurchaseStatus.Success;
 	}
+	
+	
+	// Added by Josh Neil so that players can sell to other players
+	/**
+	 * Allows players to sell a given quantity of a given resource to another player for a given price
+	 * @param buyingPlayer
+	 * @param quantity
+	 * @param resource
+	 * @param pricePerUnit
+	 * @return
+	 */
+	public PurchaseStatus sellResourceToPlayer(Player buyingPlayer,int quantity, ResourceType resource, int pricePerUnit) {
+		int totalCost = quantity * pricePerUnit;
+		if(getResource(resource) < quantity){
+			return PurchaseStatus.FailPlayerNotEnoughResource;
+		}
+		else if(buyingPlayer.getMoney() < totalCost){
+			return PurchaseStatus.FailPlayerNotEnoughMoney;
+		}
+
+		int cost = amount * market.getSellPrice(resource);
+		int money = getMoney();
+		if (cost > money) {
+			return PurchaseStatus.FailPlayerNotEnoughMoney;
+		}
+
+		market.sellResource(resource, amount);
+		setMoney(money - cost);
+		setResource(resource, getResource(resource) + amount);
+		return PurchaseStatus.Success;
+	}
 
 	/**
 	 * Action for player to sell resources to the market.

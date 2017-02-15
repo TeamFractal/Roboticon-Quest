@@ -315,9 +315,9 @@ public class ResourceMarketActors extends Table {
 
 		});
 		
-		playerToPlayerTransactionWidget.addListener(new ClickListener() {
+		playerToPlayerTransactionWidget.addListener(new ChangeListener() {
 			@Override
-			public void clicked(InputEvent event, float x, float y) {
+			public void changed(ChangeEvent event, Actor actor) {
 				updateMaxPlayerQuantity();
 			}
 		});
