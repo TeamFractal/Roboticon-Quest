@@ -3,6 +3,8 @@ package io.github.teamfractal.screens;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
@@ -19,6 +21,9 @@ public class MainMenuScreen implements Screen {
 	final Table table;
 	private final HomeMainMenu homeMainMenu;
 
+	private SpriteBatch batch;
+	private Texture backgroundImage = new Texture(Gdx.files.internal("background/corridor.png"));
+
 	public MainMenuScreen(final RoboticonQuest game) {
 		this.game = game;
 		this.stage = new Stage(new ScreenViewport());
@@ -29,6 +34,8 @@ public class MainMenuScreen implements Screen {
 		table.center().center().add(homeMainMenu);
 
 		stage.addActor(table);
+
+		batch = (SpriteBatch) game.getBatch();
 
 		/*
 		AdjustableActor actor1 = new AdjustableActor(game.skin, 0, 0, 100, "Ore: 10 Gold","Action");
@@ -51,6 +58,10 @@ public class MainMenuScreen implements Screen {
 	@Override
 	public void render(float delta) {
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+
+		batch.begin();
+		batch.draw(backgroundImage, 0, 0);
+		batch.end();
 
 		stage.act(delta);
 		stage.draw();
