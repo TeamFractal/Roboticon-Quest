@@ -69,6 +69,24 @@ public class PlotManager {
 
 		return p;
 	}
+	
+	public int getNumUnownedTiles() {
+		int numUnownedTiles = 0;
+		
+		for (LandPlot[] plotColumns : plots) {
+			for(LandPlot plot : plotColumns){
+				if(plot != null)
+				{
+					if(!plot.hasOwner()){
+						numUnownedTiles ++;
+					}
+				}
+			}
+		}
+		
+		return numUnownedTiles;
+	}
+	
 	/**
 	 * Creates a landplot from a tile tile on the tiled map
 	 * @param x - x coordinate on tiled map
@@ -104,7 +122,6 @@ public class PlotManager {
 			energy = 2;
 			food = 2;
 		}
-
 
 		LandPlot p = new LandPlot(ore, energy, food);
 		p.setupTile(this, x, y);
