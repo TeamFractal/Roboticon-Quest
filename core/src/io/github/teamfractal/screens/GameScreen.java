@@ -4,6 +4,8 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.maps.tiled.*;
 import com.badlogic.gdx.maps.tiled.renderers.IsometricStaggeredTiledMapRenderer;
 import com.badlogic.gdx.math.MathUtils;
@@ -42,6 +44,8 @@ public class GameScreen extends AbstractAnimationScreen implements Screen  {
 	private float maxDragY;
 	private TiledMapTileSets tiles;
 
+	private SpriteBatch batch;
+	private Texture backgroundImage = new Texture(Gdx.files.internal("background/space-stars.png"));
 
 	public LandPlot getSelectedPlot() {
 		return selectedPlot;
@@ -59,6 +63,7 @@ public class GameScreen extends AbstractAnimationScreen implements Screen  {
 		camera.setToOrtho(false, oldW, oldH);
 		camera.update();
 
+		batch = (SpriteBatch) game.getBatch();
 
 		this.game = game;
 
@@ -195,7 +200,7 @@ public class GameScreen extends AbstractAnimationScreen implements Screen  {
 	/**
 	 * gets the players tile to put over a tile they own
 	 * @param player player to buy plot
-	 * @return tile that has the coloure doutline acossiated with the player
+	 * @return tile that has the coloured outline associated with the player
 	 */
 	public TiledMapTile getPlayerTile(Player player) {
 		return tiles.getTile(68 + game.getPlayerIndex(player));
@@ -244,9 +249,15 @@ public class GameScreen extends AbstractAnimationScreen implements Screen  {
 		Gdx.input.setInputProcessor(stage);
 	}
 
+
+	//Modified by Christian Beddows to add a background image
 	@Override
 	public void render(float delta) {
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+
+		batch.begin();
+		batch.draw(backgroundImage, 0, 0);
+		batch.end();
 
 		camera.update();
 
