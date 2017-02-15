@@ -152,14 +152,6 @@ public class RoboticonMarketActors extends Table {
 			}
 		});
 
-		final TextButton nextButton = new TextButton("Next ->", game.skin);
-		nextButton.addListener(new ChangeListener() {
-			@Override
-			public void changed(ChangeEvent event, Actor actor) {
-				game.nextPhase();
-			}
-		});
-
 		align(Align.center);
 		//padTop(30);
 
@@ -223,7 +215,19 @@ public class RoboticonMarketActors extends Table {
 		row();
 
 		//Row 11
-		add(nextButton).colspan(span);
+		//add(nextButton).colspan(span);
+
+		final TextButton nextButton = new TextButton("Next ->", game.skin);
+		nextButton.addListener(new ChangeListener() {
+			@Override
+			public void changed(ChangeEvent event, Actor actor) {
+				game.nextPhase();
+			}
+		});
+		screen.getStage().addActor(nextButton);
+		nextButton.setPosition(Gdx.app.getGraphics().getWidth() - nextButton.getWidth() - 10, 10);
+
+
 	}
 
 	public String padZero(int number, int length) {

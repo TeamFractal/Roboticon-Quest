@@ -32,7 +32,7 @@ public class ScoreScreenActors extends Table{
 
         // Buy Roboticon Text: Top Left
         final Label lblGameEnded = new Label("THE GAME HAS ENDED", game.skin);
-        final Label lblWinnerName = new Label("THE WINNER IS" + <something.getWinner()> + "!", game.skin);
+        final Label lblWinnerName = new Label("THE WINNER IS" + game.getWinningPlayer() + "!", game.skin);
 
         // Current Roboticon Text: Top Right
         String playerRoboticonText = "CUSTOMISE PLAYER " + (game.getPlayerInt() + 1) + "'S ROBOTICONS HERE";
@@ -44,7 +44,7 @@ public class ScoreScreenActors extends Table{
             @Override
             public void changed(ChangeEvent event, Actor actor) {
                 game.dispose();
-                // TODO add a method call to terminate the program.
+                Gdx.app.exit();
             }
         });
 
@@ -70,7 +70,7 @@ public class ScoreScreenActors extends Table{
 
         //Iterate through players, and display their score
         for(int i = 0; i < game.playerList.size(); i++) {
-            add(new Label("Player " + Integer.toString(game.playerList.get(i).getScore()) + " had score " + Integer.toString(game.playerList.get(i).getScore())));
+            add(new Label("Player " + Integer.toString(i+1) + " had score " + Integer.toString(game.playerList.get(i).getScore()), game.skin));
             row();
         }
 
