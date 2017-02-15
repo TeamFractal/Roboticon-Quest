@@ -72,6 +72,10 @@ public class RoboticonQuest extends Game {
 		return batch;
 	}
 
+	/**
+	 * Initialises and starts the music playing
+	 * @author cb1423
+	 */
 	private void startMusic(){
 		gameMusic = new GameMusic();
 		gameMusic.play();
