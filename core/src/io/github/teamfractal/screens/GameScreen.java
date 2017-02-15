@@ -44,9 +44,6 @@ public class GameScreen extends AbstractAnimationScreen implements Screen  {
 	private float maxDragY;
 	private TiledMapTileSets tiles;
 
-	private SpriteBatch batch;
-	private Texture backgroundImage = new Texture(Gdx.files.internal("background/space-stars1080.png"));
-
 	public LandPlot getSelectedPlot() {
 		return selectedPlot;
 	}
@@ -62,8 +59,6 @@ public class GameScreen extends AbstractAnimationScreen implements Screen  {
 		camera = new OrthographicCamera();
 		camera.setToOrtho(false, oldW, oldH);
 		camera.update();
-
-		batch = (SpriteBatch) game.getBatch();
 
 		this.game = game;
 
@@ -255,9 +250,7 @@ public class GameScreen extends AbstractAnimationScreen implements Screen  {
 	public void render(float delta) {
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
-		batch.begin();
-		batch.draw(backgroundImage, 0, 0);
-		batch.end();
+		actors.drawBackground();
 
 		camera.update();
 

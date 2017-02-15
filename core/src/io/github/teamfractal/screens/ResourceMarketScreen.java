@@ -18,8 +18,6 @@ public class ResourceMarketScreen implements Screen {
 	final Stage stage;
 	final Table table;
 	private final ResourceMarketActors actors;
-	private SpriteBatch batch;
-	private Texture backgroundImage = new Texture(Gdx.files.internal("background/facility.png"));
 	
 	
 	public ResourceMarketScreen(final RoboticonQuest game) {
@@ -32,8 +30,6 @@ public class ResourceMarketScreen implements Screen {
 		table.center().add(actors); // positions actors
 
 		stage.addActor(table);
-
-		batch = (SpriteBatch) game.getBatch();
 	}
 
 	@Override
@@ -45,9 +41,7 @@ public class ResourceMarketScreen implements Screen {
 	public void render(float delta) {
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
-		batch.begin();
-		batch.draw(backgroundImage, 0, 0);
-		batch.end();
+		actors.drawBackground();
 
 		stage.act(delta);
 		stage.draw();
