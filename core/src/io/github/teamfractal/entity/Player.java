@@ -46,7 +46,7 @@ public class Player {
 	 */
 	public synchronized void setMoney(int money) throws IllegalArgumentException {
 		if (money < 0) {
-			throw new IllegalArgumentException("Error: Money can't be negative.");
+			throw new IllegalArgumentException("Error: Money can't be negative."); //My bank account would disagree
 		}
 
 		this.money = money;
