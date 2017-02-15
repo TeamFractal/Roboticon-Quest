@@ -241,15 +241,10 @@ public class Player {
 			return PurchaseStatus.FailPlayerNotEnoughMoney;
 		}
 
-		int cost = amount * market.getSellPrice(resource);
-		int money = getMoney();
-		if (cost > money) {
-			return PurchaseStatus.FailPlayerNotEnoughMoney;
-		}
-
-		market.sellResource(resource, amount);
-		setMoney(money - cost);
-		setResource(resource, getResource(resource) + amount);
+		setMoney(totalCost + getMoney());
+		setResource(resource, getResource(resource) - quantity);
+		buyingPlayer.setMoney(buyingPlayer.getMoney() - totalCost);
+		buyingPlayer.setResource(resource, buyingPlayer.getResource(resource) + quantity);
 		return PurchaseStatus.Success;
 	}
 

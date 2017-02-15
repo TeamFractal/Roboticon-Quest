@@ -14,6 +14,7 @@ import com.badlogic.gdx.utils.Align;
 import io.github.teamfractal.RoboticonQuest;
 import io.github.teamfractal.entity.Market;
 import io.github.teamfractal.entity.Player;
+import io.github.teamfractal.entity.enums.PurchaseStatus;
 import io.github.teamfractal.entity.enums.ResourceType;
 import io.github.teamfractal.exception.InvalidResourceTypeException;
 import io.github.teamfractal.screens.ResourceMarketScreen;
@@ -135,7 +136,27 @@ public class ResourceMarketActors extends Table {
 	}
 	
 	private void completePlayerToPlayerTransaction(){
-		// TODO: fill this out
+		int buyingPlayerIndex = playerToPlayerBuyerDropDown.getSelectedIndex();
+		int sellingPlayerIndex = playerToPlayerSellerDropDown.getSelectedIndex();
+		
+		Player buyingPlayer = game.playerList.get(buyingPlayerIndex);
+		Player sellingPlayer = game.playerList.get(sellingPlayerIndex);
+		
+		int quantity = playerToPlayerQuantityDropDown.getValue();
+		
+		ResourceType resource = stringToResource(playerToPlayerResourceDropDown.getSelected());
+		
+		int pricePerUnit = playerToPlayerPriceDropDown.getValue();
+		
+		PurchaseStatus purchaseStatus = sellingPlayer.sellResourceToPlayer(buyingPlayer, quantity, resource, pricePerUnit);
+		
+		switch(purchaseStatus){
+			case Success:
+				widgetUpdate();
+				break;
+		}
+		
+		
 	}
 	
 	private void setPlayerToPlayerTransactionButtonBehaviour(TextButton button){
@@ -341,6 +362,9 @@ public class ResourceMarketActors extends Table {
 		phaseInfo.setText(phaseText);
 		updatePlayerStatsLabels();
 		marketStats.setText(marketStatText);
+		updateMaxMarketQuantity();
+		updateMaxPlayerQuantity();
+		
 
 	}
 
