@@ -21,9 +21,6 @@ public class MainMenuScreen implements Screen {
 	final Table table;
 	private final HomeMainMenu homeMainMenu;
 
-	private SpriteBatch batch;
-	private Texture backgroundImage = new Texture(Gdx.files.internal("background/corridor.png"));
-
 	public MainMenuScreen(final RoboticonQuest game) {
 		this.game = game;
 		this.stage = new Stage(new ScreenViewport());
@@ -34,8 +31,6 @@ public class MainMenuScreen implements Screen {
 		table.center().center().add(homeMainMenu);
 
 		stage.addActor(table);
-
-		batch = (SpriteBatch) game.getBatch();
 
 		/*
 		AdjustableActor actor1 = new AdjustableActor(game.skin, 0, 0, 100, "Ore: 10 Gold","Action");
@@ -59,9 +54,7 @@ public class MainMenuScreen implements Screen {
 	public void render(float delta) {
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
-		batch.begin();
-		batch.draw(backgroundImage, 0, 0);
-		batch.end();
+		homeMainMenu.drawBackground();
 
 		stage.act(delta);
 		stage.draw();

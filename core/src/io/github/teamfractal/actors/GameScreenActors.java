@@ -1,5 +1,8 @@
 package io.github.teamfractal.actors;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
@@ -38,7 +41,8 @@ public class GameScreenActors {
 	private TextButton nextButton;
 	private boolean dropDownActive;
 	private boolean listUpdated;
-
+	private Texture backgroundImage;
+	private SpriteBatch batch;
 	/**
 	 * Initialise the main game screen components.
 	 * @param game         The game manager {@link RoboticonQuest}
@@ -48,6 +52,21 @@ public class GameScreenActors {
 		this.game = game;
 		this.screen = screen;
 		this.stage = screen.getStage();
+
+		//Added by Christian Beddows
+		batch = (SpriteBatch) game.getBatch();
+		backgroundImage = new Texture(Gdx.files.internal("background/space-stars1080.png"));
+
+	}
+
+	/**
+	 * Method to draw the background to the resource market
+	 * by Christian Beddows
+	 */
+	public void drawBackground() {
+		batch.begin();
+		batch.draw(backgroundImage, 0, 0);
+		batch.end();
 	}
 
 	/**
