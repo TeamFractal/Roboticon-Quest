@@ -49,7 +49,7 @@ public class ResourceMarketScreen implements Screen {
 		batch.draw(backgroundImage, 0, 0);
 		batch.end();
 
-		stage.act(delta);
+		stage.act(delta);W
 		stage.draw();
 	}
 
