@@ -45,7 +45,7 @@ public class GameScreen extends AbstractAnimationScreen implements Screen  {
 	private TiledMapTileSets tiles;
 
 	private SpriteBatch batch;
-	private Texture backgroundImage = new Texture(Gdx.files.internal("background/space-stars.png"));
+	private Texture backgroundImage = new Texture(Gdx.files.internal("background/space-stars1080.png"));
 
 	public LandPlot getSelectedPlot() {
 		return selectedPlot;
