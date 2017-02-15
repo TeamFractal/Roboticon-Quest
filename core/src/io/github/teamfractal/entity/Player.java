@@ -468,7 +468,9 @@ public class Player {
 	 * @return The player's score
 	 */
 	public int getScore(){
-		int score = getMoney() + (getResource(ENERGY)*18) + (getResource(ORE)*9) + (getResource(FOOD)*27);
+		int score = getMoney() + (getResource(ENERGY)*game.market.getSellPrice(ENERGY)) + 
+				(getResource(ORE)*game.market.getSellPrice(ORE)) + 
+				(getResource(FOOD)*game.market.getSellPrice(FOOD));
 		return score;
 	}
 }

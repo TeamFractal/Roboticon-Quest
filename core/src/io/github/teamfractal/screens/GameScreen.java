@@ -1,11 +1,14 @@
 package io.github.teamfractal.screens;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.maps.tiled.*;
 import com.badlogic.gdx.maps.tiled.renderers.IsometricStaggeredTiledMapRenderer;
 import com.badlogic.gdx.math.MathUtils;
@@ -43,9 +46,16 @@ public class GameScreen extends AbstractAnimationScreen implements Screen  {
 	private float maxDragX;
 	private float maxDragY;
 	private TiledMapTileSets tiles;
+	
+	private Texture backgroundImage = new Texture(Gdx.files.internal("background/newbg.png"));
+	private TextureRegion region =
+		    new TextureRegion(backgroundImage, 0, 0, 800, 420);
 
 	private SpriteBatch batch;
-	private Texture backgroundImage = new Texture(Gdx.files.internal("background/space-stars.png"));
+	
+	private InputProcessor inputProcessor;
+
+	private Sprite backgroundSprite;
 
 	public LandPlot getSelectedPlot() {
 		return selectedPlot;
@@ -56,13 +66,78 @@ public class GameScreen extends AbstractAnimationScreen implements Screen  {
 	 * @param game  The game object
 	 */
 	public GameScreen(final RoboticonQuest game) {
+		
+		inputProcessor = new InputProcessor(){
+
+			@Override
+			public boolean keyDown(int keycode) {
+				// TODO Auto-generated method stub
+				return false;
+			}
+
+			@Override
+			public boolean keyUp(int keycode) {
+				// TODO Auto-generated method stub
+				return false;
+			}
+
+			@Override
+			public boolean keyTyped(char character) {
+				// TODO Auto-generated method stub
+				System.out.println("HERE");
+				return false;
+			}
+
+			@Override
+			public boolean touchDown(int screenX, int screenY, int pointer, int button) {
+				// TODO Auto-generated method stub
+				return false;
+			}
+
+			@Override
+			public boolean touchUp(int screenX, int screenY, int pointer, int button) {
+				// TODO Auto-generated method stub
+				return false;
+			}
+
+			@Override
+			public boolean touchDragged(int screenX, int screenY, int pointer) {
+				// TODO Auto-generated method stub
+				return false;
+			}
+
+			@Override
+			public boolean mouseMoved(int screenX, int screenY) {
+				// TODO Auto-generated method stub
+				return false;
+			}
+
+			@Override
+			public boolean scrolled(int amount) {
+				// TODO Auto-generated method stub
+				
+				System.out.println("herer");
+				return false;
+			}
+			
+		};
+		Gdx.input.setInputProcessor(inputProcessor);
+		
 		oldW = Gdx.graphics.getWidth();
 		oldH = Gdx.graphics.getHeight();
 
 		camera = new OrthographicCamera();
 		camera.setToOrtho(false, oldW, oldH);
 		camera.update();
-
+		
+		backgroundSprite = new Sprite(region);
+		
+		backgroundSprite.setSize(0.9f,
+	            0.9f * backgroundSprite.getHeight() / backgroundSprite.getWidth() );
+		backgroundSprite.setOrigin(backgroundSprite.getWidth() / 2,
+				backgroundSprite.getHeight() / 2);
+		backgroundSprite.setPosition(-backgroundSprite.getWidth() / 2,
+	            -backgroundSprite.getHeight() / 2);
 		batch = (SpriteBatch) game.getBatch();
 
 		this.game = game;
@@ -229,7 +304,7 @@ public class GameScreen extends AbstractAnimationScreen implements Screen  {
 		// Setup the game board.
 		if (tmx != null) tmx.dispose();
 		if (renderer != null) renderer.dispose();
-		this.tmx = new TmxMapLoader().load("tiles/city_simplified.tmx");
+		this.tmx = new TmxMapLoader().load("tiles/city.tmx");
 		tiles = tmx.getTileSets();
 		TileConverter.setup(tiles, game);
 		renderer = new IsometricStaggeredTiledMapRenderer(tmx);
@@ -256,7 +331,7 @@ public class GameScreen extends AbstractAnimationScreen implements Screen  {
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
 		batch.begin();
-		batch.draw(backgroundImage, 0, 0);
+		backgroundSprite.draw(batch);
 		batch.end();
 
 		camera.update();
@@ -324,6 +399,8 @@ public class GameScreen extends AbstractAnimationScreen implements Screen  {
 
 	@Override
 	public Size getScreenSize() {
+		backgroundSprite.setSize(1.0f,
+	            1.0f  );
 		Size s = new Size();
 		s.Height = oldH;
 		s.Width = oldW;
