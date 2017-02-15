@@ -65,7 +65,7 @@ public class RoboticonMarketActors extends Table {
 
 		//Added by Christian Beddows
 		batch = (SpriteBatch) game.getBatch();
-		backgroundImage = new Texture(Gdx.files.internal("background/iceland.jpg"));
+		backgroundImage = new Texture(Gdx.files.internal("background/factory.png"));
 
 		// Added by Josh Neil so players can make the market produce a roboticon
 		final TextButton produceRoboticonButton = new TextButton("Produce roboticon", game.skin);
