@@ -167,7 +167,7 @@ public class Market {
 				break;
 
 			case FOOD:
-				setFood(amount);;
+				setFood(amount);
 				break;
 				
 			case CUSTOMISATION:
@@ -194,35 +194,28 @@ public class Market {
 
 	/**
 	 * Get the single price for a resource type.
+	 * Buying price dictated via exponential growth in getCurvePoint
+	 * THIS DOES NOT WORK AS OF YET
 	 * @param resource   The {@link ResourceType}.
 	 * @return           The buy in price.
 	 */
 	public int getBuyPrice(ResourceType resource) {
-		return (int)(getSellPrice(resource) * 0.9f);
-	}
-
-	/**
-	 * Get the single price for a resource type.
-	 * @param resource   The {@link ResourceType}.
-	 * @return           The sell price.
-	 */
-	public int getSellPrice(ResourceType resource) {
 		int price;
 		switch (resource) {
 			case ORE:
-				price = 10;
+				price = getCurvePoint(resource, 7, true);
 				return price;
 
 			case ENERGY:
-				price = 20;
+				price = getCurvePoint(resource, 8, true);
 				return price;
 
 			case FOOD:
-				price = 30;
+				price = getCurvePoint(resource, 9 , true);
 				return price;
 
 			case ROBOTICON:
-				price = 40;
+				price = getCurvePoint(resource, 10, true);
 				return price;
 
 			case CUSTOMISATION:
@@ -233,6 +226,56 @@ public class Market {
 				throw new IllegalArgumentException("Error: Resource type is incorrect.");
 		}
 	}
+
+	/**
+	 * Get the single price for a resource type.
+	 * Selling prices will be dictated via exponential decay in getCurvePoint
+	 * @param resource   The {@link ResourceType}.
+	 * @return           The sell price.
+	 */
+	public int getSellPrice(ResourceType resource) {
+		int price;
+		switch (resource) {
+			case ORE:
+				price = getCurvePoint(resource, 7, true);
+				return price;
+
+			case ENERGY:
+				price = getCurvePoint(resource, 8, true);
+				return price;
+
+			case FOOD:
+				price = getCurvePoint(resource, 9, true);
+				return price;
+
+			case ROBOTICON:
+				price = getCurvePoint(resource, 10, true);
+				return price;
+
+			case CUSTOMISATION:
+				price = 10;
+				return price;
+
+			default:
+				throw new IllegalArgumentException("Error: Resource type is incorrect.");
+		}
+	}
+
+	private int getCurvePoint(ResourceType resource, int curveMultiplier, boolean selling){
+		int sellBuyMultiplier;
+		float pointCurve;
+
+		if (selling){
+			sellBuyMultiplier = 1;
+		}
+		else{
+			sellBuyMultiplier = -1;
+		}
+
+		pointCurve = curveMultiplier^(sellBuyMultiplier*((1/20)*getResource(resource)));
+		return Math.round(pointCurve);
+	}
+
 
 	/**
 	 * Buy Resource from the market, caller <i>must</i> be doing all the checks.
