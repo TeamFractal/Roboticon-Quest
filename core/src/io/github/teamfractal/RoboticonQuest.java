@@ -35,6 +35,7 @@ public class RoboticonQuest extends Game {
 	public Skin skin;
 	public MainMenuScreen mainMenuScreen;
 	public GameScreen gameScreen;
+	public ScoreScreen scoreScreen;
 	private int phase;
 	private int currentPlayer;
 	public ArrayList<Player> playerList;
@@ -62,6 +63,7 @@ public class RoboticonQuest extends Game {
 
 		// Setup other screens.
 		mainMenuScreen = new MainMenuScreen(this);
+		scoreScreen = new ScoreScreen(this);
 		
 		auction = new Auction();
 		
@@ -112,21 +114,19 @@ public class RoboticonQuest extends Game {
 	}
 
 	public void nextPhase () {
-		int newPhaseState = phase + 1;
-		phase = newPhaseState;
-		// phase = newPhaseState = 4;
+		phase++;
 
-		switch (newPhaseState) {
+		switch (phase) {
 			// Phase 2: Purchase Roboticon
 			case 2:
 				RoboticonMarketScreen roboticonMarket = new RoboticonMarketScreen(this);
-				roboticonMarket.addAnimation(new AnimationPhaseTimeout(getPlayer(), this, newPhaseState, 30));
+				roboticonMarket.addAnimation(new AnimationPhaseTimeout(getPlayer(), this, phase, 30));
 				setScreen(roboticonMarket);
 				break;
 
 			// Phase 3: Roboticon Customisation
 			case 3:
-				AnimationPhaseTimeout timeoutAnimation = new AnimationPhaseTimeout(getPlayer(), this, newPhaseState, 30);
+				AnimationPhaseTimeout timeoutAnimation = new AnimationPhaseTimeout(getPlayer(), this, phase, 30);
 				gameScreen.addAnimation(timeoutAnimation);
 				timeoutAnimation.setAnimationFinish(new IAnimationFinish() {
 					@Override
@@ -150,15 +150,12 @@ public class RoboticonQuest extends Game {
 
 			// End phase - Clean up and move to next player.
 			case 6:
-				phase = newPhaseState = 1;
 				this.nextPlayer();
-				// No "break;" here!
-				// Let the game to do phase 1 preparation.
+				break;
 
-			// Phase 1: Enable of purchase LandPlot
+			// Phase 1: Enable purchase of a LandPlot
 			case 1:
 				setScreen(gameScreen);
-				landBoughtThisTurn = 0;
 				gameScreen.addAnimation(new AnimationShowPlayer(getPlayerInt() + 1));
 				break;
 		}
@@ -178,17 +175,6 @@ public class RoboticonQuest extends Game {
 		// Generate resources.
 		Player p = getPlayer();
 		p.generateResources();
-	}
-
-	/**
-	 * Event callback on player bought a {@link io.github.teamfractal.entity.LandPlot}
-	 */
-	public void landPurchasedThisTurn() {
-		landBoughtThisTurn ++;
-	}
-
-	public boolean canPurchaseLandThisTurn () {
-		return landBoughtThisTurn < 1;
 	}
 
 	public String getPhaseString () {
@@ -227,17 +213,22 @@ public class RoboticonQuest extends Game {
 	public void nextPlayer(){
 		if (this.currentPlayer == playerList.size() - 1){
 			if(isGameEnded()){
-				endGame();
+				setScreen(scoreScreen);
+				phase=7;
 			}
 			else {
 				//Close auction bids after every player has had the option to bid
 				//or put items up for the next auction phase
 				auction.closeBidding();
-				this.currentPlayer = 0; 
+				this.currentPlayer = 0;
+				phase=0;
+				nextPhase();
 			}
 		}
 		else{
 			this.currentPlayer ++;
+			phase=0;
+			nextPhase();
 		}
 	}
 	
@@ -245,16 +236,17 @@ public class RoboticonQuest extends Game {
 		return plotManager.getNumUnownedTiles() == 0;
 	}
 
-	private void endGame() {
+	public Player getWinningPlayer() {
 		int highestScore = Integer.MIN_VALUE;
-		Player winningPlayer;
+		Player winningPlayer = null;
 		
 		for (Player player : playerList) {
 			if(player.getScore() > highestScore){
 				winningPlayer = player;
 				highestScore = player.getScore();
 			}
-		}		
+		}
+		return winningPlayer;
 	}
 	
 	public PlotManager getPlotManager() {
