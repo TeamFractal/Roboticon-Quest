@@ -61,61 +61,6 @@ public class GameScreen extends AbstractAnimationScreen implements Screen  {
 	 */
 	public GameScreen(final RoboticonQuest game) {
 		
-		inputProcessor = new InputProcessor(){
-
-			@Override
-			public boolean keyDown(int keycode) {
-				// TODO Auto-generated method stub
-				return false;
-			}
-
-			@Override
-			public boolean keyUp(int keycode) {
-				// TODO Auto-generated method stub
-				return false;
-			}
-
-			@Override
-			public boolean keyTyped(char character) {
-				// TODO Auto-generated method stub
-				System.out.println("HERE");
-				return false;
-			}
-
-			@Override
-			public boolean touchDown(int screenX, int screenY, int pointer, int button) {
-				// TODO Auto-generated method stub
-				return false;
-			}
-
-			@Override
-			public boolean touchUp(int screenX, int screenY, int pointer, int button) {
-				// TODO Auto-generated method stub
-				return false;
-			}
-
-			@Override
-			public boolean touchDragged(int screenX, int screenY, int pointer) {
-				// TODO Auto-generated method stub
-				return false;
-			}
-
-			@Override
-			public boolean mouseMoved(int screenX, int screenY) {
-				// TODO Auto-generated method stub
-				return false;
-			}
-
-			@Override
-			public boolean scrolled(int amount) {
-				// TODO Auto-generated method stub
-				
-				System.out.println("herer");
-				return false;
-			}
-			
-		};
-		Gdx.input.setInputProcessor(inputProcessor);
 		
 		oldW = Gdx.graphics.getWidth();
 		oldH = Gdx.graphics.getHeight();
@@ -380,8 +325,6 @@ public class GameScreen extends AbstractAnimationScreen implements Screen  {
 
 	@Override
 	public Size getScreenSize() {
-		backgroundSprite.setSize(1.0f,
-	            1.0f  );
 		Size s = new Size();
 		s.Height = oldH;
 		s.Width = oldW;
