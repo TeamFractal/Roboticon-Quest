@@ -31,6 +31,7 @@ public class Player {
 	public int getOre() { return ore; }
 	public int getEnergy() { return energy; }
 	public int getFood() { return food; }
+	public ArrayList<LandPlot> getLand() { return landList; }
 	
 	public Player(RoboticonQuest game){
 		this.game = game;
