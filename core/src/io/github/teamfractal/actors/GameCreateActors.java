@@ -20,7 +20,6 @@ import java.util.HashMap;
 
 public class GameCreateActors extends Table {
     private RoboticonQuest game;
-    Listener listener = new Listener();
 
     private ArrayList<String> newPlayerNames = new ArrayList<String>();
     public ArrayList<String> getNewPlayerNames(){ return newPlayerNames; }
@@ -33,14 +32,14 @@ public class GameCreateActors extends Table {
         final Label lblNewGame = new Label("Game Creation Menu", this.game.skin);
         final Label playerName = new Label("Player Name", this.game.skin);
 
+        final TextField textField = new TextField("Name", this.game.skin);
+
         final TextButton addPlayerBtn = new TextButton("Add Player", this.game.skin);
         addPlayerBtn.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-                System.out.print(listener.getString());
-                Gdx.input.getTextInput(listener, "Player Name", "Player 1", "The name for the player");
-                System.out.print(listener.getString()+"\n");
-                newPlayerNames.add(listener.getString());
+                newPlayerNames.add(textField.getText());
+                textField.setText("");
                 UpdatePlayerTable();
             }
         });
@@ -58,21 +57,28 @@ public class GameCreateActors extends Table {
         confirmBtn.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
+                game.SetupPlayers(newPlayerNames);
                 game.setScreen(game.gameScreen);
                 game.gameScreen.newGame();
             }
         });
 
-        add(addPlayerBtn);
-        add().width(40);
-        add(removePlayerBtn);
+        Table nameEntryTable = new Table();
+        nameEntryTable.add(new Label("Enter Name Here:", this.game.skin)).padLeft(30);
+        nameEntryTable.add(textField);
+        nameEntryTable.row();
+        nameEntryTable.add(addPlayerBtn);
+        nameEntryTable.add(removePlayerBtn);
+        add(nameEntryTable);
         row();
         add(playerTable);
+        add(confirmBtn);
     }
 
     private void UpdatePlayerTable(){
         playerTable.clearChildren();
         playerTable.add(new Label("List of Players for the Game", this.game.skin));
+        playerTable.row();
 
         for(int i = 0; i < newPlayerNames.size(); i++){
             System.out.print(newPlayerNames.get(i)+"\n");
@@ -80,23 +86,4 @@ public class GameCreateActors extends Table {
             playerTable.row();
         }
     }
-}
-
-class Listener implements Input.TextInputListener{
-    private String readString;
-    public String getString(){return readString;}
-
-    @Override
-    public void input (String text){
-        System.out.print("input called"+"\n");
-        readString = text;
-    }
-
-    @Override
-    public void canceled(){
-        System.out.print("canceled called"+"\n");
-        readString = "Player 1";
-    }
-
-
 }

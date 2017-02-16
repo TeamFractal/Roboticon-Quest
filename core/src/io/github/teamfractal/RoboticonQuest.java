@@ -97,8 +97,8 @@ public class RoboticonQuest extends Game {
 		this.currentPlayer = 0;
 		this.phase = 0;
 
-		Player player1 = new Player(this);
-		Player player2 = new Player(this);
+		Player player1 = new Player(this, "Player1");
+		Player player2 = new Player(this, "Player2");
 		this.playerList = new ArrayList<Player>();
 		this.playerList.add(player1);
 		this.playerList.add(player2);
@@ -241,7 +241,14 @@ public class RoboticonQuest extends Game {
 		}
 		return winningPlayer;
 	}
-	
+
+	public void SetupPlayers(ArrayList<String> playerNames){
+		playerList.clear();
+		for(int i = 0; i < playerNames.size(); i++) {
+			playerList.add(new Player(this, playerNames.get(i)));
+		}
+	}
+
 	public PlotManager getPlotManager() {
 		return plotManager;
 	}
