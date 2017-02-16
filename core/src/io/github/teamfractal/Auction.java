@@ -7,35 +7,62 @@ import io.github.teamfractal.util.AuctionBid;
 import io.github.teamfractal.util.AuctionableItem;
 
 import java.util.ArrayList;
+import java.util.Objects;
+
+import com.badlogic.gdx.utils.Array;
 
 public class Auction {
-	private ArrayList<AuctionableItem> auctionItems = new ArrayList<AuctionableItem>();
+	private ArrayList<AuctionableItem> currentAuctionItems = new ArrayList<AuctionableItem>();
+	private ArrayList<AuctionableItem> nextAuctionItems    = new ArrayList<AuctionableItem>();
 	
 	public void addItemToAuction(AuctionableItem item) {
-		auctionItems.add(item);
+		nextAuctionItems.add(item);
 	}
 	
-	public void removeItemFromAuction(AuctionableItem item){
-		auctionItems.remove(item);
-	}
-	
-	public ArrayList<AuctionableItem> getAuctionObjects() {
-		return auctionItems;
+	public ArrayList<AuctionableItem> getAuctionItems() {
+		return currentAuctionItems;
 	}
 	
 	public String[] getAuctionItemsDisplayStrings() {
-		String[] strings = new String[auctionItems.size()];
+		String[] strings = new String[currentAuctionItems.size()];
 		
-		for (int i = 0; i < auctionItems.size(); i++) {
-			strings[i] = auctionItems.get(i).toString(); 
+		for (int i = 0; i < currentAuctionItems.size(); i++) {
+			strings[i] = currentAuctionItems.get(i).toString(); 
 		}
 		
 		return strings;
 	}
 	
+	public AuctionableItem getAuctionItemAtIndex(int index) {
+		return currentAuctionItems.get(index);
+	}
+	
+	public Object[] getPlayerAuctionableItems(Player player){
+		Array<Roboticon> playerRoboticons = player.getRoboticons();
+		int numItems = 3 + playerRoboticons.size;	//Player can always choose to auction food, energy, ore
+													//Plus an item for each roboticon they own.		
+		Object[] auctionableObjects = new Object[numItems];
+		
+		auctionableObjects[0] = ResourceType.FOOD;
+		auctionableObjects[1] = ResourceType.ENERGY;
+		auctionableObjects[2] = ResourceType.ORE;
+		
+		for (int i = 0; i < playerRoboticons.size; i++) {
+			auctionableObjects[i + 3] = playerRoboticons.get(i);
+		}
+		
+		return auctionableObjects;
+	}
+	
 	public void closeBidding() {
-		for (AuctionableItem item : auctionItems) {
+		for (AuctionableItem item : currentAuctionItems) {
 			AuctionBid currentItemWinningBid = item.getWinningBid();
+			
+			if(currentItemWinningBid == null){
+				item.noBidsPlaced();
+				continue;
+			}
+			
 			Player bidWinner = currentItemWinningBid.getBidOwner();
 			Player itemOwner = item.getItemOwner();
 			
@@ -56,6 +83,7 @@ public class Auction {
 			bidWinner.addMoney(-currentItemWinningBid.getBidAmount());
 		}
 		
-		auctionItems = new ArrayList<AuctionableItem>();
+		currentAuctionItems = nextAuctionItems;
+		nextAuctionItems = new ArrayList<AuctionableItem>();
 	}
 }

@@ -24,7 +24,7 @@ public class AuctionableItem {
 		this.itemOwner = itemOwner;
 	}
 	
-	public void addBid(AuctionBid bid) {
+	public void placeBid(AuctionBid bid) {
 		bids.add(bid);
 	}
 	
@@ -40,6 +40,19 @@ public class AuctionableItem {
 		}
 		
 		return winningBid;
+	}
+	
+	/**
+	 * Call when the item has had no bids placed on it.
+	 * i.e. getWinningBid returns null.
+	 */
+	public void noBidsPlaced() {
+		if(item instanceof Roboticon){
+			
+		}
+		else if(item instanceof ResourceType){
+			itemOwner.addResource((ResourceType)item, quantity);
+		}
 	}
 	
 	public Player getItemOwner() {

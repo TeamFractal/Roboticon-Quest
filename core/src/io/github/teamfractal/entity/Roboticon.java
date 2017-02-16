@@ -7,7 +7,7 @@ public class Roboticon {
 	private ResourceType customisation;
 	private LandPlot installedLandPlot;
 	
-	Roboticon(int ID) {
+	public Roboticon(int ID) {
 		this.ID = ID;
 		customisation = ResourceType.Unknown;
 	}

@@ -160,7 +160,7 @@ public class Player {
 		
 		return score;
 	}
-
+	
 	/**
 	 * Purchase roboticon from the market.
 	 * @param amount
