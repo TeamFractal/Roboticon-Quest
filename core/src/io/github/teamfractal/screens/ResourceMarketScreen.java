@@ -27,7 +27,7 @@ public class ResourceMarketScreen implements Screen {
 		table.setFillParent(true);
 
 		marketActors = new ResourceMarketActors(game, this); // generates actors for the screen
-		auctionActors = new ResourceAuctionActors(game, this);
+		auctionActors = new ResourceAuctionActors(game, this, marketActors);
 		table.add(auctionActors); // positions actors
 		table.add(marketActors);
 

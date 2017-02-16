@@ -23,11 +23,30 @@ public class Auction {
 		return currentAuctionItems;
 	}
 	
-	public String[] getAuctionItemsDisplayStrings() {
-		String[] strings = new String[currentAuctionItems.size()];
+	/**
+	 * Get the items currently available to bid on, complement any items 
+	 * owned by the given player
+	 * @param player
+	 * @return
+	 */
+	public String[] getAuctionItemsDisplayStrings(Player player) {
+		int numStrings = 0;
+		
+		for (AuctionableItem item : currentAuctionItems) {
+			if(item.getItemOwner() != player){
+				numStrings++;
+			}
+		}
+		
+		String[] strings = new String[numStrings];
+		int indexInStrings = 0;
 		
 		for (int i = 0; i < currentAuctionItems.size(); i++) {
-			strings[i] = currentAuctionItems.get(i).toString(); 
+			AuctionableItem item = currentAuctionItems.get(i);
+			if(item.getItemOwner() != player){
+				strings[indexInStrings] = item.toString(); 
+				indexInStrings++;
+			}
 		}
 		
 		return strings;
@@ -39,16 +58,23 @@ public class Auction {
 	
 	public Object[] getPlayerAuctionableItems(Player player){
 		Array<Roboticon> playerRoboticons = player.getRoboticons();
-		int numItems = 3 + playerRoboticons.size;	//Player can always choose to auction food, energy, ore
-													//Plus an item for each roboticon they own.		
+		int numItems = 3 + player.getNumUninstalledRoboticons();	//Player can always choose to auction food, energy, ore
+																	//Plus an item for each (non-installed) roboticon they own.		
 		Object[] auctionableObjects = new Object[numItems];
 		
 		auctionableObjects[0] = ResourceType.FOOD;
 		auctionableObjects[1] = ResourceType.ENERGY;
 		auctionableObjects[2] = ResourceType.ORE;
 		
+		int indexInAuctionableObjects = 3;
+		
 		for (int i = 0; i < playerRoboticons.size; i++) {
-			auctionableObjects[i + 3] = playerRoboticons.get(i);
+			Roboticon roboticon = playerRoboticons.get(i);
+
+			if(!roboticon.isInstalled()){
+				auctionableObjects[indexInAuctionableObjects] = roboticon;
+				indexInAuctionableObjects++;
+			}
 		}
 		
 		return auctionableObjects;
@@ -69,18 +95,16 @@ public class Auction {
 			if(item.getItem() instanceof Roboticon){				
 				Roboticon roboticon = (Roboticon)item.getItem();
 				
-				itemOwner.removeRoboticon(roboticon);
 				bidWinner.addRoboticon(roboticon);
 			}
 			else if(item.getItem() instanceof ResourceType){				
 				ResourceType resource = (ResourceType)item.getItem();
-				
-				itemOwner.addResource(resource, -item.getQuantity());				
+							
 				bidWinner.addResource(resource, item.getQuantity());
 			}
 			
 			itemOwner.addMoney(currentItemWinningBid.getBidAmount());
-			bidWinner.addMoney(-currentItemWinningBid.getBidAmount());
+			item.returnLosingBidMoney();
 		}
 		
 		currentAuctionItems = nextAuctionItems;

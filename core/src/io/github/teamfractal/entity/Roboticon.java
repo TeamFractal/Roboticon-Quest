@@ -23,14 +23,14 @@ public class Roboticon {
 	void setCustomisation(ResourceType type) {
 		this.customisation = type;
 	}
-
+	
 	public synchronized boolean isInstalled() {
 		return installedLandPlot != null;
 	}
 	/**
 	 * 
 	 * @param sets land plot which roboticon is installed to
-	 * @return true if roboticon is installed, false if not
+	 * @return true if roboticon can be installed, false if not
 	 */
 	public synchronized boolean setInstalledLandplot(LandPlot landplot) {
 		if (!isInstalled()) {
@@ -38,7 +38,6 @@ public class Roboticon {
 			return true;
 		}
 
-		System.out.println("Already installed to LandPlot! Cancel.");
 		return false;
 	}
 	

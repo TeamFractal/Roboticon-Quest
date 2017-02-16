@@ -21,11 +21,15 @@ import io.github.teamfractal.Auction;
 import io.github.teamfractal.RoboticonQuest;
 import io.github.teamfractal.entity.Player;
 import io.github.teamfractal.entity.enums.ResourceType;
+import io.github.teamfractal.exception.NotEnoughMoneyException;
+import io.github.teamfractal.exception.NotEnoughResourceException;
 import io.github.teamfractal.screens.ResourceMarketScreen;
 import io.github.teamfractal.util.AuctionBid;
 import io.github.teamfractal.util.AuctionableItem;
 
 public class ResourceAuctionActors extends Table {
+	private ResourceMarketActors resourceMarketActors;
+	
 	private Auction auction;
 	private RoboticonQuest game;
 	private Label auctionTitle;
@@ -40,9 +44,9 @@ public class ResourceAuctionActors extends Table {
 	private TextField auctionItemAmount;
 	private TextButton auctionItemButton;
 
-	public ResourceAuctionActors(final RoboticonQuest game, ResourceMarketScreen screen) {
+	public ResourceAuctionActors(final RoboticonQuest game, ResourceMarketScreen screen, ResourceMarketActors resourceMarketActors) {
 		center();
-
+		this.resourceMarketActors = resourceMarketActors;
 		Skin skin = game.skin;
 		this.game = game;
 		Stage stage = screen.getStage();
@@ -51,16 +55,17 @@ public class ResourceAuctionActors extends Table {
 		// Create UI Components
 		auctionTitle = new Label("Auction: ", skin);
 		bidTitle = new Label("Place a bid: ", skin);
-		putUpItemTitle = new Label("Put an item up for Auction:", skin);
-		placeBid = new TextButton("Place Bid", skin);
 		itemsUpForBiddingSelectBox = new SelectBox<String>(skin);
 		bidAmount = new TextField("0", skin);
 		bidAmountPounds = new Label("£", skin);
+		placeBid = new TextButton("Place Bid", skin);
+		
+		putUpItemTitle = new Label("Put an item up for Auction:", skin);
 		auctionableItemsSelectBox = new SelectBox<String>(skin);
 		auctionItemAmount = new TextField("0", skin);
 		auctionItemButton = new TextButton("Auction Item", skin);
 		
-		itemsUpForBiddingSelectBox.setItems(auction.getAuctionItemsDisplayStrings());
+		itemsUpForBiddingSelectBox.setItems(auction.getAuctionItemsDisplayStrings(game.getPlayer()));
 		auctionableItemsSelectBox.setItems(getCurrentPlayerAuctionableItemStrings());
 
 		// Adjust properties.
@@ -93,7 +98,7 @@ public class ResourceAuctionActors extends Table {
 		add().spaceRight(20);
 		add(auctionItemButton);
 
-		debugAll();
+		//debugAll();
 		pad(20);
 		
 		bindEvents();
@@ -108,21 +113,46 @@ public class ResourceAuctionActors extends Table {
 			public void clicked(InputEvent event, float x, float y) {
 				Object objectToAuction = auction.getPlayerAuctionableItems(
 						game.getPlayer())[auctionableItemsSelectBox.getSelectedIndex()];
-				AuctionableItem itemToAuction = new AuctionableItem(objectToAuction,
-						Integer.parseInt(auctionItemAmount.getText()), game.getPlayer());
-				auction.addItemToAuction(itemToAuction);
+				
+				try {
+					AuctionableItem itemToAuction = new AuctionableItem(objectToAuction,		//Resources checked for <= player resources
+							Integer.parseInt(auctionItemAmount.getText()), game.getPlayer());	// in the AuctionableItem constructor
+					
+					auction.addItemToAuction(itemToAuction);
+					
+					widgetUpdate(true);
+				} catch (NotEnoughResourceException e) {
+					// TODO: handle exception
+				}
 			}
 		});
 		
 		placeBid.addListener(new ClickListener() {
 			@Override
 			public void clicked(InputEvent event, float x, float y) {
-				AuctionBid bid = new AuctionBid(Integer.parseInt(bidAmount.getText()), game.getPlayer());
-				auction.getAuctionItemAtIndex(itemsUpForBiddingSelectBox.getSelectedIndex()).placeBid(bid);
+				try {
+					AuctionBid bid = new AuctionBid(Integer.parseInt(bidAmount.getText()), game.getPlayer());
+					auction.getAuctionItemAtIndex(itemsUpForBiddingSelectBox.getSelectedIndex()).placeBid(bid);
+					
+					widgetUpdate(false);
+					} catch (NotEnoughMoneyException e) {
+					// TODO: handle exception
+				}
 			}
 		});
 	}
 
+	private void widgetUpdate(boolean doDisablePuttingItemsUpForAuction) {
+		if(doDisablePuttingItemsUpForAuction){
+			putUpItemTitle.setText("You have already put up an item for auction this turn.");
+			auctionableItemsSelectBox.setVisible(false);
+			auctionItemAmount.setVisible(false);
+			auctionItemButton.setVisible(false);
+		}
+		
+		resourceMarketActors.widgetUpdate();
+	}
+	
 	private String[] getCurrentPlayerAuctionableItemStrings() {
 		Object[] auctionableObjects = auction.getPlayerAuctionableItems(game.getPlayer());
 		String[] strings = new String[auctionableObjects.length];

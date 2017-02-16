@@ -6,6 +6,7 @@ import io.github.teamfractal.entity.Player;
 import io.github.teamfractal.entity.Roboticon;
 import io.github.teamfractal.entity.enums.ResourceType;
 import io.github.teamfractal.exception.InvalidAuctionableItemException;
+import io.github.teamfractal.exception.NotEnoughResourceException;
 
 public class AuctionableItem {
 	private Object item;
@@ -19,6 +20,19 @@ public class AuctionableItem {
 			throw new InvalidAuctionableItemException();
 		}
 		
+		if(item instanceof ResourceType){
+			ResourceType resourceType = (ResourceType)item;
+			if(!itemOwner.hasEnoughResource(resourceType, quantity)){
+				throw new NotEnoughResourceException();
+			}
+			
+			itemOwner.addResource(resourceType, -quantity);
+		}
+		else if(item instanceof Roboticon){
+			Roboticon roboticon = (Roboticon) item;
+			itemOwner.removeRoboticon(roboticon);
+		}
+				
 		this.item = item;
 		this.quantity = quantity;
 		this.itemOwner = itemOwner;
@@ -43,12 +57,26 @@ public class AuctionableItem {
 	}
 	
 	/**
+	 * Call when the bid has been closed. Returns money to players
+	 * for bids which did not win.
+	 */
+	public void returnLosingBidMoney() {
+		AuctionBid winningBid = getWinningBid();
+		
+		for (AuctionBid bid : bids) {
+			if(bid != winningBid){
+				bid.returnBidMoneyToPlayer();
+			}
+		}
+	}
+	
+	/**
 	 * Call when the item has had no bids placed on it.
 	 * i.e. getWinningBid returns null.
 	 */
 	public void noBidsPlaced() {
 		if(item instanceof Roboticon){
-			
+			itemOwner.addRoboticon((Roboticon)item);
 		}
 		else if(item instanceof ResourceType){
 			itemOwner.addResource((ResourceType)item, quantity);
@@ -69,6 +97,12 @@ public class AuctionableItem {
 	
 	@Override
 	public String toString(){
-		return item.toString();
+		String string = item.toString();
+		
+		if(item instanceof ResourceType){
+			string = quantity + " " + string;
+		}
+		
+		return string;
 	}	
 }
