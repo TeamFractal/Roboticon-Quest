@@ -14,17 +14,12 @@ import io.github.teamfractal.entity.Roboticon;
 import io.github.teamfractal.entity.Player;
 import io.github.teamfractal.entity.enums.ResourceType;
 import io.github.teamfractal.screens.ScoreScreen;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 
 public class ScoreScreenActors extends Table{
     private RoboticonQuest game;
     private ScoreScreen screen;
-
-        private Label topText;
-        private Label playerStats;
-        private Label marketStats;
 
     public ScoreScreenActors(final RoboticonQuest game, ScoreScreen screen) {
         this.game = game;
@@ -49,7 +44,6 @@ public class ScoreScreenActors extends Table{
         });
 
         align(Align.center);
-        //padTop(30);
 
         int span = 4; //This is the largest number of columns on any given row
 

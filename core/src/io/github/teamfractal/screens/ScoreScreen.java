@@ -7,7 +7,6 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
-
 import io.github.teamfractal.RoboticonQuest;
 import io.github.teamfractal.actors.RoboticonMarketActors;
 import io.github.teamfractal.actors.ScoreScreenActors;
@@ -18,8 +17,7 @@ public class ScoreScreen extends AbstractAnimationScreen implements Screen {
     final Stage stage;
     final Table table;
     private ScoreScreenActors actors;
-
-
+    
     public ScoreScreen(final RoboticonQuest game) {
         this.game = game;
         this.stage = new Stage(new ScreenViewport());

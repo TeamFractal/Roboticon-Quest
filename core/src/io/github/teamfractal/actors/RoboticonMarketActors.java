@@ -153,7 +153,6 @@ public class RoboticonMarketActors extends Table {
 		});
 
 		align(Align.center);
-		//padTop(30);
 
 		int span = 4; //This is the largest number of columns on any given row
 
@@ -213,9 +212,6 @@ public class RoboticonMarketActors extends Table {
 		row().height(20);
 		add().colspan(span);
 		row();
-
-		//Row 11
-		//add(nextButton).colspan(span);
 
 		final TextButton nextButton = new TextButton("Next ->", game.skin);
 		nextButton.addListener(new ChangeListener() {
