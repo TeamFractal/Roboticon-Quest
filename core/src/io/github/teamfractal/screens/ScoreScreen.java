@@ -17,7 +17,7 @@ public class ScoreScreen extends AbstractAnimationScreen implements Screen {
     final Stage stage;
     final Table table;
     private ScoreScreenActors actors;
-    
+
     public ScoreScreen(final RoboticonQuest game) {
         this.game = game;
         this.stage = new Stage(new ScreenViewport());
