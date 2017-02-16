@@ -4,6 +4,7 @@ import com.badlogic.gdx.maps.MapLayers;
 import com.badlogic.gdx.maps.tiled.TiledMapTile;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.TiledMapTileSets;
+import com.sun.org.apache.bcel.internal.generic.LAND;
 import io.github.teamfractal.RoboticonQuest;
 import io.github.teamfractal.entity.LandPlot;
 
@@ -49,6 +50,11 @@ public class PlotManager {
 		width = mapLayer.getWidth();
 		height = mapLayer.getHeight();
 		plots = new LandPlot[width][height];
+		for(int x = 0; x < width; x++){
+			for(int y = 0; y < height; y++){
+				plots[x][y] = createLandPlot(x, y);
+			}
+		}
 	}
 
 	/**
@@ -69,10 +75,10 @@ public class PlotManager {
 
 		return p;
 	}
-	
+
 	public int getNumUnownedTiles() {
 		int numUnownedTiles = 0;
-		
+
 		for (LandPlot[] plotColumns : plots) {
 			for(LandPlot plot : plotColumns){
 				if(plot != null)
@@ -83,7 +89,6 @@ public class PlotManager {
 				}
 			}
 		}
-		
 		return numUnownedTiles;
 	}
 	
