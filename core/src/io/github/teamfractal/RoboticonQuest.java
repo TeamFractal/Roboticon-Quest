@@ -74,8 +74,8 @@ public class RoboticonQuest extends Game {
 	 */
 	private void setupSkin() {
 		skin = new Skin(
-			Gdx.files.internal("skin/skin.json"),
-			new TextureAtlas(Gdx.files.internal("skin/skin.atlas"))
+			Gdx.files.internal("skin/neon-ui.json"),
+			new TextureAtlas(Gdx.files.internal("skin/neon-ui.atlas"))
 		);
 	}
 
@@ -141,14 +141,24 @@ public class RoboticonQuest extends Game {
 				generateResources();
 				break;
 
-			// Phase 5: Generate resource for player.
+			//Phase 5: Gambling
 			case 5:
-				setScreen(new ResourceMarketScreen(this));
+				RoboticonMinigameScreen minigame = new RoboticonMinigameScreen(this);
+				minigame.addAnimation(new AnimationPhaseTimeout(getPlayer(), this, newPhaseState, 30));
+				setScreen(minigame);
 				break;
 			
-
-			// End phase - CLean up and move to next player.
+			// Phase 6: Generate resource for player.
 			case 6:
+				setScreen(new ResourceMarketScreen(this));
+				break;
+										
+			case 7:
+				//RANDOM EVENT
+				setScreen(new RoboticonRandomScreen(this));
+				break;
+			// End phase - CLean up and move to next player.
+			case 8:
 				phase = newPhaseState = 1;
 				this.nextPlayer();
 				// No "break;" here!
@@ -206,8 +216,14 @@ public class RoboticonQuest extends Game {
 				return "Resource Generation";
 
 			case 5:
+				return "Gambling";
+			
+			case 6:
 				return "Resource Auction";
-
+			
+			case 7:
+				return "Random Event";
+				
 			default:
 				return "Unknown phase";
 		}
