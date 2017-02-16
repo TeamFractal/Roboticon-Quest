@@ -51,12 +51,6 @@ public class GameScreen extends AbstractAnimationScreen implements Screen  {
 	private TextureRegion region =
 		    new TextureRegion(backgroundImage, 0, 0, 800, 420);
 
-	private SpriteBatch batch;
-	
-	private InputProcessor inputProcessor;
-
-	private Sprite backgroundSprite;
-
 	public LandPlot getSelectedPlot() {
 		return selectedPlot;
 	}
@@ -129,16 +123,6 @@ public class GameScreen extends AbstractAnimationScreen implements Screen  {
 		camera = new OrthographicCamera();
 		camera.setToOrtho(false, oldW, oldH);
 		camera.update();
-		
-		backgroundSprite = new Sprite(region);
-		
-		backgroundSprite.setSize(0.9f,
-	            0.9f * backgroundSprite.getHeight() / backgroundSprite.getWidth() );
-		backgroundSprite.setOrigin(backgroundSprite.getWidth() / 2,
-				backgroundSprite.getHeight() / 2);
-		backgroundSprite.setPosition(-backgroundSprite.getWidth() / 2,
-	            -backgroundSprite.getHeight() / 2);
-		batch = (SpriteBatch) game.getBatch();
 
 		this.game = game;
 
@@ -329,10 +313,7 @@ public class GameScreen extends AbstractAnimationScreen implements Screen  {
 	@Override
 	public void render(float delta) {
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-
-		batch.begin();
-		backgroundSprite.draw(batch);
-		batch.end();
+		actors.drawBackground();
 
 		camera.update();
 

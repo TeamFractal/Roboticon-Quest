@@ -1,8 +1,11 @@
 package io.github.teamfractal.actors;
 
+<<<<<<< HEAD
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+=======
+>>>>>>> 1e8a4d347561d69eaf3f780bcb417b1f4ea2de57
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
@@ -102,6 +105,11 @@ public class ResourceMarketActors extends Table {
 		widgetUpdate();
 	}
 
+<<<<<<< HEAD
+=======
+	private Texture backgroundImage;
+	private SpriteBatch batch;
+>>>>>>> 1e8a4d347561d69eaf3f780bcb417b1f4ea2de57
 
 		
 	private void createResourceSelectBoxes(){
@@ -204,7 +212,7 @@ public class ResourceMarketActors extends Table {
 			players[player] = "Player "+Integer.toString(player+1);
 		}
 		playerToPlayerSellerDropDown.setItems(players);
-		playerToPlayerBuyerDropDown.setItems(players);
+		playerToPlayerBuyerDropDown.setItems(p<<<<<<< joshlayers);
 		marketPlayerDropDown.setItems(players);
 	}
 	
