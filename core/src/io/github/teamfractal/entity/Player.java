@@ -26,6 +26,7 @@ public class Player {
 	ArrayList<LandPlot> landList = new ArrayList<LandPlot>();
 	Array<Roboticon> roboticonList;
 	private RoboticonQuest game;
+	private static final int TILE_COST = 10;
 
 	public int getMoney() { return money; }
 	public int getOre() { return ore; }
@@ -274,7 +275,7 @@ public class Player {
 		}
 
 		landList.add(plot);
-		this.setMoney(this.getMoney() - 10);
+		this.setMoney(this.getMoney() - TILE_COST);
 		plot.setOwner(this);
 		return true;
 	}

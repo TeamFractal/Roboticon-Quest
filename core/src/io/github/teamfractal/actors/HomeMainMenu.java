@@ -17,8 +17,8 @@ public class HomeMainMenu extends Table {
 	private RoboticonQuest game;
 	private TextButton btnNewGame;
 	private TextButton btnExit;
-
-	private static Texture titleTexture = new Texture(Gdx.files.internal("roboticon_images/roboticon_quest_title.png"));
+	private static final String TITLE_IMAGE_PATH = "roboticon_images/roboticon_quest_title.png";
+	private static Texture titleTexture = new Texture(Gdx.files.internal(TITLE_IMAGE_PATH));
 
 	/**
 	 * Initialise the Home Menu.
