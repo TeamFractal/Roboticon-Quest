@@ -157,57 +157,81 @@ public class RoboticonMarketActors extends Table {
 		int span = 4; //This is the largest number of columns on any given row
 
 		//Row 1
-		add(lblBuyRoboticon).colspan(span);
+		Table row1 = new Table();
+		row1.add(lblBuyRoboticon).colspan(span);
+		add(row1);
 
 		row();
 
 		//Row 2
-		add(lblRoboticons);
-		add(subRoboticonButton);
-		add(lblRoboticonAmount);
-		add(addRoboticonButton);
+		Table row2 = new Table();
+		row2.add(lblRoboticons);
+		row2.add(subRoboticonButton).width(50);
+		row2.add(lblRoboticonAmount).width(30);
+		row2.add(addRoboticonButton);
+		add(row2).expand();
 
 		row();
 
 		//Row 3
-		add(buyRoboticonsButton).colspan(span);
+		Table row3 = new Table();
+		row3.add(buyRoboticonsButton).colspan(span);
+		add(row3);
 
 		row();
 
 		//Row 4
-		add(marketStats).colspan(span);
+		Table row4 = new Table();
+		row4.add(marketStats).colspan(span);
+		add(row4);
 
+		//Gap between the sections
 		row().height(20);
 		add().colspan(span);
 		row();
 
 		//Row 5
-		add(lblCurrentRoboticon).colspan(span);
+		Table row5 = new Table();
+		row5.add(lblCurrentRoboticon).colspan(span);
+		add(row5);
 
 		row();
 
 		//Row 6
-		add(roboticonImage).colspan(span);
+		Table row6 = new Table();
+		row6.add(roboticonImage).colspan(span);
+		add(row6);
 
 		row();
 
 		//Row 7
-		add(roboticonID).colspan(span);
+
+		Table row7 = new Table();
+		row7.add(moveLeftRoboticonInventoryBtn).left().width(20);
+		row7.add(roboticonID).colspan(span).center().align(Align.center);
+		row7.add(moveRightRoboticonInventoryBtn).right().width(20);
+		add(row7);
 
 		row();
 
 		//Row 8
-		add(lblPurchaseCustomisation).colspan(span);
+		Table row8 = new Table();
+		row8.add(lblPurchaseCustomisation).colspan(span);
+		add(row8);
 
 		row();
 
 		//Row 9
-		add(customisationDropDown).colspan(span);
+		Table row9 = new Table();
+		row9.add(customisationDropDown).colspan(span);
+		add(row9);
 
 		row();
 
 		//Row 10
-		add(buyCustomisationButton).colspan(span);
+		Table row10 = new Table();
+		row10.add(buyCustomisationButton).colspan(span);
+		add(row10);
 
 		row().height(20);
 		add().colspan(span);
