@@ -49,6 +49,14 @@ public class PlotManager {
 		width = mapLayer.getWidth();
 		height = mapLayer.getHeight();
 		plots = new LandPlot[width][height];
+
+		// This fills the plots array with empty plots so that when we check for unowned plots there is something to
+		// check against.
+		for(int x = 0; x < width; x++){
+			for(int y = 0; y < height; y++){
+				plots[x][y] = createLandPlot(x, y);
+			}
+		}
 	}
 
 	/**
@@ -61,18 +69,12 @@ public class PlotManager {
 		if (x < 0 || x >= width || y < 0 || y >= height)
 			return null;
 
-		// Lazy load
-		LandPlot p = plots[x][y];
-		if (p == null) {
-			p = createLandPlot(x, y);
-		}
-
-		return p;
+		return plots[x][y];
 	}
-	
+
 	public int getNumUnownedTiles() {
 		int numUnownedTiles = 0;
-		
+
 		for (LandPlot[] plotColumns : plots) {
 			for(LandPlot plot : plotColumns){
 				if(plot != null)
@@ -83,7 +85,7 @@ public class PlotManager {
 				}
 			}
 		}
-		
+
 		return numUnownedTiles;
 	}
 	
