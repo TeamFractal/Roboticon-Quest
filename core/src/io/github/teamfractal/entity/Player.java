@@ -19,13 +19,14 @@ import com.badlogic.gdx.utils.Array;
 
 public class Player {
 	//<editor-fold desc="Resource getter and setter">
-	private int money = 100;
+	private int money = 1000000;
 	private int ore = 0;
 	private int energy = 0;
 	private int food = 0;
 	ArrayList<LandPlot> landList = new ArrayList<LandPlot>();
 	Array<Roboticon> roboticonList;
 	private RoboticonQuest game;
+	private static final int TILE_COST = 10;
 
 	public int getMoney() { return money; }
 	public int getOre() { return ore; }
@@ -144,11 +145,12 @@ public class Player {
 			score += plot.produceResource(ResourceType.ENERGY);
 			score += plot.produceResource(ResourceType.ORE);
 			score += plot.produceResource(ResourceType.ENERGY);
-			score += money;
-			score += food;
-			score += energy;
-			score += ore;
 		}
+
+		score += money;
+		score += food;
+		score += energy;
+		score += ore;
 		
 		return score;
 	}
@@ -273,9 +275,8 @@ public class Player {
 		}
 
 		landList.add(plot);
-		this.setMoney(this.getMoney() - 10);
+		this.setMoney(this.getMoney() - TILE_COST);
 		plot.setOwner(this);
-		game.landPurchasedThisTurn();
 		return true;
 	}
 	/**

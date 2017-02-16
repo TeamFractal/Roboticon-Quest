@@ -5,6 +5,7 @@ import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
+import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 
 import io.github.teamfractal.RoboticonQuest;
@@ -21,12 +22,11 @@ public class RoboticonMarketScreen extends AbstractAnimationScreen implements Sc
 	public RoboticonMarketScreen(final RoboticonQuest game) {
 		this.game = game;
 		this.stage = new Stage(new ScreenViewport());
+		this.actors = new RoboticonMarketActors(game, this);
 		this.table = new Table();
 		table.setFillParent(true);
-		
-		actors = new RoboticonMarketActors(game, this);
 		table.top().left().add(actors);
-		
+		table.align(Align.center);
 		stage.addActor(table);
 	}
 	
