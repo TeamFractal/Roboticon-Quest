@@ -14,6 +14,7 @@ import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import io.github.teamfractal.RoboticonQuest;
 import io.github.teamfractal.actors.AdjustableActor;
 import io.github.teamfractal.actors.HomeMainMenu;
+import io.github.teamfractal.util.GameMusic;
 
 public class MainMenuScreen implements Screen {
 	final RoboticonQuest game;
