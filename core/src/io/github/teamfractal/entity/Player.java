@@ -291,6 +291,9 @@ public class Player {
 		game.landPurchasedThisTurn();
 		return true;
 	}
+	
+	// Marked as deprecated by Josh Neil as it is no longer in use (generate resources is used instead)
+	@Deprecated
 	/**
 	 * Get a landplot to produce resources
 	 */
@@ -332,10 +335,11 @@ public class Player {
 	 */
 	public void removeLandPlot(LandPlot landPlot) {
 		if (landPlot != null && landList.contains(landPlot) && landPlot.getOwner() == this) {
-			landList.add(landPlot);
+			landList.remove(landPlot);
 		}
 	}
 
+	// No longer used but left here in case it is needed for future modifications/extensions!
 	/**
 	 * Get a string list of roboticons available for the player.
 	 * Mainly for the dropdown selection.
