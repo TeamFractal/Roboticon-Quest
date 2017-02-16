@@ -49,6 +49,9 @@ public class PlotManager {
 		width = mapLayer.getWidth();
 		height = mapLayer.getHeight();
 		plots = new LandPlot[width][height];
+
+		// This fills the plots array with empty plots so that when we check for unowned plots there is something to
+		// check against.
 		for(int x = 0; x < width; x++){
 			for(int y = 0; y < height; y++){
 				plots[x][y] = createLandPlot(x, y);
@@ -88,6 +91,7 @@ public class PlotManager {
 				}
 			}
 		}
+
 		return numUnownedTiles;
 	}
 	
