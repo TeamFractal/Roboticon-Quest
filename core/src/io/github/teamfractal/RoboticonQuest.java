@@ -33,6 +33,7 @@ public class RoboticonQuest extends Game {
 	public MainMenuScreen mainMenuScreen;
 	public GameScreen gameScreen;
 	public ScoreScreen scoreScreen;
+	public GameCreateScreen gameCreateScreen;
 	private int phase;
 	private int currentPlayer;
 	public ArrayList<Player> playerList;
@@ -54,6 +55,7 @@ public class RoboticonQuest extends Game {
 		batch = new SpriteBatch();
 		setupSkin();	
 		gameScreen = new GameScreen(this);
+		gameCreateScreen = new GameCreateScreen(this);
 
 		// Setup other screens.
 		mainMenuScreen = new MainMenuScreen(this);
