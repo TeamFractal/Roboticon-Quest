@@ -146,8 +146,6 @@ public class RoboticonQuest extends Game {
 			case 6:
 				this.nextPlayer();
 				break;
-				// No "break;" here!
-				// Let the game to do phase 1 preparation.
 
 			// Phase 1: Enable purchase of a LandPlot
 			case 1:
