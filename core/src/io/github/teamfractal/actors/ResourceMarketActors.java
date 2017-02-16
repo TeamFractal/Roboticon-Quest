@@ -1,6 +1,5 @@
 package io.github.teamfractal.actors;
 
-
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
@@ -61,6 +60,10 @@ public class ResourceMarketActors extends Table {
 		this.game = game;
 		this.screen = screen;
 		this.stage = screen.getStage();
+    
+    //Added by Christian Beddows
+		batch = (SpriteBatch) game.getBatch();
+		backgroundImage = new Texture(Gdx.files.internal("background/facility.png"));
 		
 		// Modified by Josh Neil
 		createPlayerSelectDropDowns();
@@ -91,6 +94,10 @@ public class ResourceMarketActors extends Table {
 		bindEvents();
 		widgetUpdate();
 	}
+
+	private Texture backgroundImage;
+	private SpriteBatch batch;
+
 		
 	private void createResourceSelectBoxes(){
 		playerToPlayerResourceDropDown = new SelectBox<String>(game.skin);
@@ -192,7 +199,7 @@ public class ResourceMarketActors extends Table {
 			players[player] = "Player "+Integer.toString(player+1);
 		}
 		playerToPlayerSellerDropDown.setItems(players);
-		playerToPlayerBuyerDropDown.setItems(players);
+		playerToPlayerBuyerDropDown.setItems(p<<<<<<< joshlayers);
 		marketPlayerDropDown.setItems(players);
 	}
 	
@@ -312,7 +319,6 @@ public class ResourceMarketActors extends Table {
 		return marketCostsTable;
 	}
 	
-	
 	private void addAllWidgetsToScreen(){
 		addPlayerStatsLabels(); // Added by Josh
 		row();
@@ -323,6 +329,16 @@ public class ResourceMarketActors extends Table {
 		add(playerToPlayerTransactionWidget).left().padBottom(30);
 		row();
 		add(marketTransactionWidget).left();
+	}
+
+	/**
+	 * Method to draw the background to the resource market
+	 * by Christian Beddows
+	 */
+	public void drawBackground() {
+		batch.begin();
+		batch.draw(backgroundImage, 0, 0);
+		batch.end();
 	}
 	
 	private void updateMaxMarketQuantity(){
