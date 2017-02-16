@@ -6,6 +6,7 @@ import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.TiledMapTileSets;
 import io.github.teamfractal.RoboticonQuest;
 import io.github.teamfractal.entity.LandPlot;
+import io.github.teamfractal.entity.Player;
 
 public class PlotManager {
 	private LandPlot[][] plots;
@@ -51,6 +52,25 @@ public class PlotManager {
 		plots = new LandPlot[width][height];
 	}
 
+	/// Added by Josh Neil so that we can check whether all plots have been acquired
+	/// (and can end the game if they have been)
+	/**
+	 * Returns true if all plots are owned by a player, otherwise returns false
+	 * @return True if all plots are owned by a player, otherwise returns false
+	 */ 
+	public boolean allOwned(){
+		for(int row=0;row<plots.length;row++){
+			for(int column=0;column<plots[0].length;column++){
+				
+				// If the plot has not been created or not been acquired
+				if(plots[row][column]== null || !plots[row][column].hasOwner()){
+					return false; // At least one plot is unowned
+				}
+			}
+		}
+		return true; // It must be the case that all plots are owned
+	}
+	
 	/**
 	 * Get {@link LandPlot} at specific position.
 	 * @param x   The x index.
