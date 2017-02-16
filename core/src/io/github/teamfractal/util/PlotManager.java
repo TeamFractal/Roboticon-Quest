@@ -69,13 +69,7 @@ public class PlotManager {
 		if (x < 0 || x >= width || y < 0 || y >= height)
 			return null;
 
-		// Lazy load
-		LandPlot p = plots[x][y];
-		if (p == null) {
-			p = createLandPlot(x, y);
-		}
-
-		return p;
+		return plots[x][y];
 	}
 
 	public int getNumUnownedTiles() {
