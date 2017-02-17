@@ -337,6 +337,8 @@ public class GameScreenActors {
 	public void hideInstallRoboticon() {
 		installRoboticonTable.setVisible(false);
 	}
+	public void hideNextButton(){ nextButton.setVisible(false); }
+	public void showNextButton(){ nextButton.setVisible(true); }
 
 	/**
 	 * Check if install roboticon dialog is visible.

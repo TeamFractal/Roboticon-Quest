@@ -322,6 +322,9 @@ public class GameScreen extends AbstractAnimationScreen implements Screen  {
 	public TiledMap getTmx(){
 		return this.tmx;
 	}
+
+	public void hideNextButton(){ this.actors.hideNextButton(); }
+	public void showNextButton(){ this.actors.showNextButton(); }
 	
 	public GameScreenActors getActors(){
 		return this.actors;
