@@ -1,28 +1,15 @@
 package io.github.teamfractal.actors;
 
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input;
-import com.badlogic.gdx.ai.btree.utils.DistributionAdapters;
-import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
-import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
-import com.badlogic.gdx.utils.Align;
 import io.github.teamfractal.RoboticonQuest;
-import io.github.teamfractal.entity.Roboticon;
-import io.github.teamfractal.entity.enums.ResourceType;
-import io.github.teamfractal.screens.RoboticonMarketScreen;
-
 import java.util.ArrayList;
-import java.util.HashMap;
 
 public class GameCreateActors extends Table {
     private RoboticonQuest game;
 
     private ArrayList<String> newPlayerNames = new ArrayList<String>();
-    public ArrayList<String> getNewPlayerNames(){ return newPlayerNames; }
 
     private Table playerTable = new Table();
 
@@ -30,7 +17,6 @@ public class GameCreateActors extends Table {
         this.game = game;
 
         final Label lblNewGame = new Label("Game Creation Menu", this.game.skin);
-        final Label playerName = new Label("Player Name", this.game.skin);
 
         final TextField textField = new TextField("Name", this.game.skin);
 
@@ -65,6 +51,11 @@ public class GameCreateActors extends Table {
             }
         });
 
+        add(lblNewGame);
+        row();
+        add().height(30);
+        row();
+
         Table nameEntryTable = new Table();
         nameEntryTable.add(new Label("Enter Name Here:", this.game.skin)).padRight(30);
         nameEntryTable.add(textField);
@@ -73,6 +64,7 @@ public class GameCreateActors extends Table {
         nameEntryTable.add(removePlayerBtn);
         add(nameEntryTable);
         row();
+
         add(playerTable);
         add(confirmBtn);
     }

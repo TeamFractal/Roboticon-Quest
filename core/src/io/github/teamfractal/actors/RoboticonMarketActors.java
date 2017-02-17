@@ -298,7 +298,7 @@ public class RoboticonMarketActors extends Table {
 
 		// Draws turn and phase info on screen
 		if (this.topText != null) this.topText.remove();
-		String phaseText = "Player " + (game.getPlayerInt() + 1) + "; Phase " + game.getPhase();
+		String phaseText = game.getPlayer().getName() + "; Phase " + game.getPhase();
 		this.topText = new Label(phaseText, game.skin);
 		topText.setWidth(120);
 		topText.setPosition(screen.getStage().getWidth() / 2 - 40, screen.getStage().getViewport().getWorldHeight() - 20);
