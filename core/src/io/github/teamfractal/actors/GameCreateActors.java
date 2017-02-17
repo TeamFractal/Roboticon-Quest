@@ -64,7 +64,7 @@ public class GameCreateActors extends Table {
         });
 
         Table nameEntryTable = new Table();
-        nameEntryTable.add(new Label("Enter Name Here:", this.game.skin)).padLeft(30);
+        nameEntryTable.add(new Label("Enter Name Here:", this.game.skin)).padRight(30);
         nameEntryTable.add(textField);
         nameEntryTable.row();
         nameEntryTable.add(addPlayerBtn);

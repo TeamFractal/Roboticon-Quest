@@ -277,7 +277,7 @@ public class GameScreenActors {
 	 * Updates the UI display.
 	 */
 	public void textUpdate() {
-		String phaseText = "Player " + (game.getPlayerInt() + 1) + "; Phase " + game.getPhase() + " - " + game.getPhaseString();
+		String phaseText = game.getPlayer().getName() + "; Phase " + game.getPhase() + " - " + game.getPhaseString();
 		phaseInfo.setText(phaseText);
 
 		String statText = "Ore: " + game.getPlayer().getOre()
@@ -319,10 +319,6 @@ public class GameScreenActors {
 		plotStats.setVisible(true);
 	}
 
-	public void showWinner(Player player) {
-		winningPlayer.setText("Winner: " + player.toString());
-		winningPlayer.setVisible(true);
-	}
 	public void updateRoboticonSelection() {
 		// TODO: Implement this method
 	}
