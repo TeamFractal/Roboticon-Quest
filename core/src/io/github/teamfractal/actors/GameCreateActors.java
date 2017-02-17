@@ -57,9 +57,11 @@ public class GameCreateActors extends Table {
         confirmBtn.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-                game.SetupPlayers(newPlayerNames);
-                game.setScreen(game.gameScreen);
-                game.gameScreen.newGame();
+                if(!newPlayerNames.isEmpty()) {
+                    game.SetupPlayers(newPlayerNames);
+                    game.setScreen(game.gameScreen);
+                    game.gameScreen.newGame();
+                }
             }
         });
 
