@@ -2,15 +2,19 @@ package io.github.teamfractal.actors;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import io.github.teamfractal.RoboticonQuest;
+import io.github.teamfractal.entity.Market;
 import io.github.teamfractal.entity.Roboticon;
 import io.github.teamfractal.entity.enums.ResourceType;
 import io.github.teamfractal.screens.RoboticonMarketScreen;
+import io.github.teamfractal.util.MessagePopUp;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -30,7 +34,12 @@ public class RoboticonMarketActors extends Table {
 	private static final Texture no_cust_texture;
 	private static final Texture energy_texture;
 	private static final Texture ore_texture;
+	//added by andrew
+	private static final Texture food_texture;
 	private static final Texture no_robotic_texture;
+
+	private Texture backgroundImage;
+	private SpriteBatch batch;
 
 	private ArrayList<Roboticon> roboticons = new ArrayList<Roboticon>();
 
@@ -39,16 +48,39 @@ public class RoboticonMarketActors extends Table {
 		energy_texture = new Texture(Gdx.files.internal("roboticon_images/robot_energy.png"));
 		ore_texture = new Texture(Gdx.files.internal("roboticon_images/robot_ore.png"));
 		no_robotic_texture = new Texture(Gdx.files.internal("roboticon_images/no_roboticons.png"));
+		//added by andrew
+		food_texture = new Texture(Gdx.files.internal("roboticon_images/robot_food.png"));
 	}
 
-	public RoboticonMarketActors(final RoboticonQuest game, RoboticonMarketScreen screen) {
+	// Josh Neil modified constructor to accept market object
+	public RoboticonMarketActors(final RoboticonQuest game, RoboticonMarketScreen screen, final Market market) {
 		this.game = game;
 		this.screen = screen;
+		final Stage stage = screen.getStage(); // Added by Josh Neil
 
 		this.roboticonID = new Label("", game.skin);
 		this.marketStats = new Label("", game.skin);
 
 		widgetUpdate();
+
+		//Added by Christian Beddows
+		batch = (SpriteBatch) game.getBatch();
+		backgroundImage = new Texture(Gdx.files.internal("background/factory.png"));
+
+		// Added by Josh Neil so players can make the market produce a roboticon
+		final TextButton produceRoboticonButton = new TextButton("Produce roboticon", game.skin);
+		produceRoboticonButton.addListener(new ChangeListener() {
+			@Override
+			public void changed(ChangeEvent event, Actor actor) {
+				
+				if(!market.attemptToProduceRoboticon()){
+					stage.addActor(new MessagePopUp("Not enough ore!","The market does not have enough ore to produce a roboticon!"));
+				}
+				else{
+					widgetUpdate(); // Display the new roboticon quantity on screen
+				}
+			}
+		});
 
 		// Buy Roboticon Text: Top Left
 		final Label lblBuyRoboticon = new Label("Purchase Roboticons:", game.skin);
@@ -85,10 +117,17 @@ public class RoboticonMarketActors extends Table {
 		buyRoboticonsButton.addListener(new ChangeListener() {
 			@Override
 			public void changed(ChangeEvent event, Actor actor) {
-				game.getPlayer().purchaseRoboticonsFromMarket(roboticonAmount, game.market);
-				roboticonAmount = 0;
-				lblRoboticonAmount.setText(roboticonAmount.toString());
-				widgetUpdate();
+				
+				//added a popup if player doesnt have enough money to buy roboticons - ben
+				if (game.getPlayer().getMoney() < (roboticonAmount*game.market.getSellPrice(ResourceType.ROBOTICON))){
+					stage.addActor(new MessagePopUp("Not enough money!","You dont have enough Money to buy these roboticons."));
+				}
+				else{
+					game.getPlayer().purchaseRoboticonsFromMarket(roboticonAmount, game.market);
+					roboticonAmount = 0;
+					lblRoboticonAmount.setText(roboticonAmount.toString());
+					widgetUpdate();
+				}
 			}
 		});
 		
@@ -130,7 +169,8 @@ public class RoboticonMarketActors extends Table {
 
 		// Drop down menu to select how to customise the selected roboticion
 		final SelectBox<String> customisationDropDown = new SelectBox<String>(game.skin);
-		String[] customisations = {"Energy", "Ore"};
+		//modified by andrew
+		String[] customisations = {"Energy", "Ore", "Food"};
 		customisationDropDown.setItems(customisations);
 
 		// Button to buy the selected customisation and customise the selected roboticon
@@ -145,9 +185,17 @@ public class RoboticonMarketActors extends Table {
 				HashMap<String, ResourceType> converter = new HashMap<String, ResourceType>();
 				converter.put("Energy", ResourceType.ENERGY);
 				converter.put("Ore", ResourceType.ORE);
+				//added by andrew
+				converter.put("Food", ResourceType.FOOD);
 				Roboticon roboticonToCustomise = roboticons.get(currentlySelectedRoboticonPos);
 
 				game.getPlayer().purchaseCustomisationFromMarket(converter.get(customisationDropDown.getSelected()), roboticonToCustomise, game.market);
+				//added a popup if player doesnt have enough money to customise roboticons - ben
+
+				if (game.getPlayer().getMoney() < market.getSellPrice(ResourceType.CUSTOMISATION)){
+					stage.addActor(new MessagePopUp("Not enough money!","You dont have enough Money to customise theese roboticons."));
+
+				}
 				widgetUpdate();
 			}
 		});
@@ -232,16 +280,29 @@ public class RoboticonMarketActors extends Table {
 		add();
 		add(buyCustomisationButton).padLeft(-235);
 
+		
+		// Added by Josh Neil so that players can make the market produce a roboticon
 		row();
-
+		add(produceRoboticonButton).padTop(40);
+		
 		add();
 		add();
 		add();
-		add();
-
 		add();
 		add(nextButton).padTop(40);
+		
+	
 
+	}
+
+	/**
+	 * Method to draw the background to the resource market
+	 * by Christian Beddows
+	 */
+	public void drawBackground() {
+		batch.begin();
+		batch.draw(backgroundImage, 0, 0);
+		batch.end();
 	}
 
 	public String padZero(int number, int length) {
@@ -263,6 +324,10 @@ public class RoboticonMarketActors extends Table {
 					break;
 				case ENERGY:
 					roboticonTexture = energy_texture;
+					break;
+				//added by andrew
+				case FOOD:
+					roboticonTexture = food_texture;
 					break;
 				case ORE:
 					roboticonTexture = ore_texture;

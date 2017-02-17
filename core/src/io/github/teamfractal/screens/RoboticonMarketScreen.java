@@ -9,6 +9,7 @@ import com.badlogic.gdx.utils.viewport.ScreenViewport;
 
 import io.github.teamfractal.RoboticonQuest;
 import io.github.teamfractal.actors.RoboticonMarketActors;
+import io.github.teamfractal.entity.Market;
 
 public class RoboticonMarketScreen extends AbstractAnimationScreen implements Screen {
 
@@ -17,14 +18,15 @@ public class RoboticonMarketScreen extends AbstractAnimationScreen implements Sc
 	final Table table;
 	private RoboticonMarketActors actors;
 	
-	
-	public RoboticonMarketScreen(final RoboticonQuest game) {
+	/// Modified by Josh Neil so that it takes the market so that it can pass it to the RoboticonMarketActors constructor
+	public RoboticonMarketScreen(final RoboticonQuest game,Market market) {
 		this.game = game;
 		this.stage = new Stage(new ScreenViewport());
 		this.table = new Table();
 		table.setFillParent(true);
 		
-		actors = new RoboticonMarketActors(game, this);
+		actors = new RoboticonMarketActors(game, this, market);
+
 		table.top().left().add(actors);
 		
 		stage.addActor(table);
@@ -38,7 +40,9 @@ public class RoboticonMarketScreen extends AbstractAnimationScreen implements Sc
 	@Override
 	public void render(float delta) {
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-	
+
+		actors.drawBackground();
+
 		stage.act(delta);
 		stage.draw();
 

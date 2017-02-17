@@ -33,7 +33,7 @@ allprojects {
 
 project(":desktop") {
     apply plugin: "java"
-
+   
 
     dependencies {
         compile project(":core")
@@ -66,10 +66,11 @@ project(":core") {
 
 project(":test") {
     apply plugin: "java"
-
+    sourceCompatibility = 1.8
 
     dependencies {
         compile project(":core")
+	testCompile group: 'org.jmockit', name: 'jmockit', version: '1.8'
         compile "com.badlogicgames.gdx:gdx:$gdxVersion"
         compile "com.badlogicgames.gdx:gdx-box2d:$gdxVersion"
         compile "com.badlogicgames.box2dlights:box2dlights:$box2DLightsVersion"
@@ -81,10 +82,11 @@ project(":test") {
         compile "com.badlogicgames.gdx:gdx-backend-lwjgl:$gdxVersion"
         compile "com.badlogicgames.gdx:gdx-platform:$gdxVersion:natives-desktop"
         compile "org.mockito:mockito-core:1.+"
-        testCompile 'junit:junit:4.12'
+	
     }
 }
 
 tasks.eclipse.doLast {
     delete ".project"
+	configurations.runtime.each { println it }
 }

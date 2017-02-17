@@ -1,6 +1,7 @@
 package io.github.teamfractal;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
@@ -9,12 +10,20 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
+
+import io.github.teamfractal.animation.AnimationAddResources;
 import io.github.teamfractal.animation.AnimationPhaseTimeout;
 import io.github.teamfractal.animation.AnimationShowPlayer;
+import io.github.teamfractal.animation.IAnimation;
 import io.github.teamfractal.animation.IAnimationFinish;
 import io.github.teamfractal.screens.*;
 import io.github.teamfractal.entity.Market;
 import io.github.teamfractal.entity.Player;
+<<<<<<< HEAD
+import io.github.teamfractal.entity.enums.ResourceType;
+=======
+import io.github.teamfractal.util.GameMusic;
+>>>>>>> 58ef3817cd449ac532c9891708c43d2dde861689
 import io.github.teamfractal.util.PlotManager;
 
 /**
@@ -38,6 +47,7 @@ public class RoboticonQuest extends Game {
 	public ArrayList<Player> playerList;
 	public Market market;
 	private int landBoughtThisTurn;
+	private GameMusic gameMusic;
 
 	public int getPlayerIndex (Player player) {
 		return playerList.indexOf(player);
@@ -60,15 +70,24 @@ public class RoboticonQuest extends Game {
 
 		// Setup other screens.
 		mainMenuScreen = new MainMenuScreen(this);
-		
 
 		setScreen(mainMenuScreen);
+
+		startMusic();
 	}
 
 	public Batch getBatch() {
 		return batch;
 	}
 
+	/**
+	 * Initialises and starts the music playing
+	 * @author cb1423
+	 */
+	private void startMusic(){
+		gameMusic = new GameMusic();
+		gameMusic.play();
+	}
 	/**
 	 * Setup the default skin for GUI components.
 	 */
@@ -117,7 +136,9 @@ public class RoboticonQuest extends Game {
 		switch (newPhaseState) {
 			// Phase 2: Purchase Roboticon
 			case 2:
-				RoboticonMarketScreen roboticonMarket = new RoboticonMarketScreen(this);
+				
+				// Modified by Josh Neil - now passes market to roboticonMarket via constructor
+				RoboticonMarketScreen roboticonMarket = new RoboticonMarketScreen(this,market);
 				roboticonMarket.addAnimation(new AnimationPhaseTimeout(getPlayer(), this, newPhaseState, 30));
 				setScreen(roboticonMarket);
 				break;
@@ -132,7 +153,6 @@ public class RoboticonQuest extends Game {
 						gameScreen.getActors().hideInstallRoboticon();
 					}
 				});
-				gameScreen.getActors().updateRoboticonSelection();
 				setScreen(gameScreen);
 				break;
 
@@ -141,25 +161,42 @@ public class RoboticonQuest extends Game {
 				generateResources();
 				break;
 
-			// Phase 5: Generate resource for player.
+			// Modified by Josh Neil
 			case 5:
-				setScreen(new ResourceMarketScreen(this));
-				break;
+				// If the current player is not the last player
+				// then we want the next player to have their turn.
+				// However if the current player is the last player then
+				// we want to go to the shared market phase (case 7)
+				
+				if(currentPlayer < playerList.size()-1){ 
+					nextPlayer();
+				}
+				else{
+					nextPlayer();
+					setScreen(new ResourceMarketScreen(this));
+					break;
+				}
+				
 			
-
-			// End phase - CLean up and move to next player.
+			// Added by Josh Neil - ensures that we go back to phase 1
 			case 6:
-				phase = newPhaseState = 1;
-				this.nextPlayer();
-				// No "break;" here!
-				// Let the game to do phase 1 preparation.
-
+				phase = newPhaseState =1;
+				// Deliberately falls through to the next case
+			
+			// Modified by Josh Neil so that we go to the game over screen once all plots have been acquired
 			// Phase 1: Enable of purchase LandPlot
 			case 1:
-				setScreen(gameScreen);
-				landBoughtThisTurn = 0;
-				gameScreen.addAnimation(new AnimationShowPlayer(getPlayerInt() + 1));
+				if(plotManager.allOwned()){ 
+					setScreen(new GameOverScreen(this));
+				}
+				else{
+					setScreen(gameScreen);
+					landBoughtThisTurn = 0;
+					gameScreen.addAnimation(new AnimationShowPlayer(getPlayerInt() + 1));
+				}
 				break;
+			
+			
 		}
 
 		if (gameScreen != null)
@@ -175,7 +212,22 @@ public class RoboticonQuest extends Game {
 
 		// Generate resources.
 		Player p = getPlayer();
-		p.generateResources();
+		
+		// Modified by Josh Neil - now accepts the values returned by Player.generateResources()
+		// and produces an animation that displays this information on screen (see Player.generateResources
+		// for a more in depth explanation)
+		HashMap<ResourceType,Integer> generatedResources = p.generateResources();
+		int energy = generatedResources.get(ResourceType.ENERGY);
+		int food = generatedResources.get(ResourceType.FOOD);
+		int ore = generatedResources.get(ResourceType.ORE);
+		IAnimation animation = new AnimationAddResources(p, energy, food, ore);
+		animation.setAnimationFinish(new IAnimationFinish() {
+			@Override
+			public void OnAnimationFinish() {
+					nextPhase();
+			}
+		});
+		gameScreen.addAnimation(animation);
 	}
 
 	/**
