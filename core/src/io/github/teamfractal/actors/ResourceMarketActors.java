@@ -195,7 +195,7 @@ public class ResourceMarketActors extends Table {
 	public void widgetUpdate() {
 		// update player stats, phase text, and the market stats.
 		String phaseText =
-				"Player " + (game.getPlayerInt() + 1) + "; " +
+				game.getPlayer().getName() + "; " +
 				"Phase " + game.getPhase() + " - " + game.getPhaseString();
 
 		String statText =

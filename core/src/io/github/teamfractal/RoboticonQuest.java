@@ -33,6 +33,7 @@ public class RoboticonQuest extends Game {
 	public MainMenuScreen mainMenuScreen;
 	public GameScreen gameScreen;
 	public ScoreScreen scoreScreen;
+	public GameCreateScreen gameCreateScreen;
 	private int phase;
 	private int currentPlayer;
 	public ArrayList<Player> playerList;
@@ -51,9 +52,14 @@ public class RoboticonQuest extends Game {
 	
 	@Override
 	public void create () {
+		this.playerList = new ArrayList<Player>();
+		playerList.add(new Player(this, "DefaultPlayer1"));
+		playerList.add(new Player(this, "DefaultPlayer2"));
+
 		batch = new SpriteBatch();
 		setupSkin();	
 		gameScreen = new GameScreen(this);
+		gameCreateScreen = new GameCreateScreen(this);
 
 		// Setup other screens.
 		mainMenuScreen = new MainMenuScreen(this);
@@ -94,12 +100,6 @@ public class RoboticonQuest extends Game {
 	public void reset() {
 		this.currentPlayer = 0;
 		this.phase = 0;
-
-		Player player1 = new Player(this);
-		Player player2 = new Player(this);
-		this.playerList = new ArrayList<Player>();
-		this.playerList.add(player1);
-		this.playerList.add(player2);
 		this.currentPlayer = 0;
 		this.market = new Market();
 		plotManager = new PlotManager();
@@ -148,7 +148,7 @@ public class RoboticonQuest extends Game {
 			// Phase 1: Enable purchase of a LandPlot
 			case 1:
 				setScreen(gameScreen);
-				gameScreen.addAnimation(new AnimationShowPlayer(getPlayerInt() + 1));
+				gameScreen.addAnimation(new AnimationShowPlayer(getPlayer().getName()));
 				break;
 		}
 
@@ -237,7 +237,14 @@ public class RoboticonQuest extends Game {
 		}
 		return winningPlayer;
 	}
-	
+
+	public void SetupPlayers(ArrayList<String> playerNames){
+		playerList.clear();
+		for(int i = 0; i < playerNames.size(); i++) {
+			playerList.add(new Player(this, playerNames.get(i)));
+		}
+	}
+
 	public PlotManager getPlotManager() {
 		return plotManager;
 	}
