@@ -56,8 +56,7 @@ public class HomeMainMenu extends Table {
 		btnNewGame.addListener(new ClickListener() {
 			@Override
 			public void clicked (InputEvent event, float x, float y) {
-				game.setScreen(game.gameScreen);
-				game.gameScreen.newGame();
+				game.setScreen(game.gameCreateScreen);
 			}
 		});
 

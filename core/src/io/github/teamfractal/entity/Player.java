@@ -23,6 +23,7 @@ public class Player {
 	private int ore = 0;
 	private int energy = 0;
 	private int food = 0;
+	private String name;
 	ArrayList<LandPlot> landList = new ArrayList<LandPlot>();
 	Array<Roboticon> roboticonList;
 	private RoboticonQuest game;
@@ -32,9 +33,11 @@ public class Player {
 	public int getOre() { return ore; }
 	public int getEnergy() { return energy; }
 	public int getFood() { return food; }
-	
-	public Player(RoboticonQuest game){
+	public String getName() { return name; }
+
+	public Player(RoboticonQuest game, String name){
 		this.game = game;
+		this.name = name;
 		this.roboticonList = new Array<Roboticon>();
 	}
 	
