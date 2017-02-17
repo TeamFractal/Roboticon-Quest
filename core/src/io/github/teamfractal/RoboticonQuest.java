@@ -19,7 +19,11 @@ import io.github.teamfractal.animation.IAnimationFinish;
 import io.github.teamfractal.screens.*;
 import io.github.teamfractal.entity.Market;
 import io.github.teamfractal.entity.Player;
+<<<<<<< HEAD
 import io.github.teamfractal.entity.enums.ResourceType;
+=======
+import io.github.teamfractal.util.GameMusic;
+>>>>>>> 58ef3817cd449ac532c9891708c43d2dde861689
 import io.github.teamfractal.util.PlotManager;
 
 /**
@@ -43,6 +47,7 @@ public class RoboticonQuest extends Game {
 	public ArrayList<Player> playerList;
 	public Market market;
 	private int landBoughtThisTurn;
+	private GameMusic gameMusic;
 
 	public int getPlayerIndex (Player player) {
 		return playerList.indexOf(player);
@@ -65,15 +70,24 @@ public class RoboticonQuest extends Game {
 
 		// Setup other screens.
 		mainMenuScreen = new MainMenuScreen(this);
-		
 
 		setScreen(mainMenuScreen);
+
+		startMusic();
 	}
 
 	public Batch getBatch() {
 		return batch;
 	}
 
+	/**
+	 * Initialises and starts the music playing
+	 * @author cb1423
+	 */
+	private void startMusic(){
+		gameMusic = new GameMusic();
+		gameMusic.play();
+	}
 	/**
 	 * Setup the default skin for GUI components.
 	 */
