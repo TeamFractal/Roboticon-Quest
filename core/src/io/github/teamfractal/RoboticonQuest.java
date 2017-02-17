@@ -212,6 +212,7 @@ public class RoboticonQuest extends Game {
 				this.currentPlayer = 0;
 				phase=0;
 				nextPhase();
+				market.produceRoboticons();
 			}
 		}
 		else{

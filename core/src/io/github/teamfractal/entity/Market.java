@@ -5,6 +5,10 @@ import io.github.teamfractal.exception.InvalidResourceTypeException;
 import io.github.teamfractal.exception.NotCommonResourceException;
 
 public class Market {
+
+	private final int ROBOTICON_ORE_COST = 2;
+	private final int MAX_NO_OF_ROBOTICONS_PER_TURN = 2;
+
 	/**
 	 * Initialise the market
 	 */
@@ -231,6 +235,15 @@ public class Market {
 
 			default:
 				throw new IllegalArgumentException("Error: Resource type is incorrect.");
+		}
+	}
+
+	public void produceRoboticons(){
+		for(int i = 0; i < MAX_NO_OF_ROBOTICONS_PER_TURN; i++) {
+			if(this.ore >= ROBOTICON_ORE_COST) {
+				this.ore = this.ore - ROBOTICON_ORE_COST;
+				this.roboticon = this.roboticon + 1;
+			}
 		}
 	}
 
