@@ -404,4 +404,32 @@ public class Player {
 		});
 		game.gameScreen.addAnimation(animation);
 	}
+	
+	public int getNumUninstalledRoboticons() {
+		int numRoboticons = 0;
+		
+		for (Roboticon roboticon : roboticonList) {
+			if(!roboticon.isInstalled()){
+				numRoboticons ++;
+			}
+		}
+		
+		return numRoboticons;
+	}
+	
+	public boolean hasEnoughResource(ResourceType resourceType, int quantity) {
+		switch (resourceType) {
+		case ORE:
+			return quantity <= ore;
+			
+		case ENERGY:
+			return quantity <= ore;
+			
+		case FOOD:
+			return quantity <= ore;
+
+		default:
+			throw new NotEnoughResourceException();
+		}
+	}
 }

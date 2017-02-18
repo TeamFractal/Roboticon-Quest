@@ -12,6 +12,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.ui.TextField;
+import com.badlogic.gdx.scenes.scene2d.ui.TextField.TextFieldFilter;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.Align;
@@ -62,10 +63,22 @@ public class ResourceAuctionActors extends Table {
 		
 		putUpItemTitle = new Label("Put an item up for Auction:", skin);
 		auctionableItemsSelectBox = new SelectBox<String>(skin);
-		auctionItemAmount = new TextField("0", skin);
 		auctionItemButton = new TextButton("Auction Item", skin);
+
+		auctionItemAmount = new TextField("1", skin);
 		
-		itemsUpForBiddingSelectBox.setItems(auction.getAuctionItemsDisplayStrings(game.getPlayer()));
+		TextFieldFilter digitFilter = new TextFieldFilter() {
+		    public  boolean acceptChar(TextField textField, char c) {
+		         if (Character.isDigit(c))
+		               return true;
+		         return false;
+		    }
+		};
+		
+		auctionItemAmount.setTextFieldFilter(digitFilter);
+		bidAmount.setTextFieldFilter(digitFilter);
+		
+		itemsUpForBiddingSelectBox.setItems(getCurrentAuctionItemsStrings());
 		auctionableItemsSelectBox.setItems(getCurrentPlayerAuctionableItemStrings());
 
 		// Adjust properties.
@@ -132,11 +145,23 @@ public class ResourceAuctionActors extends Table {
 			public void clicked(InputEvent event, float x, float y) {
 				try {
 					AuctionBid bid = new AuctionBid(Integer.parseInt(bidAmount.getText()), game.getPlayer());
-					auction.getAuctionItemAtIndex(itemsUpForBiddingSelectBox.getSelectedIndex()).placeBid(bid);
+					auction.getAuctionItemAtIndex(itemsUpForBiddingSelectBox.getSelectedIndex(), game.getPlayer()).placeBid(bid);
 					
 					widgetUpdate(false);
 					} catch (NotEnoughMoneyException e) {
 					// TODO: handle exception
+				}
+			}
+		});
+		
+		auctionableItemsSelectBox.addListener(new ChangeListener(){
+			@Override
+			public void changed(ChangeEvent event, Actor actor){
+				if (auctionableItemsSelectBox.getSelectedIndex() > 2){
+					auctionItemAmount.setVisible(false);	//Hide the quantity box if the selected item is not a resource.
+				}
+				else{
+					auctionItemAmount.setVisible(true);
 				}
 			}
 		});
@@ -150,6 +175,7 @@ public class ResourceAuctionActors extends Table {
 			auctionItemButton.setVisible(false);
 		}
 		
+		itemsUpForBiddingSelectBox.setItems(getCurrentAuctionItemsStrings());
 		resourceMarketActors.widgetUpdate();
 	}
 	
@@ -159,6 +185,17 @@ public class ResourceAuctionActors extends Table {
 		
 		for (int i = 0; i < strings.length; i++) {
 			strings[i] = auctionableObjects[i].toString();
+		}
+		
+		return strings;
+	}
+	
+	private String[] getCurrentAuctionItemsStrings() {
+		Object[] auctionItems = auction.getAuctionItems(game.getPlayer());
+		String[] strings = new String[auctionItems.length];
+		
+		for (int i = 0; i < strings.length; i++) {
+			strings[i] = auctionItems[i].toString();
 		}
 		
 		return strings;

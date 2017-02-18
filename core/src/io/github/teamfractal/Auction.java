@@ -25,35 +25,43 @@ public class Auction {
 	
 	/**
 	 * Get the items currently available to bid on, complement any items 
-	 * owned by the given player
+	 * owned by the given player and any items the player has already bid on
 	 * @param player
 	 * @return
 	 */
-	public String[] getAuctionItemsDisplayStrings(Player player) {
-		int numStrings = 0;
+	public AuctionableItem[] getAuctionItems(Player player) {
+		int numItems = 0;
 		
 		for (AuctionableItem item : currentAuctionItems) {
-			if(item.getItemOwner() != player){
-				numStrings++;
+			if(item.getItemOwner() != player
+					&& !item.playerHasBid(player)){
+				numItems++;
 			}
 		}
 		
-		String[] strings = new String[numStrings];
-		int indexInStrings = 0;
+		AuctionableItem[] items = new AuctionableItem[numItems];
+		int indexInItems = 0;
 		
 		for (int i = 0; i < currentAuctionItems.size(); i++) {
 			AuctionableItem item = currentAuctionItems.get(i);
-			if(item.getItemOwner() != player){
-				strings[indexInStrings] = item.toString(); 
-				indexInStrings++;
+			if(item.getItemOwner() != player
+					&& !item.playerHasBid(player)){
+				items[indexInItems] = item; 
+				indexInItems++;
 			}
 		}
 		
-		return strings;
+		return items;
 	}
 	
-	public AuctionableItem getAuctionItemAtIndex(int index) {
-		return currentAuctionItems.get(index);
+	/**
+	 * Gets the item at the given index, excluding items owned by the player
+	 * and items which the player has already bid on.
+	 * @param index
+	 * @return
+	 */
+	public AuctionableItem getAuctionItemAtIndex(int index, Player player) {
+		return getAuctionItems(player)[index];
 	}
 	
 	public Object[] getPlayerAuctionableItems(Player player){

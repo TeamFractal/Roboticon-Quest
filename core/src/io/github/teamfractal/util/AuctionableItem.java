@@ -22,7 +22,8 @@ public class AuctionableItem {
 		
 		if(item instanceof ResourceType){
 			ResourceType resourceType = (ResourceType)item;
-			if(!itemOwner.hasEnoughResource(resourceType, quantity)){
+			if(!itemOwner.hasEnoughResource(resourceType, quantity)
+					|| quantity <= 0){
 				throw new NotEnoughResourceException();
 			}
 			
@@ -104,5 +105,19 @@ public class AuctionableItem {
 		}
 		
 		return string;
+	}
+
+	/**
+	 * Returns true if the given player has already placed a bid on
+	 * this item.
+	 */
+	public boolean playerHasBid(Player player) {
+	for (AuctionBid bid : bids) {
+		if(bid.getBidOwner() == player){
+			return true;
+		}
+	}
+		
+		return false;
 	}	
 }
