@@ -15,6 +15,9 @@ import io.github.teamfractal.animation.IAnimationFinish;
 import io.github.teamfractal.screens.*;
 import io.github.teamfractal.entity.Market;
 import io.github.teamfractal.entity.Player;
+import io.github.teamfractal.entity.Roboticon;
+import io.github.teamfractal.entity.enums.ResourceType;
+import io.github.teamfractal.util.AuctionableItem;
 import io.github.teamfractal.util.PlotManager;
 
 /**
@@ -27,17 +30,19 @@ public class RoboticonQuest extends Game {
 		return _instance;
 	}
 
-
 	private PlotManager plotManager;
 	SpriteBatch batch;
 	public Skin skin;
 	public MainMenuScreen mainMenuScreen;
 	public GameScreen gameScreen;
+	public ScoreScreen scoreScreen;
 	private int phase;
 	private int currentPlayer;
 	public ArrayList<Player> playerList;
 	public Market market;
 	private int landBoughtThisTurn;
+	
+	public Auction auction;
 
 	public int getPlayerIndex (Player player) {
 		return playerList.indexOf(player);
@@ -53,15 +58,15 @@ public class RoboticonQuest extends Game {
 	@Override
 	public void create () {
 		batch = new SpriteBatch();
-		setupSkin();
-		
-	
+		setupSkin();	
 		gameScreen = new GameScreen(this);
 
 		// Setup other screens.
 		mainMenuScreen = new MainMenuScreen(this);
+		scoreScreen = new ScoreScreen(this);
 		
-
+		auction = new Auction();
+		
 		setScreen(mainMenuScreen);
 	}
 
@@ -109,22 +114,19 @@ public class RoboticonQuest extends Game {
 	}
 
 	public void nextPhase () {
-		int newPhaseState = phase + 1;
-		phase = newPhaseState;
-		// phase = newPhaseState = 4;
+		phase++;
 
-		System.out.println("RoboticonQuest::nextPhase -> newPhaseState: " + newPhaseState);
-		switch (newPhaseState) {
+		switch (phase) {
 			// Phase 2: Purchase Roboticon
 			case 2:
 				RoboticonMarketScreen roboticonMarket = new RoboticonMarketScreen(this);
-				roboticonMarket.addAnimation(new AnimationPhaseTimeout(getPlayer(), this, newPhaseState, 30));
+				roboticonMarket.addAnimation(new AnimationPhaseTimeout(getPlayer(), this, phase, 30));
 				setScreen(roboticonMarket);
 				break;
 
 			// Phase 3: Roboticon Customisation
 			case 3:
-				AnimationPhaseTimeout timeoutAnimation = new AnimationPhaseTimeout(getPlayer(), this, newPhaseState, 30);
+				AnimationPhaseTimeout timeoutAnimation = new AnimationPhaseTimeout(getPlayer(), this, phase, 30);
 				gameScreen.addAnimation(timeoutAnimation);
 				timeoutAnimation.setAnimationFinish(new IAnimationFinish() {
 					@Override
@@ -145,25 +147,22 @@ public class RoboticonQuest extends Game {
 			case 5:
 				setScreen(new ResourceMarketScreen(this));
 				break;
-			
 
-			// End phase - CLean up and move to next player.
+			// End phase - Clean up and move to next player.
 			case 6:
-				phase = newPhaseState = 1;
 				this.nextPlayer();
-				// No "break;" here!
-				// Let the game to do phase 1 preparation.
+				break;
 
-			// Phase 1: Enable of purchase LandPlot
+			// Phase 1: Enable purchase of a LandPlot
 			case 1:
 				setScreen(gameScreen);
-				landBoughtThisTurn = 0;
 				gameScreen.addAnimation(new AnimationShowPlayer(getPlayerInt() + 1));
 				break;
 		}
 
-		if (gameScreen != null)
+		if (gameScreen != null){
 			gameScreen.getActors().textUpdate();
+		}
 	}
 
 	/**
@@ -176,17 +175,6 @@ public class RoboticonQuest extends Game {
 		// Generate resources.
 		Player p = getPlayer();
 		p.generateResources();
-	}
-
-	/**
-	 * Event callback on player bought a {@link io.github.teamfractal.entity.LandPlot}
-	 */
-	public void landPurchasedThisTurn() {
-		landBoughtThisTurn ++;
-	}
-
-	public boolean canPurchaseLandThisTurn () {
-		return landBoughtThisTurn < 1;
 	}
 
 	public String getPhaseString () {
@@ -221,15 +209,46 @@ public class RoboticonQuest extends Game {
 	public int getPlayerInt(){
 		return this.currentPlayer;
 	}
+	
 	public void nextPlayer(){
 		if (this.currentPlayer == playerList.size() - 1){
-			this.currentPlayer = 0; 
+			if(isGameEnded()){
+				setScreen(scoreScreen);
+				phase=7;
+			}
+			else {
+				//Close auction bids after every player has had the option to bid
+				//or put items up for the next auction phase
+				auction.closeBidding();
+				this.currentPlayer = 0;
+				phase=0;
+				nextPhase();
+			}
 		}
 		else{
 			this.currentPlayer ++;
+			phase=0;
+			nextPhase();
 		}
 	}
+	
+	private boolean isGameEnded() {
+		return plotManager.getNumUnownedTiles() == 0;
+	}
 
+	public Player getWinningPlayer() {
+		int highestScore = Integer.MIN_VALUE;
+		Player winningPlayer = null;
+		
+		for (Player player : playerList) {
+			if(player.getScore() > highestScore){
+				winningPlayer = player;
+				highestScore = player.getScore();
+			}
+		}
+		return winningPlayer;
+	}
+	
 	public PlotManager getPlotManager() {
 		return plotManager;
 	}

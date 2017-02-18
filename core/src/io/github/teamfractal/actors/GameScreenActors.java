@@ -27,6 +27,7 @@ public class GameScreenActors {
 	private GameScreen screen;
 	private Label phaseInfo;
 	private Label playerStats;
+	private Label winningPlayer;
 	private TextButton buyLandPlotBtn;
 	private TextButton installRoboticonBtn;
 	private TextButton installRoboticonBtnCancel;
@@ -109,7 +110,6 @@ public class GameScreenActors {
 		t.add(installRoboticonBtnCancel);
 		t.row();
 	}
-
 
 	/**
 	 * Bind all button events.
@@ -232,8 +232,7 @@ public class GameScreenActors {
 			// Purchase LandPlot.
 			case 1:
 				buyLandPlotBtn.setPosition(x + 10, y);
-				if (game.canPurchaseLandThisTurn()
-						&& !plot.hasOwner()
+				if (!plot.hasOwner()
 						&& player.haveEnoughMoney(plot)) {
 					buyLandPlotBtn.setDisabled(false);
 				} else {
@@ -320,6 +319,10 @@ public class GameScreenActors {
 		plotStats.setVisible(true);
 	}
 
+	public void showWinner(Player player) {
+		winningPlayer.setText("Winner: " + player.toString());
+		winningPlayer.setVisible(true);
+	}
 	public void updateRoboticonSelection() {
 		// TODO: Implement this method
 	}
