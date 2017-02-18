@@ -11,6 +11,10 @@ public class LandPlot {
 	private TiledMapTileLayer.Cell playerTile;
 	private TiledMapTileLayer.Cell roboticonTile;
 	private Player owner;
+	
+	private final int ROBOTICON_BASE_YIELD_INCREASE_PERCENTAGE = 50;
+	private final int ROBOTICON_SPECIALISED_YIELD_INCREASE_PERCENTAGE = 100;
+	
 	int x, y;
 
 
@@ -128,11 +132,15 @@ public class LandPlot {
 		if (roboticon.isInstalled()) {
 			return false;
 		}
+		
+		productionModifiers[0] += ROBOTICON_BASE_YIELD_INCREASE_PERCENTAGE;
+		productionModifiers[1] += ROBOTICON_BASE_YIELD_INCREASE_PERCENTAGE;
+		productionModifiers[2] += ROBOTICON_BASE_YIELD_INCREASE_PERCENTAGE;
 
 		if (roboticon.getCustomisation() != ResourceType.Unknown){
 			int index = resourceTypeToIndex(roboticon.getCustomisation());
 			if (roboticon.setInstalledLandplot(this)) {
-				productionModifiers[index] += 1;
+				productionModifiers[index] += ROBOTICON_SPECIALISED_YIELD_INCREASE_PERCENTAGE;
 				this.installedRoboticon = roboticon;
 				return true;
 			}
@@ -155,7 +163,8 @@ public class LandPlot {
 	public int[] produceResources() {
 		int[] produced = new int[3];
 		for (int i = 0; i < 2; i++) {
-			produced[i] = productionAmounts[i] * productionModifiers[i];
+			int productionAmount = productionAmounts[i];
+			produced[i] = productionAmount + (int)((float)productionAmount * (float)(productionModifiers[i] / 100));
 		}
 		return produced;
 	}
@@ -166,12 +175,10 @@ public class LandPlot {
 	 * @return          Calculated amount of resource to be generated.
 	 */
 	public int produceResource(ResourceType resource) {
-		if (this.hasRoboticon){
 			int resIndex = resourceTypeToIndex(resource);
-			return productionAmounts[resIndex] * productionModifiers[resIndex];
-		}
-		else return 0;
-		
+			int productionAmount = productionAmounts[resIndex];
+
+			return productionAmount + (int)((float)productionAmount * ((float)productionModifiers[resIndex] / 100));
 	}
 
 	public int getResource(ResourceType resource) {
