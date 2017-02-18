@@ -163,7 +163,6 @@ public class ResourceMarketActors extends Table {
 		rowWithHeight(10);
 
 		pad(20);
-		debugAll();
 		
 		bindEvents();
 		widgetUpdate();
