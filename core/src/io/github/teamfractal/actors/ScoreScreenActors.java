@@ -25,14 +25,8 @@ public class ScoreScreenActors extends Table{
         this.game = game;
         this.screen = screen;
 
-        // Buy Roboticon Text: Top Left
-        final Label lblGameEnded = new Label("THE GAME HAS ENDED", game.skin);
-        final Label lblWinnerName = new Label("THE WINNER IS" + game.getWinningPlayer().getName() + "!", game.skin);
-
-        // Current Roboticon Text: Top Right
-        String playerRoboticonText = "CUSTOMISE PLAYER " + (game.getPlayerInt() + 1) + "'S ROBOTICONS HERE";
-        final Label lblCurrentRoboticon = new Label(playerRoboticonText, game.skin);
-
+        final Label lblGameEnded = new Label("THE GAME HAS ENDED", this.game.skin);
+        final Label lblWinnerName = new Label("THE WINNER IS" + this.game.getWinningPlayer().getName() + "!", this.game.skin);
 
         final TextButton exitButton = new TextButton("Exit ->", game.skin);
         exitButton.addListener(new ChangeListener() {
@@ -63,8 +57,8 @@ public class ScoreScreenActors extends Table{
         row();
 
         //Iterate through players, and display their score
-        for(int i = 0; i < game.playerList.size(); i++) {
-            add(new Label(game.playerList.get(i).getName() + " had score " + Integer.toString(game.playerList.get(i).getScore()), game.skin));
+        for(int i = 0; i < this.game.playerList.size(); i++) {
+            add(new Label(this.game.playerList.get(i).getName() + " had score " + Integer.toString(this.game.playerList.get(i).getScore()), this.game.skin));
             row();
         }
 

@@ -75,7 +75,6 @@ public class GameCreateActors extends Table {
         playerTable.row();
 
         for(int i = 0; i < newPlayerNames.size(); i++){
-            System.out.print(newPlayerNames.get(i)+"\n");
             playerTable.add(new Label(newPlayerNames.get(i), this.game.skin));
             playerTable.row();
         }

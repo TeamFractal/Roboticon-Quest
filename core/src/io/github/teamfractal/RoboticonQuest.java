@@ -69,8 +69,6 @@ public class RoboticonQuest extends Game {
 
 		// Setup other screens.
 		mainMenuScreen = new MainMenuScreen(this);
-		scoreScreen = new ScoreScreen(this);
-		
 		auction = new Auction();
 		
 		setScreen(mainMenuScreen);
@@ -216,6 +214,7 @@ public class RoboticonQuest extends Game {
 	public void nextPlayer(){
 		if (this.currentPlayer == playerList.size() - 1){
 			if(isGameEnded()){
+				scoreScreen = new ScoreScreen(this);
 				setScreen(scoreScreen);
 				phase=7;
 			}
