@@ -8,7 +8,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 
 import io.github.teamfractal.RoboticonQuest;
-import io.github.teamfractal.actors.ResourceAuctionActors;
+import io.github.teamfractal.actors.AuctionActors;
 import io.github.teamfractal.actors.ResourceMarketActors;
 
 
@@ -17,8 +17,6 @@ public class ResourceMarketScreen implements Screen {
 	final Stage stage;
 	final Table table;
 	private final ResourceMarketActors marketActors;
-	private final ResourceAuctionActors auctionActors;
-	
 	
 	public ResourceMarketScreen(final RoboticonQuest game) {
 		this.game = game;
@@ -27,8 +25,6 @@ public class ResourceMarketScreen implements Screen {
 		table.setFillParent(true);
 
 		marketActors = new ResourceMarketActors(game, this); // generates actors for the screen
-		auctionActors = new ResourceAuctionActors(game, this, marketActors);
-		table.add(auctionActors); // positions actors
 		table.add(marketActors);
 
 		stage.addActor(table);

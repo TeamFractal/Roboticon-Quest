@@ -143,7 +143,7 @@ public class RoboticonQuest extends Game {
 
 			// Phase 5: Generate resource for player.
 			case 5:
-				setScreen(new ResourceMarketScreen(this));
+				setScreen(new MarketScreen(this));
 				// Restore the next buton on the game screen now that it isn't the current screen.
 				gameScreen.showNextButton();
 				break;

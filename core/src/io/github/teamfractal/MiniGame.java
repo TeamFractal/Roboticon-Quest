@@ -5,6 +5,7 @@ import java.util.Scanner;
 
 public class MiniGame {
 	private static final Random rand = new Random();
+
 	public boolean WinGame(int guessedNumber){
 		int max = 3;
 		int min = 1;

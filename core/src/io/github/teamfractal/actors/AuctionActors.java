@@ -24,13 +24,12 @@ import io.github.teamfractal.entity.Player;
 import io.github.teamfractal.entity.enums.ResourceType;
 import io.github.teamfractal.exception.NotEnoughMoneyException;
 import io.github.teamfractal.exception.NotEnoughResourceException;
-import io.github.teamfractal.screens.ResourceMarketScreen;
+import io.github.teamfractal.screens.AuctionScreen;
 import io.github.teamfractal.util.AuctionBid;
 import io.github.teamfractal.util.AuctionableItem;
 
-public class ResourceAuctionActors extends Table {
-	private ResourceMarketActors resourceMarketActors;
-	
+public class AuctionActors extends Table {
+
 	private Auction auction;
 	private RoboticonQuest game;
 	private Label auctionTitle;
@@ -45,9 +44,8 @@ public class ResourceAuctionActors extends Table {
 	private TextField auctionItemAmount;
 	private TextButton auctionItemButton;
 
-	public ResourceAuctionActors(final RoboticonQuest game, ResourceMarketScreen screen, ResourceMarketActors resourceMarketActors) {
+	public AuctionActors(final RoboticonQuest game, AuctionScreen screen) {
 		center();
-		this.resourceMarketActors = resourceMarketActors;
 		Skin skin = game.skin;
 		this.game = game;
 		Stage stage = screen.getStage();
@@ -176,7 +174,6 @@ public class ResourceAuctionActors extends Table {
 		}
 		
 		itemsUpForBiddingSelectBox.setItems(getCurrentAuctionItemsStrings());
-		resourceMarketActors.widgetUpdate();
 	}
 	
 	private String[] getCurrentPlayerAuctionableItemStrings() {
