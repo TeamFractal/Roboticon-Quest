@@ -61,6 +61,7 @@ public class RoboticonQuest extends Game {
 		this.playerList = new ArrayList<Player>();
 		playerList.add(new Player(this, "DefaultPlayer1"));
 		playerList.add(new Player(this, "DefaultPlayer2"));
+		playerList.add(new Player(this, "Davros"));
 
 		batch = new SpriteBatch();
 		setupSkin();	
@@ -69,8 +70,6 @@ public class RoboticonQuest extends Game {
 
 		// Setup other screens.
 		mainMenuScreen = new MainMenuScreen(this);
-		scoreScreen = new ScoreScreen(this);
-		
 		auction = new Auction();
 		
 		setScreen(mainMenuScreen);
@@ -216,6 +215,7 @@ public class RoboticonQuest extends Game {
 	public void nextPlayer(){
 		if (this.currentPlayer == playerList.size() - 1){
 			if(isGameEnded()){
+				scoreScreen = new ScoreScreen(this);
 				setScreen(scoreScreen);
 				phase=7;
 			}
