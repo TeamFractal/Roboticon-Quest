@@ -15,9 +15,6 @@ import io.github.teamfractal.animation.IAnimationFinish;
 import io.github.teamfractal.screens.*;
 import io.github.teamfractal.entity.Market;
 import io.github.teamfractal.entity.Player;
-import io.github.teamfractal.entity.Roboticon;
-import io.github.teamfractal.entity.enums.ResourceType;
-import io.github.teamfractal.util.AuctionableItem;
 import io.github.teamfractal.util.PlotManager;
 
 /**

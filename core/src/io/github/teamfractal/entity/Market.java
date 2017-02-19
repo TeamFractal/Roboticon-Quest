@@ -171,7 +171,7 @@ public class Market {
 				break;
 
 			case FOOD:
-				setFood(amount);;
+				setFood(amount);
 				break;
 				
 			case CUSTOMISATION:

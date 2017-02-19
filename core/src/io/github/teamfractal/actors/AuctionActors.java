@@ -67,10 +67,8 @@ public class AuctionActors extends Table {
 		
 		TextFieldFilter digitFilter = new TextFieldFilter() {
 		    public  boolean acceptChar(TextField textField, char c) {
-		         if (Character.isDigit(c))
-		               return true;
-		         return false;
-		    }
+				return Character.isDigit(c);
+			}
 		};
 		
 		auctionItemAmount.setTextFieldFilter(digitFilter);

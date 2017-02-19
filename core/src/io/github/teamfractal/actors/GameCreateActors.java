@@ -24,7 +24,9 @@ public class GameCreateActors extends Table {
         addPlayerBtn.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-                newPlayerNames.add(textField.getText());
+                if( textField.getText().length() > 0) {
+                    newPlayerNames.add(textField.getText());
+                }
                 textField.setText("");
                 UpdatePlayerTable();
             }
@@ -63,6 +65,8 @@ public class GameCreateActors extends Table {
         nameEntryTable.add(addPlayerBtn);
         nameEntryTable.add(removePlayerBtn);
         add(nameEntryTable);
+        row();
+        add().height(30);
         row();
 
         add(playerTable);
