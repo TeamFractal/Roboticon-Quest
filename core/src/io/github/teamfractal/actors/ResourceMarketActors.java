@@ -20,6 +20,8 @@ public class ResourceMarketActors extends Table {
 	private final AdjustableActor oreSell;
 	private final AdjustableActor energyBuy;
 	private final AdjustableActor energySell;
+	private final AdjustableActor foodBuy;
+	private final AdjustableActor foodSell;
 	private RoboticonQuest game;
 	private Integer buyOreAmount;
 	private Integer sellOreAmount;
@@ -46,7 +48,7 @@ public class ResourceMarketActors extends Table {
 				+ (bIsSell
 					? game.market.getBuyPrice(resource)
 					: game.market.getSellPrice(resource))
-				+ " Gold";
+				+ " Credits";
 	}
 
 	/**
@@ -123,6 +125,8 @@ public class ResourceMarketActors extends Table {
 		oreSell = createAdjustable(ResourceType.ORE, true);
 		energyBuy = createAdjustable(ResourceType.ENERGY, false);
 		energySell = createAdjustable(ResourceType.ENERGY, true);
+		foodBuy = createAdjustable(ResourceType.FOOD, false);
+		foodSell = createAdjustable(ResourceType.FOOD, true);
 
 		// Adjust properties.
 		phaseInfo.setAlignment(Align.right);
@@ -140,27 +144,45 @@ public class ResourceMarketActors extends Table {
 
 		// Setup UI Layout.
 		// Row: Player and Market Stats.
-		add().spaceRight(20);
+
 		add(marketStats);
 		rowWithHeight(20);
 
-		// Row: Label of Sell and Buy
-		add(buyLabel);
-		add();
-		add(sellLabel);
-		rowWithHeight(10);
+		Table innerTable = new Table();
+		{
+			// Row: Label of Sell and Buy
+			innerTable.add(buyLabel);
+			innerTable.add();
+			innerTable.add(sellLabel);
+			innerTable.row();
+			innerTable.add().height(5);
+			innerTable.row();
 
-		// Row: Ore buy/sell
-		add(oreBuy);
-		add();
-		add(oreSell);
-		rowWithHeight(10);
+			// Row: Ore buy/sell
+			innerTable.add(oreBuy);
+			innerTable.add().width(5);
+			innerTable.add(oreSell);
+			innerTable.row();
+			innerTable.add().height(5);
+			innerTable.row();
 
-		// Row: Energy buy/sell
-		add(energyBuy);
-		add();
-		add(energySell);
-		rowWithHeight(10);
+			// Row: Energy buy/sell
+			innerTable.add(energyBuy);
+			innerTable.add().width(5);
+			innerTable.add(energySell);
+			innerTable.row();
+			innerTable.add().height(5);
+			innerTable.row();
+
+			//Row: Food buy/sell
+			innerTable.add(foodBuy);
+			innerTable.add().width(5);
+			innerTable.add(foodSell);
+			innerTable.row();
+			innerTable.add().height(5);
+			innerTable.row();
+		}
+		add(innerTable);
 
 		pad(20);
 		
