@@ -24,7 +24,7 @@ public class PlayerTest {
 	@Before
 	public void setUp() {
 		RoboticonQuest game = new RoboticonQuest();
-		player = new Player(game);
+		player = new Player(game, "testPlayer");
 	}
 
 	//Money Tests

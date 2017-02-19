@@ -208,7 +208,7 @@ public class Player {
 			return PurchaseStatus.FailMarketNotEnoughResource;
 		}
 
-		int cost = 1 * market.getSellPrice(ResourceType.CUSTOMISATION);
+		int cost = market.getSellPrice(ResourceType.CUSTOMISATION);
 		int money = getMoney();
 		if (cost > money) {
 			return PurchaseStatus.FailPlayerNotEnoughMoney;
@@ -351,6 +351,7 @@ public class Player {
 	public Array<String> getRoboticonAmountList() {
 		int ore = 0;
 		int energy = 0;
+		int food = 0;
 		int uncustomised = 0;
 		Array<String> roboticonAmountList = new Array<String>();
 
@@ -363,6 +364,9 @@ public class Player {
 					case ENERGY:
 						energy += 1;
 						break;
+					case FOOD:
+						food += 1;
+						break;
 					default:
 						uncustomised += 1;
 						break;
@@ -372,6 +376,8 @@ public class Player {
 
 		roboticonAmountList.add("Ore Specific x "    + ore);
 		roboticonAmountList.add("Energy Specific x " + energy);
+		roboticonAmountList.add("Food Specific x " + food);
+
 		roboticonAmountList.add("Uncustomised x "    + uncustomised);
 		return roboticonAmountList;
 	}

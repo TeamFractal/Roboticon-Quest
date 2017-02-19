@@ -32,6 +32,7 @@ public class RoboticonMarketActors extends Table {
 	private static final Texture no_cust_texture;
 	private static final Texture energy_texture;
 	private static final Texture ore_texture;
+	private static final Texture food_texture;
 	private static final Texture no_robotic_texture;
 
 	private ArrayList<Roboticon> roboticons = new ArrayList<Roboticon>();
@@ -40,6 +41,7 @@ public class RoboticonMarketActors extends Table {
 		no_cust_texture = new Texture(Gdx.files.internal("roboticon_images/robot.png"));
 		energy_texture = new Texture(Gdx.files.internal("roboticon_images/robot_energy.png"));
 		ore_texture = new Texture(Gdx.files.internal("roboticon_images/robot_ore.png"));
+		food_texture = new Texture(Gdx.files.internal("roboticon_images/robot_food.png"));
 		no_robotic_texture = new Texture(Gdx.files.internal("roboticon_images/no_roboticons.png"));
 	}
 
@@ -273,6 +275,8 @@ public class RoboticonMarketActors extends Table {
 				case ORE:
 					roboticonTexture = ore_texture;
 					break;
+				case FOOD:
+					roboticonTexture = food_texture;
 				default:
 					break;
 			}
