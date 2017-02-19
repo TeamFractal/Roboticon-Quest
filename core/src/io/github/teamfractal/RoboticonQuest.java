@@ -41,6 +41,7 @@ public class RoboticonQuest extends Game {
 	public Market market;
 	private int landBoughtThisTurn;
 	private RandomEvent currentEvent;
+	private RandomEventFactory eventGenerator;
 
 	public int getPlayerIndex (Player player) {
 		return playerList.indexOf(player);
@@ -109,6 +110,7 @@ public class RoboticonQuest extends Game {
 		this.currentPlayer = 0;
 		this.market = new Market();
 		plotManager = new PlotManager();
+		eventGenerator = new RandomEventFactory(plotManager.getLandPlots());
 	}
 
 	public void nextPhase () {
@@ -154,10 +156,12 @@ public class RoboticonQuest extends Game {
 			case 6:
 				phase = newPhaseState = 1;
 				this.nextPlayer();
-				if (this.getPlayerInt() == 0){
-					currentEvent = RandomEventFactory.chooseEvent();			// Choose and implement random event for this turn
-					currentEvent.activate(this);
-                }
+				System.out.println("Attempting to generate a new event");
+				currentEvent = eventGenerator.chooseEvent();			// Choose and implement random event for the new player
+				System.out.println("Event Chosen, activating now");
+				System.out.println(currentEvent.getEventName());
+				currentEvent.activate(playerList.get(currentPlayer));
+				System.out.println("Activation completed");
 				// No "break;" here!
 				// Let the game to do phase 1 preparation.
 
