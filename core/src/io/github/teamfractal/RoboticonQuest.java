@@ -61,7 +61,6 @@ public class RoboticonQuest extends Game {
 		this.playerList = new ArrayList<Player>();
 		playerList.add(new Player(this, "DefaultPlayer1"));
 		playerList.add(new Player(this, "DefaultPlayer2"));
-		playerList.add(new Player(this, "Davros"));
 
 		batch = new SpriteBatch();
 		setupSkin();	
