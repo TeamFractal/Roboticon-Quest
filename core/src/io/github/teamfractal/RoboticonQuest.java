@@ -15,6 +15,9 @@ import io.github.teamfractal.animation.IAnimationFinish;
 import io.github.teamfractal.screens.*;
 import io.github.teamfractal.entity.Market;
 import io.github.teamfractal.entity.Player;
+import io.github.teamfractal.entity.Roboticon;
+import io.github.teamfractal.entity.enums.ResourceType;
+import io.github.teamfractal.util.AuctionableItem;
 import io.github.teamfractal.util.PlotManager;
 
 /**
@@ -38,6 +41,9 @@ public class RoboticonQuest extends Game {
 	private int currentPlayer;
 	public ArrayList<Player> playerList;
 	public Market market;
+	private int landBoughtThisTurn;
+	
+	public Auction auction;
 
 	public int getPlayerIndex (Player player) {
 		return playerList.indexOf(player);
@@ -64,6 +70,8 @@ public class RoboticonQuest extends Game {
 		// Setup other screens.
 		mainMenuScreen = new MainMenuScreen(this);
 		scoreScreen = new ScoreScreen(this);
+		
+		auction = new Auction();
 		
 		setScreen(mainMenuScreen);
 	}
@@ -212,6 +220,9 @@ public class RoboticonQuest extends Game {
 				phase=7;
 			}
 			else {
+				//Close auction bids after every player has had the option to bid
+				//or put items up for the next auction phase
+				auction.closeBidding();
 				this.currentPlayer = 0;
 				phase=0;
 				nextPhase();

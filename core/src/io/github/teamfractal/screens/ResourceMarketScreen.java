@@ -8,6 +8,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 
 import io.github.teamfractal.RoboticonQuest;
+import io.github.teamfractal.actors.ResourceAuctionActors;
 import io.github.teamfractal.actors.ResourceMarketActors;
 
 
@@ -15,7 +16,8 @@ public class ResourceMarketScreen implements Screen {
 	final RoboticonQuest game;
 	final Stage stage;
 	final Table table;
-	private final ResourceMarketActors actors;
+	private final ResourceMarketActors marketActors;
+	private final ResourceAuctionActors auctionActors;
 	
 	
 	public ResourceMarketScreen(final RoboticonQuest game) {
@@ -24,8 +26,10 @@ public class ResourceMarketScreen implements Screen {
 		this.table = new Table();
 		table.setFillParent(true);
 
-		actors = new ResourceMarketActors(game, this); // generates actors for the screen
-		table.center().add(actors); // positions actors
+		marketActors = new ResourceMarketActors(game, this); // generates actors for the screen
+		auctionActors = new ResourceAuctionActors(game, this, marketActors);
+		table.add(auctionActors); // positions actors
+		table.add(marketActors);
 
 		stage.addActor(table);
 	}
@@ -46,7 +50,8 @@ public class ResourceMarketScreen implements Screen {
 	@Override
 	public void resize(int width, int height) {
 		stage.getViewport().update(width, height, true);
-		actors.screenResize(width, height);
+		marketActors.screenResize(width, height);
+		//auctionActors.screenResize(width, height);
 	}
 
 	@Override

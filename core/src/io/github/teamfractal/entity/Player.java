@@ -119,6 +119,14 @@ public class Player {
 		}
 	}
 
+	public void addResource(ResourceType resource, int amount) {
+		setResource(resource, getResource(resource) + amount);
+	}
+	
+	public void addMoney(int amount) {
+		money += amount;
+	}
+	
 	/**
 	 * Get the resource amount current player have.
 	 * @param type   The {@link ResourceType}
@@ -157,7 +165,7 @@ public class Player {
 		
 		return score;
 	}
-
+	
 	/**
 	 * Purchase roboticon from the market.
 	 * @param amount
@@ -301,6 +309,14 @@ public class Player {
 		roboticon.setCustomisation(type);
 		return roboticon;
 	}
+	
+	public void addRoboticon(Roboticon roboticon) {
+		roboticonList.add(roboticon);
+	}
+	
+	public void removeRoboticon(Roboticon roboticon) {
+		roboticonList.removeIndex(roboticonList.indexOf(roboticon, true));
+	}
 
 	/**
 	 * Add landplot to current user.
@@ -390,5 +406,33 @@ public class Player {
 			}
 		});
 		game.gameScreen.addAnimation(animation);
+	}
+	
+	public int getNumUninstalledRoboticons() {
+		int numRoboticons = 0;
+		
+		for (Roboticon roboticon : roboticonList) {
+			if(!roboticon.isInstalled()){
+				numRoboticons ++;
+			}
+		}
+		
+		return numRoboticons;
+	}
+	
+	public boolean hasEnoughResource(ResourceType resourceType, int quantity) {
+		switch (resourceType) {
+		case ORE:
+			return quantity <= ore;
+			
+		case ENERGY:
+			return quantity <= ore;
+			
+		case FOOD:
+			return quantity <= ore;
+
+		default:
+			throw new NotEnoughResourceException();
+		}
 	}
 }
