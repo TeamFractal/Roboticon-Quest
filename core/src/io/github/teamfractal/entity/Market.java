@@ -5,14 +5,28 @@ import io.github.teamfractal.exception.InvalidResourceTypeException;
 import io.github.teamfractal.exception.NotCommonResourceException;
 
 public class Market {
+	private static final int ORE_DEFAULT_PRICE = 10;
+	private static final int ENERGY_DEFAULT_PRICE = 20;
+	private static final int FOOD_DEFAULT_PRICE = 30;
+	private static final int ROBOTICON_DEFAULT_PRICE = 40;
+	private static final int CUSTOMISATION_DEFAULT_PRICE = 10;
+	private static final int ACCELERATOR_DEFAULT = 1;
+	private static final int ORE_DEFAULT_AMOUNT = 0;
+	private static final int ENERGY_DEFAULT_AMOUNT = 16;
+	private static final int FOOD_DEFAULT_AMOUNT = 16;
+	private static final int ROBOTICON_DEFAULT_AMOUNT = 12;
+
+
+
 	/**
 	 * Initialise the market
 	 */
 	public Market() {
-		setFood(16);
-		setEnergy(16);
-		setOre(0);
-		setRoboticon(12);
+		setFood(FOOD_DEFAULT_AMOUNT);
+		setEnergy(ENERGY_DEFAULT_AMOUNT);
+		setOre(ORE_DEFAULT_AMOUNT);
+		setRoboticon(ROBOTICON_DEFAULT_AMOUNT);
+		setAccelerator(ACCELERATOR_DEFAULT);
 	}
 
 	//<editor-fold desc="Resource getters and setters">
@@ -20,6 +34,9 @@ public class Market {
 	private int energy;
 	private int ore;
 	private int roboticon;
+	private int accelerator;
+
+
 
 	/**
 	 * Get the amount of food in the market
@@ -57,6 +74,9 @@ public class Market {
 	 * Get the total amount of all available resources added together.
 	 * @return   The total amount.
 	 */
+
+	int getAccelerator() {return accelerator; }
+
 	private synchronized int getTotalResourceCount() {
 		return food + energy + ore + roboticon;
 	}
@@ -112,6 +132,11 @@ public class Market {
 
 		roboticon = amount;
 	}
+
+	void setAccelerator(int accel) {
+		accelerator = accel;
+	}
+
 	//</editor-fold>
 
 	/**
@@ -203,19 +228,19 @@ public class Market {
 		int price;
 		switch (resource) {
 			case ORE:
-				price = getCurvePoint(resource, 7, true);
+				price = getCurvePoint(resource, ORE_DEFAULT_AMOUNT, ORE_DEFAULT_PRICE, accelerator);
 				return price;
 
 			case ENERGY:
-				price = getCurvePoint(resource, 8, true);
+				price = getCurvePoint(resource, ENERGY_DEFAULT_AMOUNT, ENERGY_DEFAULT_PRICE, accelerator);
 				return price;
 
 			case FOOD:
-				price = getCurvePoint(resource, 9 , true);
+				price = getCurvePoint(resource, FOOD_DEFAULT_AMOUNT, FOOD_DEFAULT_PRICE, accelerator);
 				return price;
 
 			case ROBOTICON:
-				price = getCurvePoint(resource, 10, true);
+				price = getCurvePoint(resource, ROBOTICON_DEFAULT_AMOUNT, ROBOTICON_DEFAULT_PRICE, accelerator);
 				return price;
 
 			case CUSTOMISATION:
@@ -237,19 +262,19 @@ public class Market {
 		int price;
 		switch (resource) {
 			case ORE:
-				price = getCurvePoint(resource, 7, true);
+				price = getCurvePoint(resource, ORE_DEFAULT_AMOUNT, ORE_DEFAULT_PRICE, accelerator);
 				return price;
 
 			case ENERGY:
-				price = getCurvePoint(resource, 8, true);
+				price = getCurvePoint(resource, ENERGY_DEFAULT_AMOUNT, ENERGY_DEFAULT_PRICE, accelerator);
 				return price;
 
 			case FOOD:
-				price = getCurvePoint(resource, 9, true);
+				price = getCurvePoint(resource, FOOD_DEFAULT_AMOUNT, FOOD_DEFAULT_PRICE, accelerator);
 				return price;
 
 			case ROBOTICON:
-				price = getCurvePoint(resource, 10, true);
+				price = getCurvePoint(resource, ROBOTICON_DEFAULT_AMOUNT, ROBOTICON_DEFAULT_PRICE, accelerator);
 				return price;
 
 			case CUSTOMISATION:
@@ -261,18 +286,16 @@ public class Market {
 		}
 	}
 
-	private int getCurvePoint(ResourceType resource, int curveMultiplier, boolean selling){
-		int sellBuyMultiplier;
+	private int getCurvePoint(ResourceType resource, int defaultAmount,int defaultPrice, int accelerator){
 		float pointCurve;
 
-		if (selling){
-			sellBuyMultiplier = 1;
+		if (getResource(resource) >= defaultAmount){
+			pointCurve = defaultPrice-(accelerator*Math.abs(getResource(resource)-defaultAmount));
 		}
 		else{
-			sellBuyMultiplier = -1;
+			pointCurve = defaultPrice+(accelerator*Math.abs(getResource(resource)-defaultAmount));
 		}
 
-		pointCurve = curveMultiplier^(sellBuyMultiplier*((1/20)*getResource(resource)));
 		return Math.round(pointCurve);
 	}
 
