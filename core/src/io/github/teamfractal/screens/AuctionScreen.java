@@ -18,13 +18,14 @@ public class AuctionScreen implements Screen {
     private final AuctionActors auctionActors;
 
 
-    public AuctionScreen(final RoboticonQuest game) {
+    public AuctionScreen(final RoboticonQuest game, MarketScreen marketScreen) {
         this.game = game;
         this.stage = new Stage(new ScreenViewport());
         this.table = new Table();
         table.setFillParent(true);
+        final MarketScreen parentMarketScreen = marketScreen;
 
-        auctionActors = new AuctionActors(game, this); // generates actors for the screen
+        auctionActors = new AuctionActors(game, this, marketScreen); // generates actors for the screen
         table.add(auctionActors);
         stage.addActor(table);
     }

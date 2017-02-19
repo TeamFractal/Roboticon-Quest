@@ -18,13 +18,13 @@ public class CasinoScreen implements Screen {
     private final CasinoActors casinoActors;
 
 
-    public CasinoScreen(final RoboticonQuest game) {
+    public CasinoScreen(final RoboticonQuest game, MarketScreen marketScreen) {
         this.game = game;
         this.stage = new Stage(new ScreenViewport());
         this.table = new Table();
         table.setFillParent(true);
 
-        casinoActors = new CasinoActors(game, this); // generates actors for the screen
+        casinoActors = new CasinoActors(game, this, marketScreen); // generates actors for the screen
         table.add(casinoActors);
         stage.addActor(table);
     }

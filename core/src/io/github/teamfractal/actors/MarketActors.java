@@ -24,9 +24,9 @@ public class MarketActors extends Table {
         Skin skin = game.skin;
         this.game = game;
 
-        this.casinoScreen = new CasinoScreen(this.game);
-        this.marketScreen = new ResourceMarketScreen(this.game);
-        this.auctionScreen = new AuctionScreen(this.game);
+        this.casinoScreen = new CasinoScreen(this.game, screen);
+        this.marketScreen = new ResourceMarketScreen(this.game, screen);
+        this.auctionScreen = new AuctionScreen(this.game, screen);
 
         // Create UI Components
         TextButton casinoBtn = new TextButton("To the casino", skin);

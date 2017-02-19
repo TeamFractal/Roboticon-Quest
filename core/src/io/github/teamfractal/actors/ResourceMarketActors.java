@@ -13,6 +13,7 @@ import com.badlogic.gdx.utils.Align;
 import io.github.teamfractal.RoboticonQuest;
 import io.github.teamfractal.entity.Player;
 import io.github.teamfractal.entity.enums.ResourceType;
+import io.github.teamfractal.screens.MarketScreen;
 import io.github.teamfractal.screens.ResourceMarketScreen;
 
 public class ResourceMarketActors extends Table {
@@ -22,6 +23,7 @@ public class ResourceMarketActors extends Table {
 	private final AdjustableActor energySell;
 	private final AdjustableActor foodBuy;
 	private final AdjustableActor foodSell;
+	private final TextButton returnButton;
 	private RoboticonQuest game;
 	private Integer buyOreAmount;
 	private Integer sellOreAmount;
@@ -104,7 +106,7 @@ public class ResourceMarketActors extends Table {
 	 * @param game       The game object.
 	 * @param screen     The screen object.
 	 */
-	public ResourceMarketActors(final RoboticonQuest game, ResourceMarketScreen screen) {
+	public ResourceMarketActors(final RoboticonQuest game, ResourceMarketScreen screen, final MarketScreen marketScreen) {
 		center();
 
 		Skin skin = game.skin;
@@ -127,6 +129,15 @@ public class ResourceMarketActors extends Table {
 		energySell = createAdjustable(ResourceType.ENERGY, true);
 		foodBuy = createAdjustable(ResourceType.FOOD, false);
 		foodSell = createAdjustable(ResourceType.FOOD, true);
+
+		returnButton = new TextButton("Back to the Market Menu", skin);
+		returnButton.addListener(new ChangeListener() {
+			@Override
+			public void changed(ChangeEvent event, Actor actor) {
+				game.setScreen(marketScreen);
+			}
+		});
+
 
 		// Adjust properties.
 		phaseInfo.setAlignment(Align.right);
@@ -183,6 +194,8 @@ public class ResourceMarketActors extends Table {
 			innerTable.row();
 		}
 		add(innerTable);
+		row();
+		add(returnButton);
 
 		pad(20);
 		

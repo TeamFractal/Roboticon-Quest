@@ -26,6 +26,7 @@ import io.github.teamfractal.entity.enums.ResourceType;
 import io.github.teamfractal.exception.NotEnoughMoneyException;
 import io.github.teamfractal.exception.NotEnoughResourceException;
 import io.github.teamfractal.screens.CasinoScreen;
+import io.github.teamfractal.screens.MarketScreen;
 import io.github.teamfractal.screens.ResourceMarketScreen;
 import io.github.teamfractal.util.AuctionBid;
 import io.github.teamfractal.util.AuctionableItem;
@@ -46,8 +47,9 @@ public class CasinoActors extends Table {
     private TextField guessText;
     private Label instructionLblGuess;
     private Label instructionLblBet;
+    private TextButton returnButton;
 
-    public CasinoActors(final RoboticonQuest game, CasinoScreen screen) {
+    public CasinoActors(final RoboticonQuest game, CasinoScreen screen, final MarketScreen marketScreen) {
         center();
         Skin skin = game.skin;
         this.game = game;
@@ -61,6 +63,15 @@ public class CasinoActors extends Table {
         placeBetBtn = new TextButton("Place Bet", skin);
         resultAmountText = new TextField("Your winnings will appear here", skin);
         guessText = new TextField("Type your guess here", skin);
+
+        returnButton = new TextButton("Back to the Market Menu", skin);
+        returnButton.addListener(new ChangeListener() {
+            @Override
+            public void changed(ChangeEvent event, Actor actor) {
+                game.setScreen(marketScreen);
+            }
+        });
+
 
         placeBetBtn.addListener(new ChangeListener() {
             @Override
@@ -83,7 +94,6 @@ public class CasinoActors extends Table {
             }
         };
 
-        betAmountText.setTextFieldFilter(digitFilter);
         resultAmountText.setTextFieldFilter(digitFilter);
 
         // Adjust properties.
@@ -100,6 +110,8 @@ public class CasinoActors extends Table {
         add(placeBetBtn);
         row();
         add(resultAmountText);
+        row();
+        add(returnButton);
         row();
         pad(20);
     }

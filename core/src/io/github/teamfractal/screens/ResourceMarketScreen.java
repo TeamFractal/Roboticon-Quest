@@ -18,13 +18,13 @@ public class ResourceMarketScreen implements Screen {
 	final Table table;
 	private final ResourceMarketActors marketActors;
 	
-	public ResourceMarketScreen(final RoboticonQuest game) {
+	public ResourceMarketScreen(final RoboticonQuest game, MarketScreen marketScreen) {
 		this.game = game;
 		this.stage = new Stage(new ScreenViewport());
 		this.table = new Table();
 		table.setFillParent(true);
 
-		marketActors = new ResourceMarketActors(game, this); // generates actors for the screen
+		marketActors = new ResourceMarketActors(game, this, marketScreen); // generates actors for the screen
 
 		table.add(marketActors);
 
