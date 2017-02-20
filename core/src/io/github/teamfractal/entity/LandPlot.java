@@ -155,7 +155,7 @@ public class LandPlot {
 	public int[] produceResources() {
 		int[] produced = new int[3];
 		for (int i = 0; i < 2; i++) {
-			produced[i] = productionAmounts[i] * productionModifiers[i];
+			produced[i] = productionAmounts[i] + productionModifiers[i];
 		}
 		return produced;
 	}
@@ -168,7 +168,7 @@ public class LandPlot {
 	public int produceResource(ResourceType resource) {
 		if (this.hasRoboticon){
 			int resIndex = resourceTypeToIndex(resource);
-			return productionAmounts[resIndex] * productionModifiers[resIndex];
+			return productionAmounts[resIndex] + productionModifiers[resIndex];
 		}
 		else return 0;
 		
@@ -176,7 +176,7 @@ public class LandPlot {
 
 	public int getResource(ResourceType resource) {
 		int resIndex = resourceTypeToIndex(resource);
-		return productionAmounts[resIndex];
+		return productionAmounts[resIndex] + productionModifiers[resIndex];
 	}
 	
 	public boolean hasRoboticon(){

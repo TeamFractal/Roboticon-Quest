@@ -124,5 +124,5 @@ public class PlotManager {
 		return roboticonOverlay;
 	}
 
-	public LandPlot[][] getLandPlots() { return plots; }
+	public LandPlot[][] getPlots() { return plots; }
 }
