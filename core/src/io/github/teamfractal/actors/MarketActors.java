@@ -29,14 +29,16 @@ public class MarketActors extends Table {
         this.auctionScreen = new AuctionScreen(this.game, screen);
 
         // Create UI Components
-        TextButton casinoBtn = new TextButton("To the casino", skin);
+        final TextButton casinoBtn = new TextButton("To the casino", skin);
         TextButton marketBtn = new TextButton("To the shopfront", skin);
         TextButton auctionBtn = new TextButton("To the auction house", skin);
+        TextButton nextBtn = new TextButton("Next ->", skin);
 
         casinoBtn.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
                 //Go to the casino screen.
+                casinoScreen.prepare();
                 game.setScreen(casinoScreen);
             }
         });
@@ -45,7 +47,9 @@ public class MarketActors extends Table {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
                 //Go to the market screen.
+                marketScreen.prepare();
                 game.setScreen(marketScreen);
+
             }
         });
 
@@ -57,6 +61,13 @@ public class MarketActors extends Table {
             }
         });
 
+        nextBtn.addListener(new ChangeListener() {
+            @Override
+            public void changed(ChangeEvent event, Actor actor) {
+                game.nextPhase();
+            }
+        });
+
         center();
 
         add(casinoBtn);
@@ -64,6 +75,8 @@ public class MarketActors extends Table {
         add(auctionBtn);
         row();
         add(marketBtn);
+        row();
+        add(nextBtn);
         row();
     }
 

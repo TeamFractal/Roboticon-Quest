@@ -110,6 +110,8 @@ public class AuctionActors extends Table {
 		add(auctionItemButton);
 
 		row();
+		add().height(10);
+		row();
 		add(returnButton);
 
 		//debugAll();
@@ -168,7 +170,7 @@ public class AuctionActors extends Table {
 		});
 	}
 
-	private void widgetUpdate(boolean doDisablePuttingItemsUpForAuction) {
+	public void widgetUpdate(boolean doDisablePuttingItemsUpForAuction) {
 		if(doDisablePuttingItemsUpForAuction){
 			putUpItemTitle.setText("You have already put up an item for auction this turn.");
 			auctionableItemsSelectBox.setVisible(false);

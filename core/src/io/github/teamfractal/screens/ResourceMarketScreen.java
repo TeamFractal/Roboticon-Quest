@@ -31,6 +31,10 @@ public class ResourceMarketScreen implements Screen {
 		stage.addActor(table);
 	}
 
+	public void prepare(){
+		marketActors.widgetUpdate();
+	}
+
 	@Override
 	public void show() {
 		Gdx.input.setInputProcessor(stage);

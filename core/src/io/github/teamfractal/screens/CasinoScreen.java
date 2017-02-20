@@ -19,6 +19,9 @@ public class CasinoScreen implements Screen {
 
 
     public CasinoScreen(final RoboticonQuest game, MarketScreen marketScreen) {
+
+        System.out.print(game.getPlayer() + "\n");
+
         this.game = game;
         this.stage = new Stage(new ScreenViewport());
         this.table = new Table();
@@ -27,6 +30,10 @@ public class CasinoScreen implements Screen {
         casinoActors = new CasinoActors(game, this, marketScreen); // generates actors for the screen
         table.add(casinoActors);
         stage.addActor(table);
+    }
+
+    public void prepare(){
+        casinoActors.widgetUpdate();
     }
 
     @Override

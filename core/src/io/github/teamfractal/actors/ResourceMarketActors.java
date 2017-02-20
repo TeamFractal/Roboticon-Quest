@@ -108,7 +108,6 @@ public class ResourceMarketActors extends Table {
 	 */
 	public ResourceMarketActors(final RoboticonQuest game, ResourceMarketScreen screen, final MarketScreen marketScreen) {
 		center();
-
 		Skin skin = game.skin;
 		this.game = game;
 		this.screen = screen;
@@ -147,11 +146,14 @@ public class ResourceMarketActors extends Table {
 		sellLabel.setAlignment(Align.center);
 		
 		playerStats.setAlignment(Align.center);
+		playerStats.setHeight(90);
 
 		// Add UI components to screen.
 		stage.addActor(phaseInfo);
 		stage.addActor(nextButton);
-		stage.addActor(playerStats);
+		//stage.addActor(playerStats);
+		add(playerStats);
+		row();
 
 		// Setup UI Layout.
 		// Row: Player and Market Stats.
@@ -161,39 +163,20 @@ public class ResourceMarketActors extends Table {
 
 		Table innerTable = new Table();
 		{
-			// Row: Label of Sell and Buy
-			innerTable.add(buyLabel);
-			innerTable.add();
-			innerTable.add(sellLabel);
-			innerTable.row();
-			innerTable.add().height(5);
-			innerTable.row();
-
-			// Row: Ore buy/sell
-			innerTable.add(oreBuy);
-			innerTable.add().width(5);
-			innerTable.add(oreSell);
-			innerTable.row();
-			innerTable.add().height(5);
-			innerTable.row();
-
-			// Row: Energy buy/sell
+			innerTable.add(oreBuy).padRight(5);
 			innerTable.add(energyBuy);
-			innerTable.add().width(5);
+			innerTable.add(foodBuy).padLeft(5);
+			innerTable.row();
+			innerTable.add().height(30).colspan(3);
+			innerTable.row();
+			innerTable.add(oreSell).padRight(5);
 			innerTable.add(energySell);
-			innerTable.row();
-			innerTable.add().height(5);
-			innerTable.row();
-
-			//Row: Food buy/sell
-			innerTable.add(foodBuy);
-			innerTable.add().width(5);
-			innerTable.add(foodSell);
-			innerTable.row();
-			innerTable.add().height(5);
+			innerTable.add(foodSell).padLeft(5);
 			innerTable.row();
 		}
 		add(innerTable);
+		row();
+		add().height(10);
 		row();
 		add(returnButton);
 
@@ -240,7 +223,7 @@ public class ResourceMarketActors extends Table {
 				" Food: "   + game.getPlayer().getFood()   + "\n" +
 				" Money: "  + game.getPlayer().getMoney()  + "\n" ;
 
-		String marketStatText =
+		String marketStatText = "Market Resources -    " +
 				"Ore: " +    game.market.getResource(ResourceType.ORE   ) + "  " +
 				"Energy: " + game.market.getResource(ResourceType.ENERGY) + "  " +
 				"Food: " +   game.market.getResource(ResourceType.FOOD  );

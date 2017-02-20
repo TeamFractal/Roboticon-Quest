@@ -46,8 +46,9 @@ public class CasinoActors extends Table {
     private TextField resultAmountText;
     private TextField guessText;
     private Label instructionLblGuess;
-    private Label instructionLblBet;
     private TextButton returnButton;
+    private Label playerStats;
+
 
     public CasinoActors(final RoboticonQuest game, CasinoScreen screen, final MarketScreen marketScreen) {
         center();
@@ -57,9 +58,9 @@ public class CasinoActors extends Table {
         this.miniGame = new MiniGame();
 
         // Create UI Components
+        playerStats = new Label("Your Resources\n\n\n\n\n", game.skin); //Pad out the initial string with new lines as the label width property does not correctly update
         casinoTitleLbl = new Label("Casino", skin);
-        instructionLblGuess = new Label("Guess a number between 1 and 4", skin);
-        instructionLblBet = new Label("A bet costs 300", skin);
+        instructionLblGuess = new Label("Guess a number between 1 and 3. A bet costs 300", skin);
         placeBetBtn = new TextButton("Place Bet", skin);
         resultAmountText = new TextField("Your winnings will appear here", skin);
         guessText = new TextField("Type your guess here", skin);
@@ -77,10 +78,12 @@ public class CasinoActors extends Table {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
                 int guess = Integer.parseInt(guessText.getText());
-                if(guess >= 1 && guess <= 4){
+                if(guess >= 1 && guess <= 3){
+                        game.getPlayer().addMoney(-300);
                         int winningAmount = miniGame.getPrice(miniGame.WinGame(guess));
                         resultAmountText.setText("You won: " + Integer.toString(winningAmount));
                         game.getPlayer().addMoney(winningAmount);
+                        widgetUpdate();
                 }
 
             }
@@ -99,13 +102,13 @@ public class CasinoActors extends Table {
         // Adjust properties.
         casinoTitleLbl.setAlignment(Align.left);
 
+        add(playerStats);
+        row();
         add(casinoTitleLbl);
         row();
         add(instructionLblGuess);
         row();
         add(guessText);
-        row();
-        add(instructionLblBet);
         row();
         add(placeBetBtn);
         row();
@@ -114,6 +117,20 @@ public class CasinoActors extends Table {
         add(returnButton);
         row();
         pad(20);
+
+        widgetUpdate();
+    }
+
+    public void widgetUpdate() {
+
+        String statText = "Your resources:\n\n" +
+                " Ore: "    + game.getPlayer().getOre()    + "\n" +
+                " Energy: " + game.getPlayer().getEnergy() + "\n" +
+                " Food: "   + game.getPlayer().getFood()   + "\n" +
+                " Money: "  + game.getPlayer().getMoney()  + "\n" ;
+
+        playerStats.setText(statText);
+
     }
 
 }
