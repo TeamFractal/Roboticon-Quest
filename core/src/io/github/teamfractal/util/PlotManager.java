@@ -15,6 +15,7 @@ public class PlotManager {
 	private TiledMapTileLayer roboticonOverlay;
 	private int width;
 	private int height;
+
 	private TiledMapTile cityTile;
 	private TiledMapTile waterTile;
 	private TiledMapTile forestTile;
@@ -22,6 +23,9 @@ public class PlotManager {
 	private TiledMapTile hillTile2;
 	private TiledMapTile hillTile3;
 	private TiledMapTile hillTile4;
+	private TiledMapTile ronCookeTile;
+	private TiledMapTile csTile;
+	private TiledMapTile lmbTile;
 
 	public PlotManager() {
 
@@ -45,6 +49,9 @@ public class PlotManager {
 		this.hillTile2 = tiles.getTile(5);
 		this.hillTile3 = tiles.getTile(6);
 		this.hillTile4 = tiles.getTile(7);
+		this.csTile = tiles.getTile(64);
+		this.lmbTile = tiles.getTile(65);
+		this.ronCookeTile = tiles.getTile(66);
 
 		width = mapLayer.getWidth();
 		height = mapLayer.getHeight();
@@ -98,35 +105,59 @@ public class PlotManager {
 	private LandPlot createLandPlot(int x, int y) {
 		int ore, energy, food;
 		TiledMapTile tile = mapLayer.getCell(x, y).getTile();
+		String name;
 
 		if (tile == cityTile){
 			ore = 1;
 			energy = 2;
 			food = 3;
+			name = "City";
 		}
 		else if (tile == forestTile){
 			ore = 2;
 			energy = 3;
 			food = 1;
+			name = "Forest";
 		}
 		else if (tile == waterTile){
 			ore = 3;
 			energy = 1;
 			food = 2;
+			name = "River";
 		}
 		else if (tile == hillTile1 || tile == hillTile2 ||tile == hillTile3 || tile == hillTile4 ){
 			ore = 3;
 			energy = 2;
 			food = 1;
+			name = "Hills";
+		}
+		else if (tile == csTile){
+			ore = 5;
+			energy = 4;
+			food = 0;
+			name = "CS Department";
+		}
+		else if (tile == lmbTile){
+			ore = 3;
+			energy = 3;
+			food = 3;
+			name = "Law and Management";
+		}
+		else if (tile == ronCookeTile){
+			ore = 0;
+			energy = 2;
+			food = 7;
+			name = "Ron Cooke Hub";
 		}
 		else{
 			ore = 2;
 			energy = 2;
 			food = 2;
+			name = "Plains";
 		}
 
 		LandPlot p = new LandPlot(ore, energy, food);
-		p.setupTile(this, x, y);
+		p.setupTile(this, x, y, name);
 		plots[x][y] = p;
 		return p;
 	}

@@ -7,6 +7,7 @@ import io.github.teamfractal.exception.NotCommonResourceException;
 import io.github.teamfractal.util.PlotManager;
 
 public class LandPlot {
+	private String name;
 	private TiledMapTileLayer.Cell mapTile;
 	private TiledMapTileLayer.Cell playerTile;
 	private TiledMapTileLayer.Cell roboticonTile;
@@ -98,12 +99,13 @@ public class LandPlot {
 		this.owned = false;
 	}
 
-	public void setupTile (PlotManager plotManager, int x, int y) {
+	public void setupTile (PlotManager plotManager, int x, int y, String tileName) {
 		this.x = x;
 		this.y = y;
 		this.mapTile = plotManager.getMapLayer().getCell(x, y);
 		this.playerTile = plotManager.getPlayerOverlay().getCell(x, y);
 		this.roboticonTile = plotManager.getRoboticonOverlay().getCell(x, y);
+		this.name = tileName;
 	}
 
 	/**
@@ -162,7 +164,7 @@ public class LandPlot {
 	 */
 	public int[] produceResources() {
 		int[] produced = new int[3];
-		for (int i = 0; i < 2; i++) {
+		for (int i = 0; i < 3; i++) {
 			int productionAmount = productionAmounts[i];
 			produced[i] = productionAmount + (int)((float)productionAmount * (float)(productionModifiers[i] / 100));
 		}
@@ -194,5 +196,8 @@ public class LandPlot {
 		this.hasRoboticon = roboticonInstalled;
 	}
 
-
+	@Override
+	public String toString(){
+		return name;
+	}
 }

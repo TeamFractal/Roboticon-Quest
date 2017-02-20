@@ -213,7 +213,6 @@ public class GameScreen extends AbstractAnimationScreen implements Screen  {
 		case ENERGY:
 			return tiles.getTile(68 + game.getPlayerIndex(player) + 8);
 		case FOOD:
-			System.out.println("got food tile: " + tiles.getTile(68 + game.getPlayerIndex(player) + 12));
 			return tiles.getTile(68 + game.getPlayerIndex(player) + 12);
 		default:
 			return tiles.getTile(68 + game.getPlayerIndex(player) + 16);

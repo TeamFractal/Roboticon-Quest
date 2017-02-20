@@ -290,15 +290,7 @@ public class Player {
 		plot.setOwner(this);
 		return true;
 	}
-	/**
-	 * Get a landplot to produce resources
-	 */
-	public void produceResources(){
-		for (LandPlot plot : landList) {
-			energy += plot.produceResource(ResourceType.ENERGY);
-			ore += plot.produceResource(ResourceType.ORE);
-		}
-	}
+	
 	/**
 	 * Apply roboticon customisation
 	 * @param roboticon  The roboticon to be customised
@@ -396,6 +388,7 @@ public class Player {
 		for (LandPlot land : landList) {
 			energy += land.produceResource(ResourceType.ENERGY);
 			ore += land.produceResource(ResourceType.ORE);
+			food += land.produceResource(ResourceType.FOOD);
 		}
 
 		setEnergy(getEnergy() + energy);
