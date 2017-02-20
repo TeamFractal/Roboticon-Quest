@@ -15,9 +15,6 @@ import io.github.teamfractal.animation.IAnimationFinish;
 import io.github.teamfractal.screens.*;
 import io.github.teamfractal.entity.Market;
 import io.github.teamfractal.entity.Player;
-import io.github.teamfractal.entity.Roboticon;
-import io.github.teamfractal.entity.enums.ResourceType;
-import io.github.teamfractal.util.AuctionableItem;
 import io.github.teamfractal.util.PlotManager;
 
 /**
@@ -143,7 +140,7 @@ public class RoboticonQuest extends Game {
 
 			// Phase 5: Generate resource for player.
 			case 5:
-				setScreen(new ResourceMarketScreen(this));
+				setScreen(new MarketScreen(this));
 				// Restore the next buton on the game screen now that it isn't the current screen.
 				gameScreen.showNextButton();
 				break;

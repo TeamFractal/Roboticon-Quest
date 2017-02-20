@@ -13,6 +13,7 @@ import com.badlogic.gdx.utils.Align;
 import io.github.teamfractal.RoboticonQuest;
 import io.github.teamfractal.entity.Player;
 import io.github.teamfractal.entity.enums.ResourceType;
+import io.github.teamfractal.screens.MarketScreen;
 import io.github.teamfractal.screens.ResourceMarketScreen;
 
 public class ResourceMarketActors extends Table {
@@ -20,6 +21,9 @@ public class ResourceMarketActors extends Table {
 	private final AdjustableActor oreSell;
 	private final AdjustableActor energyBuy;
 	private final AdjustableActor energySell;
+	private final AdjustableActor foodBuy;
+	private final AdjustableActor foodSell;
+	private final TextButton returnButton;
 	private RoboticonQuest game;
 	private Integer buyOreAmount;
 	private Integer sellOreAmount;
@@ -46,7 +50,7 @@ public class ResourceMarketActors extends Table {
 				+ (bIsSell
 					? game.market.getBuyPrice(resource)
 					: game.market.getSellPrice(resource))
-				+ " Gold";
+				+ " Credits";
 	}
 
 	/**
@@ -102,9 +106,8 @@ public class ResourceMarketActors extends Table {
 	 * @param game       The game object.
 	 * @param screen     The screen object.
 	 */
-	public ResourceMarketActors(final RoboticonQuest game, ResourceMarketScreen screen) {
+	public ResourceMarketActors(final RoboticonQuest game, ResourceMarketScreen screen, final MarketScreen marketScreen) {
 		center();
-
 		Skin skin = game.skin;
 		this.game = game;
 		this.screen = screen;
@@ -123,6 +126,17 @@ public class ResourceMarketActors extends Table {
 		oreSell = createAdjustable(ResourceType.ORE, true);
 		energyBuy = createAdjustable(ResourceType.ENERGY, false);
 		energySell = createAdjustable(ResourceType.ENERGY, true);
+		foodBuy = createAdjustable(ResourceType.FOOD, false);
+		foodSell = createAdjustable(ResourceType.FOOD, true);
+
+		returnButton = new TextButton("Back to the Market Menu", skin);
+		returnButton.addListener(new ChangeListener() {
+			@Override
+			public void changed(ChangeEvent event, Actor actor) {
+				game.setScreen(marketScreen);
+			}
+		});
+
 
 		// Adjust properties.
 		phaseInfo.setAlignment(Align.right);
@@ -132,35 +146,41 @@ public class ResourceMarketActors extends Table {
 		sellLabel.setAlignment(Align.center);
 		
 		playerStats.setAlignment(Align.center);
+		playerStats.setHeight(90);
 
 		// Add UI components to screen.
 		stage.addActor(phaseInfo);
 		stage.addActor(nextButton);
-		stage.addActor(playerStats);
+		//stage.addActor(playerStats);
+		add(playerStats);
+		row();
 
 		// Setup UI Layout.
 		// Row: Player and Market Stats.
-		add().spaceRight(20);
+
 		add(marketStats);
 		rowWithHeight(20);
 
-		// Row: Label of Sell and Buy
-		add(buyLabel);
-		add();
-		add(sellLabel);
-		rowWithHeight(10);
+		Table innerTable = new Table();
 
-		// Row: Ore buy/sell
-		add(oreBuy);
-		add();
-		add(oreSell);
-		rowWithHeight(10);
+		{
+			innerTable.add(oreBuy).padRight(5);
+			innerTable.add(energyBuy);
+			innerTable.add(foodBuy).padLeft(5);
+			innerTable.row();
+			innerTable.add().height(30).colspan(3);
+			innerTable.row();
+			innerTable.add(oreSell).padRight(5);
+			innerTable.add(energySell);
+			innerTable.add(foodSell).padLeft(5);
+			innerTable.row();
+		}
 
-		// Row: Energy buy/sell
-		add(energyBuy);
-		add();
-		add(energySell);
-		rowWithHeight(10);
+		add(innerTable);
+		row();
+		add().height(10);
+		row();
+		add(returnButton);
 
 		pad(20);
 		
@@ -205,7 +225,7 @@ public class ResourceMarketActors extends Table {
 				" Food: "   + game.getPlayer().getFood()   + "\n" +
 				" Money: "  + game.getPlayer().getMoney()  + "\n" ;
 
-		String marketStatText =
+		String marketStatText = "Market Resources -    " +
 				"Ore: " +    game.market.getResource(ResourceType.ORE   ) + "  " +
 				"Energy: " + game.market.getResource(ResourceType.ENERGY) + "  " +
 				"Food: " +   game.market.getResource(ResourceType.FOOD  );
@@ -240,5 +260,6 @@ public class ResourceMarketActors extends Table {
 		nextButton.setPosition(width - nextButton.getWidth() - 10, 10);
 
 		setWidth(width);
+		center();
 	}
 }

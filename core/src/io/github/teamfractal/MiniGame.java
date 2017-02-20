@@ -5,17 +5,18 @@ import java.util.Scanner;
 
 public class MiniGame {
 	private static final Random rand = new Random();
-	public boolean WinGame(int guessedNumber){
-		int max = 3;
-		int min = 1;
-		int generatedNumber = rand.nextInt((max - min) + 1) + min;
+	private final int WIN_AMOUNT = 600;
+	private final int MAX_GUESS = 3;
+	private final int MIN_GUESS = 1;
 
+	public boolean WinGame(int guessedNumber){
+		int generatedNumber = rand.nextInt((MAX_GUESS - MIN_GUESS) + 1) + MIN_GUESS;
 		return guessedNumber == generatedNumber;
 	}
 
 	public int getPrice(boolean bIsWin){
 		if (bIsWin){
-			return 1000;
+			return WIN_AMOUNT;
 		}
 		else {
 			return 0;
