@@ -19,6 +19,8 @@ import io.github.teamfractal.entity.Roboticon;
 import io.github.teamfractal.entity.enums.ResourceType;
 import io.github.teamfractal.screens.AbstractAnimationScreen;
 import io.github.teamfractal.screens.GameScreen;
+import io.github.teamfractal.util.MessagePopUp;
+import io.github.teamfractal.util.RandomEvents;
 import io.github.teamfractal.util.TileConverter;
 
 public class GameScreenActors {
@@ -95,7 +97,10 @@ public class GameScreenActors {
 		Table t = installRoboticonTable;
 
 		installRoboticonSelect = new SelectBox<String>(game.skin);
-		installRoboticonSelect.setItems(game.getPlayer().getRoboticonAmountList());
+		
+		///// Changed getRoboticonAmountList() to getCustomisedRoboticonAmountList()
+		///// Stop player's placing uncustomised roboticons
+		installRoboticonSelect.setItems(game.getPlayer().getCustomisedRoboticonAmountList());
 
 		installRoboticonLabel = new Label("Install Roboticon: ", game.skin);
 		installRoboticonBtn = new TextButton("Confirm", game.skin);
@@ -128,12 +133,28 @@ public class GameScreenActors {
 				if (selectedPlot.hasOwner()) {
 					return;
 				}
-
+		 
 				Player player = game.getPlayer();
 				if (player.purchaseLandPlot(selectedPlot)) {
+					//Added a random event where the player finds a chest containing money - Christian Beddows
+					if (RandomEvents.tileHasChest()){
+						int playerTreasure = RandomEvents.treasureChest(game);
+						stage.addActor(new MessagePopUp("You found a treasure chest!","On your new tile you "
+								+ "find a buried treasure chest containing " + Integer.toString(playerTreasure) + " money!"));
+					}
+					//Added a random event where you disturb a flock of geese on a plot - Ben
+					if (RandomEvents.GeeseAttack()){
+						int food = RandomEvents.Geese(game);
+						stage.addActor(new MessagePopUp("Disturbed a flock of Geese!","On your new tile you "
+								+ "discover a flock of geese they attack!, you lost " + Integer.toString(food) + " food!"));
+					}
 					TiledMapTileLayer.Cell playerTile = selectedPlot.getPlayerTile();
 					playerTile.setTile(screen.getPlayerTile(player));
 					textUpdate();
+				}
+				//Added a popup if you dont have enough money to buy a plot - Ben
+				else{
+					stage.addActor(new MessagePopUp("Not enough money!","You dont have enough Money to buy this plot."));
 				}
 			}
 		});
@@ -150,7 +171,10 @@ public class GameScreenActors {
 				hideInstallRoboticon();
 				game.nextPhase();
 				dropDownActive = true;
-				installRoboticonSelect.setItems(game.getPlayer().getRoboticonAmountList());
+				
+				///// Changed getRoboticonAmountList() to getCustomisedRoboticonAmountList()
+				///// Stop player's placing uncustomised roboticons
+				installRoboticonSelect.setItems(game.getPlayer().getCustomisedRoboticonAmountList());
 				textUpdate();
 			}
 		});
@@ -178,6 +202,10 @@ public class GameScreenActors {
 							case 1:
 								type = ResourceType.ENERGY;
 								break;
+							//added by andrew
+							case 2:
+								type = ResourceType.FOOD;
+								break;
 							default:
 								type = ResourceType.Unknown;
 								break;
@@ -191,10 +219,20 @@ public class GameScreenActors {
 						}
 
 						if (roboticon != null) {
-							selectedPlot.installRoboticon(roboticon);
-							TiledMapTileLayer.Cell roboticonTile = selectedPlot.getRoboticonTile();
-							roboticonTile.setTile(TileConverter.getRoboticonTile(roboticon.getCustomisation()));
-							selectedPlot.setHasRoboticon(true);
+							///// Modified by Josh Neil - 
+							///// Added if else branches previously was just the instructions in the 
+							///// else branch followed by textUpdate()
+							if(RandomEvents.roboticonIsFaulty()){
+								// Roboticon was faulty and has broken (cannot be placed)
+								game.getPlayer().removeRoboticon(roboticon);
+								stage.addActor(new MessagePopUp("That roboticon was faulty","That roboticon was faulty and exploded!"));
+							}
+							else{
+								selectedPlot.installRoboticon(roboticon);
+								TiledMapTileLayer.Cell roboticonTile = selectedPlot.getRoboticonTile();
+								roboticonTile.setTile(TileConverter.getRoboticonTile(roboticon.getCustomisation()));
+								selectedPlot.setHasRoboticon(true);
+							}
 							textUpdate();
 						}
 
@@ -263,7 +301,10 @@ public class GameScreenActors {
 	 * Update the dropdown list of roboticon available.
 	 */
 	private void updateRoboticonList() {
-		installRoboticonSelect.setItems(game.getPlayer().getRoboticonAmountList());
+		
+		///// Changed getRoboticonAmountList() to getCustomisedRoboticonAmountList()
+		///// Stop player's placing uncustomised roboticons
+		installRoboticonSelect.setItems(game.getPlayer().getCustomisedRoboticonAmountList());
 	}
 
 	/**
@@ -313,7 +354,8 @@ public class GameScreenActors {
 	 */
 	public void showPlotStats(LandPlot plot, float x, float y) {
 		String plotStatText = "Ore: " + plot.getResource(ResourceType.ORE)
-				+ "  Energy: " + plot.getResource(ResourceType.ENERGY);
+				+ "  Energy: " + plot.getResource(ResourceType.ENERGY)
+				+ "  Food: " + plot.getResource(ResourceType.FOOD);
 
 		plotStats.setText(plotStatText);
 		plotStats.setPosition(x, y);
