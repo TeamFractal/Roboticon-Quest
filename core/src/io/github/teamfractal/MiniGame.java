@@ -16,7 +16,7 @@ public class MiniGame {
 
 	public int getPrice(boolean bIsWin){
 		if (bIsWin){
-			return 1000;
+			return 600;
 		}
 		else {
 			return 0;

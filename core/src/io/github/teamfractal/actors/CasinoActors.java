@@ -36,34 +36,33 @@ import javax.xml.soap.Text;
 public class CasinoActors extends Table {
     private ResourceMarketActors resourceMarketActors;
 
-    private Auction auction;
     private RoboticonQuest game;
     private MiniGame miniGame;
 
-    private Label casinoTitleLbl;
-    private TextField betAmountText;
-    private TextButton placeBetBtn;
-    private TextField resultAmountText;
-    private TextField guessText;
-    private Label instructionLblGuess;
     private TextButton returnButton;
+    private final Label resultAmountText;
     private Label playerStats;
 
+    private final int BET_COST = 300;
 
     public CasinoActors(final RoboticonQuest game, CasinoScreen screen, final MarketScreen marketScreen) {
         center();
         Skin skin = game.skin;
         this.game = game;
-        auction = game.auction;
         this.miniGame = new MiniGame();
 
         // Create UI Components
         playerStats = new Label("Your Resources\n\n\n\n\n", game.skin); //Pad out the initial string with new lines as the label width property does not correctly update
-        casinoTitleLbl = new Label("Casino", skin);
-        instructionLblGuess = new Label("Guess a number between 1 and 3. A bet costs 300", skin);
-        placeBetBtn = new TextButton("Place Bet", skin);
-        resultAmountText = new TextField("Your winnings will appear here", skin);
-        guessText = new TextField("Type your guess here", skin);
+
+        Label casinoTitleLbl = new Label("Casino", skin);
+        Label instructionLblGuess = new Label("Guess a number between 1 and 3. A bet costs 300", skin);
+        TextButton placeBetBtn = new TextButton("Place Bet", skin);
+        resultAmountText = new Label("Your winnings will appear here", skin);
+        TextField guessText = new TextField("Type your guess here", skin);
+
+        TextButton button1 = new TextButton("1", skin);
+        TextButton button2 = new TextButton("2", skin);
+        TextButton button3 = new TextButton("3", skin);
 
         returnButton = new TextButton("Back to the Market Menu", skin);
         returnButton.addListener(new ChangeListener() {
@@ -77,44 +76,64 @@ public class CasinoActors extends Table {
         placeBetBtn.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-                int guess = Integer.parseInt(guessText.getText());
-                if(guess >= 1 && guess <= 3){
-                        game.getPlayer().addMoney(-300);
-                        int winningAmount = miniGame.getPrice(miniGame.WinGame(guess));
-                        resultAmountText.setText("You won: " + Integer.toString(winningAmount));
-                        game.getPlayer().addMoney(winningAmount);
-                        widgetUpdate();
-                }
+
 
             }
         });
 
-        TextFieldFilter digitFilter = new TextFieldFilter() {
-            public  boolean acceptChar(TextField textField, char c) {
-                if (Character.isDigit(c))
-                    return true;
-                return false;
+        button1.addListener(new ChangeListener() {
+            @Override
+            public void changed(ChangeEvent event, Actor actor) {
+                game.getPlayer().addMoney(-BET_COST);
+                int winningAmount = miniGame.getPrice(miniGame.WinGame(1));
+                resultAmountText.setText("You won: " + Integer.toString(winningAmount));
+                game.getPlayer().addMoney(winningAmount);
+                widgetUpdate();
             }
-        };
-
-        resultAmountText.setTextFieldFilter(digitFilter);
+        });
+        button2.addListener(new ChangeListener() {
+            @Override
+            public void changed(ChangeEvent event, Actor actor) {
+                game.getPlayer().addMoney(-BET_COST);
+                int winningAmount = miniGame.getPrice(miniGame.WinGame(2));
+                resultAmountText.setText("You won: " + Integer.toString(winningAmount));
+                game.getPlayer().addMoney(winningAmount);
+                widgetUpdate();
+            }
+        });
+        button3.addListener(new ChangeListener() {
+            @Override
+            public void changed(ChangeEvent event, Actor actor) {
+                game.getPlayer().addMoney(-BET_COST);
+                int winningAmount = miniGame.getPrice(miniGame.WinGame(3));
+                resultAmountText.setText("You won: " + Integer.toString(winningAmount));
+                game.getPlayer().addMoney(winningAmount);
+                widgetUpdate();
+            }
+        });
 
         // Adjust properties.
         casinoTitleLbl.setAlignment(Align.left);
 
-        add(playerStats);
+        int maxCols = 5;
+
+        add(playerStats).colspan(maxCols);
         row();
-        add(casinoTitleLbl);
+        add(casinoTitleLbl).colspan(maxCols);
         row();
-        add(instructionLblGuess);
+        add(instructionLblGuess).colspan(maxCols);
         row();
-        add(guessText);
+        add(button1);
+        add().width(10);
+        add(button2);
+        add().width(10);
+        add(button3);
         row();
-        add(placeBetBtn);
+        add(placeBetBtn).colspan(maxCols);
         row();
-        add(resultAmountText);
+        add(resultAmountText).colspan(maxCols);
         row();
-        add(returnButton);
+        add(returnButton).colspan(maxCols);
         row();
         pad(20);
 

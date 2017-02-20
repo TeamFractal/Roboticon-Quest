@@ -162,6 +162,7 @@ public class ResourceMarketActors extends Table {
 		rowWithHeight(20);
 
 		Table innerTable = new Table();
+
 		{
 			innerTable.add(oreBuy).padRight(5);
 			innerTable.add(energyBuy);
@@ -174,6 +175,7 @@ public class ResourceMarketActors extends Table {
 			innerTable.add(foodSell).padLeft(5);
 			innerTable.row();
 		}
+
 		add(innerTable);
 		row();
 		add().height(10);
@@ -258,5 +260,6 @@ public class ResourceMarketActors extends Table {
 		nextButton.setPosition(width - nextButton.getWidth() - 10, 10);
 
 		setWidth(width);
+		center();
 	}
 }
