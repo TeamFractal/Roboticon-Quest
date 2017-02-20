@@ -316,7 +316,8 @@ public class GameScreenActors {
 	public void showPlotStats(LandPlot plot, float x, float y) {
 		String plotStatText = "Ore: " + plot.getResource(ResourceType.ORE)
 				+ "  Energy: " + plot.getResource(ResourceType.ENERGY)
-				+ "  Food: " + plot.getResource(ResourceType.FOOD);
+				+ "  Food: " + plot.getResource(ResourceType.FOOD)
+				+ "\n" + plot.toString();
 
 		plotStats.setText(plotStatText);
 		plotStats.setPosition(x, y);
