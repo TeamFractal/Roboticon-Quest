@@ -15,6 +15,8 @@ public class Market {
 	private static final int ENERGY_DEFAULT_AMOUNT = 16;
 	private static final int FOOD_DEFAULT_AMOUNT = 16;
 	private static final int ROBOTICON_DEFAULT_AMOUNT = 12;
+	private static final int CUSTOMISATION_BUY_PRICE = 1000;
+	private static final int CUSTOMISATION_SELL_PRICE = 10;
   
 	private final int ROBOTICON_ORE_COST = 2;
 	private final int MAX_NO_OF_ROBOTICONS_PER_TURN = 2;
@@ -36,8 +38,6 @@ public class Market {
 	private int ore;
 	private int roboticon;
 	private int accelerator;
-
-
 
 	/**
 	 * Get the amount of food in the market
@@ -76,7 +76,9 @@ public class Market {
 	 * @return   The total amount.
 	 */
 
-	int getAccelerator() {return accelerator; }
+	int getAccelerator() {
+		return accelerator; 
+	}
 
 	private synchronized int getTotalResourceCount() {
 		return food + energy + ore + roboticon;
@@ -160,7 +162,7 @@ public class Market {
 				return getFood();
 				
 			case CUSTOMISATION:
-				return 1000;
+				return CUSTOMISATION_SELL_PRICE;
 
 			default:
 				throw new NotCommonResourceException(type);
@@ -243,7 +245,7 @@ public class Market {
 				return price;
 
 			case CUSTOMISATION:
-				price = 10;
+				price = CUSTOMISATION_BUY_PRICE;
 				return price;
 
 			default:
@@ -277,7 +279,7 @@ public class Market {
 				return price;
 
 			case CUSTOMISATION:
-				price = 10;
+				price = CUSTOMISATION_BUY_PRICE;
 				return price;
 
 			default:
