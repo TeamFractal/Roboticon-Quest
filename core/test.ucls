@@ -181,16 +181,7 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </enumeration>  
-  <enumeration id="21" language="java" name="io.github.teamfractal.entity.enums.GamblingResult" project="core" 
-    file="/core/src/io/github/teamfractal/entity/enums/GamblingResult.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="659" y="659"/>    
-    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
-      sort-features="false" accessors="true" visibility="true">      
-      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
-      <operations public="true" package="true" protected="true" private="true" static="true"/>    
-    </display>  
-  </enumeration>  
-  <class id="22" language="java" name="io.github.teamfractal.exception.NotEnoughMoneyException" project="core" 
+  <class id="21" language="java" name="io.github.teamfractal.exception.NotEnoughMoneyException" project="core" 
     file="/core/src/io/github/teamfractal/exception/NotEnoughMoneyException.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="339" y="484"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
@@ -199,7 +190,7 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="23" language="java" name="io.github.teamfractal.exception.NotEnoughResourceException" project="core" 
+  <class id="22" language="java" name="io.github.teamfractal.exception.NotEnoughResourceException" project="core" 
     file="/core/src/io/github/teamfractal/exception/NotEnoughResourceException.java" binary="false" 
     corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="598" y="216"/>    
@@ -209,7 +200,7 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="24" language="java" name="io.github.teamfractal.exception.InvalidResourceTypeException" project="core" 
+  <class id="23" language="java" name="io.github.teamfractal.exception.InvalidResourceTypeException" project="core" 
     file="/core/src/io/github/teamfractal/exception/InvalidResourceTypeException.java" binary="false" 
     corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="327" y="655"/>    
@@ -219,7 +210,7 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="25" language="java" name="io.github.teamfractal.exception.NotCommonResourceException" project="core" 
+  <class id="24" language="java" name="io.github.teamfractal.exception.NotCommonResourceException" project="core" 
     file="/core/src/io/github/teamfractal/exception/NotCommonResourceException.java" binary="false" 
     corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="603" y="93"/>    
@@ -229,7 +220,7 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="26" language="java" name="io.github.teamfractal.screens.GameScreen" project="core" 
+  <class id="25" language="java" name="io.github.teamfractal.screens.GameScreen" project="core" 
     file="/core/src/io/github/teamfractal/screens/GameScreen.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="2485" y="407"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
@@ -238,7 +229,7 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="27" language="java" name="io.github.teamfractal.screens.MainMenuScreen" project="core" 
+  <class id="26" language="java" name="io.github.teamfractal.screens.MainMenuScreen" project="core" 
     file="/core/src/io/github/teamfractal/screens/MainMenuScreen.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="1653" y="1030"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
@@ -247,7 +238,7 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="28" language="java" name="io.github.teamfractal.screens.RoboticonMarketScreen" project="core" 
+  <class id="27" language="java" name="io.github.teamfractal.screens.RoboticonMarketScreen" project="core" 
     file="/core/src/io/github/teamfractal/screens/RoboticonMarketScreen.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="976" y="824"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
@@ -256,7 +247,7 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="29" language="java" name="io.github.teamfractal.screens.AbstractAnimationScreen" project="core" 
+  <class id="28" language="java" name="io.github.teamfractal.screens.AbstractAnimationScreen" project="core" 
     file="/core/src/io/github/teamfractal/screens/AbstractAnimationScreen.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="2826" y="982"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
@@ -265,7 +256,7 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="30" language="java" name="io.github.teamfractal.screens.ResourceMarketScreen" project="core" 
+  <class id="29" language="java" name="io.github.teamfractal.screens.ResourceMarketScreen" project="core" 
     file="/core/src/io/github/teamfractal/screens/ResourceMarketScreen.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="845" y="2199"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
@@ -274,7 +265,7 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="31" language="java" name="io.github.teamfractal.screens.GameOverScreen" project="core" 
+  <class id="30" language="java" name="io.github.teamfractal.screens.GameOverScreen" project="core" 
     file="/core/src/io/github/teamfractal/screens/GameOverScreen.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="689" y="1579"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
@@ -283,7 +274,7 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="32" language="java" name="io.github.teamfractal.util.PlotManager" project="core" 
+  <class id="31" language="java" name="io.github.teamfractal.util.PlotManager" project="core" 
     file="/core/src/io/github/teamfractal/util/PlotManager.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="1513" y="2840"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
@@ -292,7 +283,7 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="33" language="java" name="io.github.teamfractal.util.TileConverter" project="core" 
+  <class id="32" language="java" name="io.github.teamfractal.util.TileConverter" project="core" 
     file="/core/src/io/github/teamfractal/util/TileConverter.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="1624" y="1549"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
@@ -301,25 +292,16 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="34" language="java" name="io.github.teamfractal.util.MessagePopUp" project="core" 
+  <class id="33" language="java" name="io.github.teamfractal.util.MessagePopUp" project="core" 
     file="/core/src/io/github/teamfractal/util/MessagePopUp.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="683" y="816"/>    
+    <position height="-1" width="-1" x="1459" y="738"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="35" language="java" name="io.github.teamfractal.util.SoundEffects" project="core" 
-    file="/core/src/io/github/teamfractal/util/SoundEffects.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="1520" y="224"/>    
-    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
-      sort-features="false" accessors="true" visibility="true">      
-      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
-      <operations public="true" package="true" protected="true" private="true" static="true"/>    
-    </display>  
-  </class>  
-  <class id="36" language="java" name="io.github.teamfractal.util.ScoreComparisons" project="core" 
+  <class id="34" language="java" name="io.github.teamfractal.util.ScoreComparisons" project="core" 
     file="/core/src/io/github/teamfractal/util/ScoreComparisons.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="363" y="348"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
@@ -328,7 +310,7 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="37" language="java" name="io.github.teamfractal.util.StringUtil" project="core" 
+  <class id="35" language="java" name="io.github.teamfractal.util.StringUtil" project="core" 
     file="/core/src/io/github/teamfractal/util/StringUtil.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="650" y="346"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
@@ -337,7 +319,7 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="38" language="java" name="io.github.teamfractal.util.RandomEvents" project="core" 
+  <class id="36" language="java" name="io.github.teamfractal.util.RandomEvents" project="core" 
     file="/core/src/io/github/teamfractal/util/RandomEvents.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="255" y="136"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
@@ -346,465 +328,571 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <association id="39">    
-    <bendpoint x="1176" y="1762"/>    
-    <end type="SOURCE" refId="7" navigable="false" variant="ASSOCIATION">      
-      <attribute id="40" name="game"/>      
-      <multiplicity id="41" minimum="0" maximum="1"/>    
-    </end>    
-    <end type="TARGET" refId="2" navigable="true" variant="ASSOCIATION"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <association id="42">    
-    <bendpoint x="2602" y="3018"/>    
-    <bendpoint x="2602" y="2730"/>    
-    <end type="SOURCE" refId="32" navigable="false" variant="ASSOCIATION">      
-      <attribute id="43" name="plots"/>      
-      <multiplicity id="44" minimum="0" maximum="2147483647"/>    
-    </end>    
-    <end type="TARGET" refId="14" navigable="true" variant="ASSOCIATION"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <association id="45">    
-    <bendpoint x="295" y="2676"/>    
-    <end type="SOURCE" refId="8" navigable="false" variant="ASSOCIATION">      
-      <attribute id="46" name="gamblingAdjustableActor"/>      
-      <multiplicity id="47" minimum="0" maximum="1"/>    
-    </end>    
-    <end type="TARGET" refId="6" navigable="true" variant="ASSOCIATION"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <association id="48">    
+  <association id="37">    
+    <bendpoint x="2159" y="2112"/>    
     <end type="SOURCE" refId="2" navigable="false" variant="ASSOCIATION">      
-      <attribute id="49" name="market"/>      
-      <multiplicity id="50" minimum="0" maximum="1"/>    
-    </end>    
-    <end type="TARGET" refId="16" navigable="true" variant="ASSOCIATION"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <association id="51">    
-    <bendpoint x="1060" y="2128"/>    
-    <bendpoint x="1060" y="1978"/>    
-    <end type="SOURCE" refId="30" navigable="false" variant="ASSOCIATION">      
-      <attribute id="52" name="game"/>      
-      <multiplicity id="53" minimum="0" maximum="1"/>    
-    </end>    
-    <end type="TARGET" refId="2" navigable="true" variant="ASSOCIATION"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <association id="54">    
-    <bendpoint x="391" y="2585"/>    
-    <end type="SOURCE" refId="8" navigable="false" variant="ASSOCIATION">      
-      <attribute id="55" name="marketQuantityAdjustableActor"/>      
-      <multiplicity id="56" minimum="0" maximum="1"/>    
-    </end>    
-    <end type="TARGET" refId="6" navigable="true" variant="ASSOCIATION"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <association id="57">    
-    <bendpoint x="1783" y="2202"/>    
-    <bendpoint x="1785" y="2202"/>    
-    <bendpoint x="1785" y="2696"/>    
-    <end type="SOURCE" refId="2" navigable="false" variant="ASSOCIATION">      
-      <attribute id="58" name="plotManager"/>      
-      <multiplicity id="59" minimum="0" maximum="1"/>    
-    </end>    
-    <end type="TARGET" refId="32" navigable="true" variant="ASSOCIATION"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <association id="60">    
-    <bendpoint x="1587" y="1432"/>    
-    <bendpoint x="1787" y="1432"/>    
-    <end type="SOURCE" refId="27" navigable="false" variant="ASSOCIATION">      
-      <attribute id="61" name="game"/>      
-      <multiplicity id="62" minimum="0" maximum="1"/>    
-    </end>    
-    <end type="TARGET" refId="2" navigable="true" variant="ASSOCIATION"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <association id="63">    
-    <bendpoint x="3172" y="2714"/>    
-    <end type="SOURCE" refId="17" navigable="false" variant="ASSOCIATION">      
-      <attribute id="64" name="installedLandPlot"/>      
-      <multiplicity id="65" minimum="0" maximum="1"/>    
-    </end>    
-    <end type="TARGET" refId="14" navigable="true" variant="ASSOCIATION"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <association id="66">    
-    <bendpoint x="2827" y="1148"/>    
-    <bendpoint x="2767" y="1148"/>    
-    <end type="SOURCE" refId="29" navigable="false" variant="ASSOCIATION">      
-      <attribute id="67" name="animations"/>      
-      <multiplicity id="68" minimum="0" maximum="2147483647"/>    
-    </end>    
-    <end type="TARGET" refId="9" navigable="true" variant="ASSOCIATION"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <association id="69">    
-    <bendpoint x="253" y="2715"/>    
-    <end type="SOURCE" refId="8" navigable="false" variant="ASSOCIATION">      
-      <attribute id="70" name="playerToPlayerPriceAdjustableActor"/>      
-      <multiplicity id="71" minimum="0" maximum="1"/>    
-    </end>    
-    <end type="TARGET" refId="6" navigable="true" variant="ASSOCIATION"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <generalization id="72">    
-    <end type="SOURCE" refId="26"/>    
-    <end type="TARGET" refId="29"/>  
-  </generalization>  
-  <association id="73">    
-    <end type="SOURCE" refId="14" navigable="false" variant="ASSOCIATION">      
-      <attribute id="74" name="owner"/>      
-      <multiplicity id="75" minimum="0" maximum="1"/>    
+      <attribute id="38" name="playerList">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </attribute>      
+      <multiplicity id="39" minimum="0" maximum="2147483647">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </multiplicity>    
     </end>    
     <end type="TARGET" refId="15" navigable="true" variant="ASSOCIATION"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
-  <association id="76">    
-    <end type="SOURCE" refId="17" navigable="false" variant="ASSOCIATION">      
-      <attribute id="77" name="customisation"/>      
-      <multiplicity id="78" minimum="0" maximum="1"/>    
+  <association id="40">    
+    <end type="SOURCE" refId="10" navigable="false" variant="ASSOCIATION">      
+      <attribute id="41" name="player">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </attribute>      
+      <multiplicity id="42" minimum="0" maximum="1">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </multiplicity>    
     </end>    
-    <end type="TARGET" refId="19" navigable="true" variant="ASSOCIATION"/>    
+    <end type="TARGET" refId="15" navigable="true" variant="ASSOCIATION"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
-  <association id="79">    
-    <bendpoint x="1817" y="1414"/>    
-    <bendpoint x="1746" y="1414"/>    
-    <end type="SOURCE" refId="2" navigable="false" variant="ASSOCIATION">      
-      <attribute id="80" name="mainMenuScreen"/>      
-      <multiplicity id="81" minimum="0" maximum="1"/>    
+  <association id="43">    
+    <bendpoint x="742" y="1804"/>    
+    <bendpoint x="742" y="1938"/>    
+    <end type="SOURCE" refId="8" navigable="false" variant="ASSOCIATION">      
+      <attribute id="44" name="game">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </attribute>      
+      <multiplicity id="45" minimum="0" maximum="1">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="2" navigable="true" variant="ASSOCIATION"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <realization id="46">    
+    <end type="SOURCE" refId="11"/>    
+    <end type="TARGET" refId="9"/>  
+  </realization>  
+  <association id="47">    
+    <bendpoint x="996" y="621"/>    
+    <bendpoint x="1062" y="621"/>    
+    <end type="SOURCE" refId="27" navigable="false" variant="ASSOCIATION">      
+      <attribute id="48" name="actors">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </attribute>      
+      <multiplicity id="49" minimum="0" maximum="1">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="7" navigable="true" variant="ASSOCIATION"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="50">    
+    <bendpoint x="2645" y="2600"/>    
+    <bendpoint x="2645" y="2619"/>    
+    <end type="SOURCE" refId="15" navigable="false" variant="ASSOCIATION">      
+      <attribute id="51" name="landList">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </attribute>      
+      <multiplicity id="52" minimum="0" maximum="2147483647">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="14" navigable="true" variant="ASSOCIATION"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="53">    
+    <bendpoint x="2853" y="1746"/>    
+    <bendpoint x="2776" y="1746"/>    
+    <end type="SOURCE" refId="11" navigable="false" variant="ASSOCIATION">      
+      <attribute id="54" name="callback">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </attribute>      
+      <multiplicity id="55" minimum="0" maximum="1">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="13" navigable="true" variant="ASSOCIATION"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="56">    
+    <end type="SOURCE" refId="27" navigable="false" variant="ASSOCIATION">      
+      <attribute id="57" name="game">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </attribute>      
+      <multiplicity id="58" minimum="0" maximum="1">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="2" navigable="true" variant="ASSOCIATION"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="59">    
+    <end type="SOURCE" refId="4" navigable="false" variant="ASSOCIATION">      
+      <attribute id="60" name="screen">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </attribute>      
+      <multiplicity id="61" minimum="0" maximum="1">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="25" navigable="true" variant="ASSOCIATION"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="62">    
+    <end type="SOURCE" refId="10" navigable="false" variant="ASSOCIATION">      
+      <attribute id="63" name="game">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </attribute>      
+      <multiplicity id="64" minimum="0" maximum="1">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="2" navigable="true" variant="ASSOCIATION"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="65">    
+    <bendpoint x="1227" y="28"/>    
+    <bendpoint x="3314" y="28"/>    
+    <bendpoint x="3314" y="2134"/>    
+    <bendpoint x="3203" y="2134"/>    
+    <end type="SOURCE" refId="7" navigable="false" variant="ASSOCIATION">      
+      <attribute id="66" name="roboticons">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </attribute>      
+      <multiplicity id="67" minimum="0" maximum="2147483647">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="17" navigable="true" variant="ASSOCIATION"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="68">    
+    <bendpoint x="1012" y="601"/>    
+    <bendpoint x="969" y="601"/>    
+    <end type="SOURCE" refId="7" navigable="false" variant="ASSOCIATION">      
+      <attribute id="69" name="screen">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </attribute>      
+      <multiplicity id="70" minimum="0" maximum="1">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </multiplicity>    
     </end>    
     <end type="TARGET" refId="27" navigable="true" variant="ASSOCIATION"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
-  <association id="82">    
-    <end type="SOURCE" refId="10" navigable="false" variant="ASSOCIATION">      
-      <attribute id="83" name="player"/>      
-      <multiplicity id="84" minimum="0" maximum="1"/>    
+  <association id="71">    
+    <bendpoint x="591" y="2031"/>    
+    <bendpoint x="591" y="2178"/>    
+    <end type="SOURCE" refId="8" navigable="false" variant="ASSOCIATION">      
+      <attribute id="72" name="screen">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </attribute>      
+      <multiplicity id="73" minimum="0" maximum="1">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="29" navigable="true" variant="ASSOCIATION"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="74">    
+    <bendpoint x="2182" y="458"/>    
+    <bendpoint x="2182" y="511"/>    
+    <end type="SOURCE" refId="25" navigable="false" variant="ASSOCIATION">      
+      <attribute id="75" name="actors">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </attribute>      
+      <multiplicity id="76" minimum="0" maximum="1">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="4" navigable="true" variant="ASSOCIATION"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="77">    
+    <bendpoint x="2500" y="2138"/>    
+    <end type="SOURCE" refId="11" navigable="false" variant="ASSOCIATION">      
+      <attribute id="78" name="player">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </attribute>      
+      <multiplicity id="79" minimum="0" maximum="1">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </multiplicity>    
     </end>    
     <end type="TARGET" refId="15" navigable="true" variant="ASSOCIATION"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
-  <generalization id="85">    
-    <bendpoint x="1018" y="1250"/>    
-    <end type="SOURCE" refId="3"/>    
-    <end type="TARGET" refId="5"/>  
-  </generalization>  
-  <association id="86">    
-    <bendpoint x="2159" y="2112"/>    
-    <end type="SOURCE" refId="2" navigable="false" variant="ASSOCIATION">      
-      <attribute id="87" name="playerList"/>      
-      <multiplicity id="88" minimum="0" maximum="2147483647"/>    
-    </end>    
-    <end type="TARGET" refId="15" navigable="true" variant="ASSOCIATION"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <association id="89">    
-    <bendpoint x="1856" y="821"/>    
-    <bendpoint x="1879" y="821"/>    
-    <end type="SOURCE" refId="4" navigable="false" variant="ASSOCIATION">      
-      <attribute id="90" name="game"/>      
-      <multiplicity id="91" minimum="0" maximum="1"/>    
+  <association id="80">    
+    <bendpoint x="1686" y="1718"/>    
+    <end type="SOURCE" refId="32" navigable="false" variant="ASSOCIATION">      
+      <attribute id="81" name="game">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </attribute>      
+      <multiplicity id="82" minimum="0" maximum="1">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </multiplicity>    
     </end>    
     <end type="TARGET" refId="2" navigable="true" variant="ASSOCIATION"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
-  <association id="92">    
-    <bendpoint x="625" y="2148"/>    
-    <bendpoint x="625" y="1994"/>    
-    <end type="SOURCE" refId="30" navigable="false" variant="ASSOCIATION">      
-      <attribute id="93" name="actors"/>      
-      <multiplicity id="94" minimum="0" maximum="1"/>    
-    </end>    
-    <end type="TARGET" refId="8" navigable="true" variant="ASSOCIATION"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <association id="95">    
-    <bendpoint x="930" y="1856"/>    
-    <end type="SOURCE" refId="5" navigable="false" variant="ASSOCIATION">      
-      <attribute id="96" name="game"/>      
-      <multiplicity id="97" minimum="0" maximum="1"/>    
-    </end>    
-    <end type="TARGET" refId="2" navigable="true" variant="ASSOCIATION"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <association id="98">    
-    <end type="SOURCE" refId="4" navigable="false" variant="ASSOCIATION">      
-      <attribute id="99" name="screen"/>      
-      <multiplicity id="100" minimum="0" maximum="1"/>    
-    </end>    
-    <end type="TARGET" refId="26" navigable="true" variant="ASSOCIATION"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <generalization id="101">    
-    <bendpoint x="1790" y="880"/>    
-    <bendpoint x="1790" y="974"/>    
-    <end type="SOURCE" refId="28"/>    
-    <end type="TARGET" refId="29"/>  
-  </generalization>  
-  <realization id="102">    
+  <realization id="83">    
     <bendpoint x="2441" y="1644"/>    
     <bendpoint x="2441" y="1467"/>    
     <bendpoint x="2762" y="1467"/>    
     <end type="SOURCE" refId="10"/>    
     <end type="TARGET" refId="9"/>  
   </realization>  
-  <association id="103">    
-    <bendpoint x="2897" y="1139"/>    
-    <bendpoint x="2940" y="1139"/>    
-    <end type="SOURCE" refId="29" navigable="false" variant="ASSOCIATION">      
-      <attribute id="104" name="queueAnimations"/>      
-      <multiplicity id="105" minimum="0" maximum="2147483647"/>    
+  <association id="84">    
+    <bendpoint x="3040" y="2876"/>    
+    <bendpoint x="3203" y="2876"/>    
+    <end type="SOURCE" refId="14" navigable="false" variant="ASSOCIATION">      
+      <attribute id="85" name="installedRoboticon">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </attribute>      
+      <multiplicity id="86" minimum="0" maximum="1">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </multiplicity>    
     </end>    
-    <end type="TARGET" refId="9" navigable="true" variant="ASSOCIATION"/>    
+    <end type="TARGET" refId="17" navigable="true" variant="ASSOCIATION"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
-  <association id="106">    
-    <end type="SOURCE" refId="27" navigable="false" variant="ASSOCIATION">      
-      <attribute id="107" name="homeMainMenu"/>      
-      <multiplicity id="108" minimum="0" maximum="1"/>    
+  <association id="87">    
+    <end type="SOURCE" refId="17" navigable="false" variant="ASSOCIATION">      
+      <attribute id="88" name="customisation">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </attribute>      
+      <multiplicity id="89" minimum="0" maximum="1">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </multiplicity>    
     </end>    
-    <end type="TARGET" refId="5" navigable="true" variant="ASSOCIATION"/>    
+    <end type="TARGET" refId="19" navigable="true" variant="ASSOCIATION"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
-  <association id="109">    
+  <association id="90">    
     <bendpoint x="2191" y="2083"/>    
     <end type="SOURCE" refId="15" navigable="false" variant="ASSOCIATION">      
-      <attribute id="110" name="game"/>      
-      <multiplicity id="111" minimum="0" maximum="1"/>    
+      <attribute id="91" name="game">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </attribute>      
+      <multiplicity id="92" minimum="0" maximum="1">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </multiplicity>    
     </end>    
     <end type="TARGET" refId="2" navigable="true" variant="ASSOCIATION"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
-  <association id="112">    
-    <bendpoint x="2068" y="354"/>    
-    <bendpoint x="2068" y="158"/>    
-    <end type="SOURCE" refId="26" navigable="false" variant="ASSOCIATION">      
-      <attribute id="113" name="gameAudio"/>      
-      <multiplicity id="114" minimum="0" maximum="1"/>    
-    </end>    
-    <end type="TARGET" refId="35" navigable="true" variant="ASSOCIATION"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <association id="115">    
-    <bendpoint x="1686" y="1718"/>    
-    <end type="SOURCE" refId="33" navigable="false" variant="ASSOCIATION">      
-      <attribute id="116" name="game"/>      
-      <multiplicity id="117" minimum="0" maximum="1"/>    
-    </end>    
-    <end type="TARGET" refId="2" navigable="true" variant="ASSOCIATION"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <association id="118">    
-    <bendpoint x="788" y="1894"/>    
-    <end type="SOURCE" refId="31" navigable="false" variant="ASSOCIATION">      
-      <attribute id="119" name="game"/>      
-      <multiplicity id="120" minimum="0" maximum="1"/>    
-    </end>    
-    <end type="TARGET" refId="2" navigable="true" variant="ASSOCIATION"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <association id="121">    
-    <bendpoint x="1985" y="2236"/>    
-    <bendpoint x="2035" y="2236"/>    
-    <bendpoint x="2035" y="2196"/>    
-    <end type="SOURCE" refId="2" navigable="false" variant="ASSOCIATION">      
-      <attribute id="122" name="_instance"/>      
-      <multiplicity id="123" minimum="0" maximum="1"/>    
-    </end>    
-    <end type="TARGET" refId="2" navigable="true" variant="ASSOCIATION"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <association id="124">    
-    <end type="SOURCE" refId="7" navigable="false" variant="ASSOCIATION">      
-      <attribute id="125" name="gameAudio"/>      
-      <multiplicity id="126" minimum="0" maximum="1"/>    
-    </end>    
-    <end type="TARGET" refId="35" navigable="true" variant="ASSOCIATION"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <association id="127">    
-    <bendpoint x="2677" y="1698"/>    
-    <end type="SOURCE" refId="10" navigable="false" variant="ASSOCIATION">      
-      <attribute id="128" name="callback"/>      
-      <multiplicity id="129" minimum="0" maximum="1"/>    
-    </end>    
-    <end type="TARGET" refId="13" navigable="true" variant="ASSOCIATION"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <association id="130">    
+  <association id="93">    
     <bendpoint x="739" y="1458"/>    
-    <end type="SOURCE" refId="31" navigable="false" variant="ASSOCIATION">      
-      <attribute id="131" name="gameOverScreenActors"/>      
-      <multiplicity id="132" minimum="0" maximum="1"/>    
+    <end type="SOURCE" refId="30" navigable="false" variant="ASSOCIATION">      
+      <attribute id="94" name="gameOverScreenActors">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </attribute>      
+      <multiplicity id="95" minimum="0" maximum="1">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </multiplicity>    
     </end>    
     <end type="TARGET" refId="3" navigable="true" variant="ASSOCIATION"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
-  <association id="133">    
-    <bendpoint x="3040" y="2876"/>    
-    <bendpoint x="3203" y="2876"/>    
-    <end type="SOURCE" refId="14" navigable="false" variant="ASSOCIATION">      
-      <attribute id="134" name="installedRoboticon"/>      
-      <multiplicity id="135" minimum="0" maximum="1"/>    
+  <association id="96">    
+    <bendpoint x="930" y="1856"/>    
+    <end type="SOURCE" refId="5" navigable="false" variant="ASSOCIATION">      
+      <attribute id="97" name="game">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </attribute>      
+      <multiplicity id="98" minimum="0" maximum="1">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </multiplicity>    
     </end>    
-    <end type="TARGET" refId="17" navigable="true" variant="ASSOCIATION"/>    
+    <end type="TARGET" refId="2" navigable="true" variant="ASSOCIATION"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
-  <association id="136">    
-    <bendpoint x="1986" y="1222"/>    
-    <bendpoint x="2410" y="1222"/>    
+  <association id="99">    
+    <bendpoint x="2827" y="1148"/>    
+    <bendpoint x="2767" y="1148"/>    
+    <end type="SOURCE" refId="28" navigable="false" variant="ASSOCIATION">      
+      <attribute id="100" name="animations">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </attribute>      
+      <multiplicity id="101" minimum="0" maximum="2147483647">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="9" navigable="true" variant="ASSOCIATION"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <generalization id="102">    
+    <bendpoint x="1790" y="880"/>    
+    <bendpoint x="1790" y="974"/>    
+    <end type="SOURCE" refId="27"/>    
+    <end type="TARGET" refId="28"/>  
+  </generalization>  
+  <association id="103">    
+    <bendpoint x="2606" y="2488"/>    
+    <end type="SOURCE" refId="25" navigable="false" variant="ASSOCIATION">      
+      <attribute id="104" name="selectedPlot">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </attribute>      
+      <multiplicity id="105" minimum="0" maximum="1">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="14" navigable="true" variant="ASSOCIATION"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <generalization id="106">    
+    <bendpoint x="1018" y="1250"/>    
+    <end type="SOURCE" refId="3"/>    
+    <end type="TARGET" refId="5"/>  
+  </generalization>  
+  <association id="107">    
     <end type="SOURCE" refId="2" navigable="false" variant="ASSOCIATION">      
-      <attribute id="137" name="gameScreen"/>      
-      <multiplicity id="138" minimum="0" maximum="1"/>    
+      <attribute id="108" name="market">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </attribute>      
+      <multiplicity id="109" minimum="0" maximum="1">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </multiplicity>    
     </end>    
-    <end type="TARGET" refId="26" navigable="true" variant="ASSOCIATION"/>    
+    <end type="TARGET" refId="16" navigable="true" variant="ASSOCIATION"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
-  <association id="139">    
-    <bendpoint x="2500" y="2138"/>    
-    <end type="SOURCE" refId="11" navigable="false" variant="ASSOCIATION">      
-      <attribute id="140" name="player"/>      
-      <multiplicity id="141" minimum="0" maximum="1"/>    
+  <association id="110">    
+    <bendpoint x="2314" y="1199"/>    
+    <bendpoint x="1953" y="1199"/>    
+    <end type="SOURCE" refId="25" navigable="false" variant="ASSOCIATION">      
+      <attribute id="111" name="game">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </attribute>      
+      <multiplicity id="112" minimum="0" maximum="1">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="2" navigable="true" variant="ASSOCIATION"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="113">    
+    <bendpoint x="3172" y="2714"/>    
+    <end type="SOURCE" refId="17" navigable="false" variant="ASSOCIATION">      
+      <attribute id="114" name="installedLandPlot">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </attribute>      
+      <multiplicity id="115" minimum="0" maximum="1">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="14" navigable="true" variant="ASSOCIATION"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="116">    
+    <bendpoint x="788" y="1894"/>    
+    <end type="SOURCE" refId="30" navigable="false" variant="ASSOCIATION">      
+      <attribute id="117" name="game">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </attribute>      
+      <multiplicity id="118" minimum="0" maximum="1">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="2" navigable="true" variant="ASSOCIATION"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="119">    
+    <bendpoint x="1176" y="1762"/>    
+    <end type="SOURCE" refId="7" navigable="false" variant="ASSOCIATION">      
+      <attribute id="120" name="game">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </attribute>      
+      <multiplicity id="121" minimum="0" maximum="1">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="2" navigable="true" variant="ASSOCIATION"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="122">    
+    <bendpoint x="1783" y="2202"/>    
+    <bendpoint x="1785" y="2202"/>    
+    <bendpoint x="1785" y="2696"/>    
+    <end type="SOURCE" refId="2" navigable="false" variant="ASSOCIATION">      
+      <attribute id="123" name="plotManager">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </attribute>      
+      <multiplicity id="124" minimum="0" maximum="1">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="31" navigable="true" variant="ASSOCIATION"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="125">    
+    <end type="SOURCE" refId="14" navigable="false" variant="ASSOCIATION">      
+      <attribute id="126" name="owner">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </attribute>      
+      <multiplicity id="127" minimum="0" maximum="1">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </multiplicity>    
     </end>    
     <end type="TARGET" refId="15" navigable="true" variant="ASSOCIATION"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
-  <association id="142">    
-    <bendpoint x="2606" y="2488"/>    
-    <end type="SOURCE" refId="26" navigable="false" variant="ASSOCIATION">      
-      <attribute id="143" name="selectedPlot"/>      
-      <multiplicity id="144" minimum="0" maximum="1"/>    
+  <generalization id="128">    
+    <end type="SOURCE" refId="25"/>    
+    <end type="TARGET" refId="28"/>  
+  </generalization>  
+  <association id="129">    
+    <bendpoint x="1856" y="821"/>    
+    <bendpoint x="1879" y="821"/>    
+    <end type="SOURCE" refId="4" navigable="false" variant="ASSOCIATION">      
+      <attribute id="130" name="game">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </attribute>      
+      <multiplicity id="131" minimum="0" maximum="1">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </multiplicity>    
     </end>    
-    <end type="TARGET" refId="14" navigable="true" variant="ASSOCIATION"/>    
+    <end type="TARGET" refId="2" navigable="true" variant="ASSOCIATION"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <realization id="132">    
+    <end type="SOURCE" refId="12"/>    
+    <end type="TARGET" refId="9"/>  
+  </realization>  
+  <association id="133">    
+    <end type="SOURCE" refId="26" navigable="false" variant="ASSOCIATION">      
+      <attribute id="134" name="homeMainMenu">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </attribute>      
+      <multiplicity id="135" minimum="0" maximum="1">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="5" navigable="true" variant="ASSOCIATION"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="136">    
+    <bendpoint x="2897" y="1139"/>    
+    <bendpoint x="2940" y="1139"/>    
+    <end type="SOURCE" refId="28" navigable="false" variant="ASSOCIATION">      
+      <attribute id="137" name="queueAnimations">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </attribute>      
+      <multiplicity id="138" minimum="0" maximum="2147483647">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="9" navigable="true" variant="ASSOCIATION"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="139">    
+    <bendpoint x="1060" y="2128"/>    
+    <bendpoint x="1060" y="1978"/>    
+    <end type="SOURCE" refId="29" navigable="false" variant="ASSOCIATION">      
+      <attribute id="140" name="game">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </attribute>      
+      <multiplicity id="141" minimum="0" maximum="1">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="2" navigable="true" variant="ASSOCIATION"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="142">    
+    <bendpoint x="1985" y="2236"/>    
+    <bendpoint x="2035" y="2236"/>    
+    <bendpoint x="2035" y="2196"/>    
+    <end type="SOURCE" refId="2" navigable="false" variant="ASSOCIATION">      
+      <attribute id="143" name="_instance">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </attribute>      
+      <multiplicity id="144" minimum="0" maximum="1">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="2" navigable="true" variant="ASSOCIATION"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
   <association id="145">    
-    <bendpoint x="2853" y="1746"/>    
-    <bendpoint x="2776" y="1746"/>    
-    <end type="SOURCE" refId="11" navigable="false" variant="ASSOCIATION">      
-      <attribute id="146" name="callback"/>      
-      <multiplicity id="147" minimum="0" maximum="1"/>    
+    <bendpoint x="1587" y="1432"/>    
+    <bendpoint x="1787" y="1432"/>    
+    <end type="SOURCE" refId="26" navigable="false" variant="ASSOCIATION">      
+      <attribute id="146" name="game">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </attribute>      
+      <multiplicity id="147" minimum="0" maximum="1">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="2" navigable="true" variant="ASSOCIATION"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="148">    
+    <bendpoint x="2677" y="1698"/>    
+    <end type="SOURCE" refId="10" navigable="false" variant="ASSOCIATION">      
+      <attribute id="149" name="callback">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </attribute>      
+      <multiplicity id="150" minimum="0" maximum="1">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </multiplicity>    
     </end>    
     <end type="TARGET" refId="13" navigable="true" variant="ASSOCIATION"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
-  <association id="148">    
-    <bendpoint x="2314" y="1199"/>    
-    <bendpoint x="1953" y="1199"/>    
-    <end type="SOURCE" refId="26" navigable="false" variant="ASSOCIATION">      
-      <attribute id="149" name="game"/>      
-      <multiplicity id="150" minimum="0" maximum="1"/>    
+  <association id="151">    
+    <bendpoint x="625" y="2148"/>    
+    <bendpoint x="625" y="1994"/>    
+    <end type="SOURCE" refId="29" navigable="false" variant="ASSOCIATION">      
+      <attribute id="152" name="actors">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </attribute>      
+      <multiplicity id="153" minimum="0" maximum="1">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </multiplicity>    
     </end>    
-    <end type="TARGET" refId="2" navigable="true" variant="ASSOCIATION"/>    
+    <end type="TARGET" refId="8" navigable="true" variant="ASSOCIATION"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
-  <realization id="151">    
-    <end type="SOURCE" refId="11"/>    
-    <end type="TARGET" refId="9"/>  
-  </realization>  
-  <association id="152">    
-    <bendpoint x="2182" y="458"/>    
-    <bendpoint x="2182" y="511"/>    
-    <end type="SOURCE" refId="26" navigable="false" variant="ASSOCIATION">      
-      <attribute id="153" name="actors"/>      
-      <multiplicity id="154" minimum="0" maximum="1"/>    
+  <association id="154">    
+    <bendpoint x="1817" y="1414"/>    
+    <bendpoint x="1746" y="1414"/>    
+    <end type="SOURCE" refId="2" navigable="false" variant="ASSOCIATION">      
+      <attribute id="155" name="mainMenuScreen">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </attribute>      
+      <multiplicity id="156" minimum="0" maximum="1">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </multiplicity>    
     </end>    
-    <end type="TARGET" refId="4" navigable="true" variant="ASSOCIATION"/>    
+    <end type="TARGET" refId="26" navigable="true" variant="ASSOCIATION"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
-  <association id="155">    
-    <bendpoint x="742" y="1804"/>    
-    <bendpoint x="742" y="1938"/>    
-    <end type="SOURCE" refId="8" navigable="false" variant="ASSOCIATION">      
-      <attribute id="156" name="game"/>      
-      <multiplicity id="157" minimum="0" maximum="1"/>    
-    </end>    
-    <end type="TARGET" refId="2" navigable="true" variant="ASSOCIATION"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <realization id="158">    
-    <end type="SOURCE" refId="12"/>    
-    <end type="TARGET" refId="9"/>  
-  </realization>  
-  <association id="159">    
-    <end type="SOURCE" refId="10" navigable="false" variant="ASSOCIATION">      
-      <attribute id="160" name="game"/>      
-      <multiplicity id="161" minimum="0" maximum="1"/>    
-    </end>    
-    <end type="TARGET" refId="2" navigable="true" variant="ASSOCIATION"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <association id="162">    
-    <bendpoint x="2645" y="2600"/>    
-    <bendpoint x="2645" y="2619"/>    
-    <end type="SOURCE" refId="15" navigable="false" variant="ASSOCIATION">      
-      <attribute id="163" name="landList"/>      
-      <multiplicity id="164" minimum="0" maximum="2147483647"/>    
+  <association id="157">    
+    <bendpoint x="2602" y="3018"/>    
+    <bendpoint x="2602" y="2730"/>    
+    <end type="SOURCE" refId="31" navigable="false" variant="ASSOCIATION">      
+      <attribute id="158" name="plots">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </attribute>      
+      <multiplicity id="159" minimum="0" maximum="2147483647">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </multiplicity>    
     </end>    
     <end type="TARGET" refId="14" navigable="true" variant="ASSOCIATION"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
-  <association id="165">    
-    <bendpoint x="996" y="621"/>    
-    <bendpoint x="1062" y="621"/>    
-    <end type="SOURCE" refId="28" navigable="false" variant="ASSOCIATION">      
-      <attribute id="166" name="actors"/>      
-      <multiplicity id="167" minimum="0" maximum="1"/>    
+  <association id="160">    
+    <bendpoint x="1986" y="1222"/>    
+    <bendpoint x="2410" y="1222"/>    
+    <end type="SOURCE" refId="2" navigable="false" variant="ASSOCIATION">      
+      <attribute id="161" name="gameScreen">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </attribute>      
+      <multiplicity id="162" minimum="0" maximum="1">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </multiplicity>    
     </end>    
-    <end type="TARGET" refId="7" navigable="true" variant="ASSOCIATION"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <association id="168">    
-    <bendpoint x="341" y="2632"/>    
-    <end type="SOURCE" refId="8" navigable="false" variant="ASSOCIATION">      
-      <attribute id="169" name="playerToPlayerQuantityAdjustableActor"/>      
-      <multiplicity id="170" minimum="0" maximum="1"/>    
-    </end>    
-    <end type="TARGET" refId="6" navigable="true" variant="ASSOCIATION"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <association id="171">    
-    <end type="SOURCE" refId="28" navigable="false" variant="ASSOCIATION">      
-      <attribute id="172" name="game"/>      
-      <multiplicity id="173" minimum="0" maximum="1"/>    
-    </end>    
-    <end type="TARGET" refId="2" navigable="true" variant="ASSOCIATION"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <association id="174">    
-    <bendpoint x="1012" y="601"/>    
-    <bendpoint x="969" y="601"/>    
-    <end type="SOURCE" refId="7" navigable="false" variant="ASSOCIATION">      
-      <attribute id="175" name="screen"/>      
-      <multiplicity id="176" minimum="0" maximum="1"/>    
-    </end>    
-    <end type="TARGET" refId="28" navigable="true" variant="ASSOCIATION"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <association id="177">    
-    <bendpoint x="591" y="2031"/>    
-    <bendpoint x="591" y="2178"/>    
-    <end type="SOURCE" refId="8" navigable="false" variant="ASSOCIATION">      
-      <attribute id="178" name="screen"/>      
-      <multiplicity id="179" minimum="0" maximum="1"/>    
-    </end>    
-    <end type="TARGET" refId="30" navigable="true" variant="ASSOCIATION"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <association id="180">    
-    <bendpoint x="1227" y="28"/>    
-    <bendpoint x="3314" y="28"/>    
-    <bendpoint x="3314" y="2134"/>    
-    <bendpoint x="3203" y="2134"/>    
-    <end type="SOURCE" refId="7" navigable="false" variant="ASSOCIATION">      
-      <attribute id="181" name="roboticons"/>      
-      <multiplicity id="182" minimum="0" maximum="2147483647"/>    
-    </end>    
-    <end type="TARGET" refId="17" navigable="true" variant="ASSOCIATION"/>    
+    <end type="TARGET" refId="25" navigable="true" variant="ASSOCIATION"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
   <classifier-display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
