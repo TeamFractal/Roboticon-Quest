@@ -144,13 +144,15 @@ public class AuctionActors extends Table {
 		placeBid.addListener(new ClickListener() {
 			@Override
 			public void clicked(InputEvent event, float x, float y) {
-				try {
-					AuctionBid bid = new AuctionBid(Integer.parseInt(bidAmount.getText()), game.getPlayer());
-					auction.getAuctionItemAtIndex(itemsUpForBiddingSelectBox.getSelectedIndex(), game.getPlayer()).placeBid(bid);
-					
-					widgetUpdate(false);
+				if(itemsUpForBiddingSelectBox.getItems().size > 0) {
+					try {
+						AuctionBid bid = new AuctionBid(Integer.parseInt(bidAmount.getText()), game.getPlayer());
+						auction.getAuctionItemAtIndex(itemsUpForBiddingSelectBox.getSelectedIndex(), game.getPlayer()).placeBid(bid);
+
+						widgetUpdate(false);
 					} catch (NotEnoughMoneyException e) {
-					// TODO: handle exception
+						// TODO: handle exception
+					}
 				}
 			}
 		});

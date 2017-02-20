@@ -24,12 +24,7 @@ public class GameCreateActors extends Table {
         addPlayerBtn.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-                if( textField.getText().length() > 0) {
-                    newPlayerNames.add(textField.getText());
-                }
-                textField.setText("");
-                UpdatePlayerTable();
-                if(newPlayerNames.size() < 4) {
+                if(newPlayerNames.size() < 4 && textField.getText().length() > 0) {
                     newPlayerNames.add(textField.getText());
                     textField.setText("");
                     UpdatePlayerTable();
