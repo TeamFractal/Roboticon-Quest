@@ -7,10 +7,15 @@ import io.github.teamfractal.exception.NotCommonResourceException;
 import io.github.teamfractal.util.PlotManager;
 
 public class LandPlot {
+	private String name;
 	private TiledMapTileLayer.Cell mapTile;
 	private TiledMapTileLayer.Cell playerTile;
 	private TiledMapTileLayer.Cell roboticonTile;
 	private Player owner;
+	
+	private final int ROBOTICON_BASE_YIELD_INCREASE_PERCENTAGE = 50;
+	private final int ROBOTICON_SPECIALISED_YIELD_INCREASE_PERCENTAGE = 100;
+	
 	int x, y;
 
 
@@ -94,12 +99,13 @@ public class LandPlot {
 		this.owned = false;
 	}
 
-	public void setupTile (PlotManager plotManager, int x, int y) {
+	public void setupTile (PlotManager plotManager, int x, int y, String tileName) {
 		this.x = x;
 		this.y = y;
 		this.mapTile = plotManager.getMapLayer().getCell(x, y);
 		this.playerTile = plotManager.getPlayerOverlay().getCell(x, y);
 		this.roboticonTile = plotManager.getRoboticonOverlay().getCell(x, y);
+		this.name = tileName;
 	}
 
 	/**
@@ -128,11 +134,15 @@ public class LandPlot {
 		if (roboticon.isInstalled()) {
 			return false;
 		}
+		
+		productionModifiers[0] += ROBOTICON_BASE_YIELD_INCREASE_PERCENTAGE;
+		productionModifiers[1] += ROBOTICON_BASE_YIELD_INCREASE_PERCENTAGE;
+		productionModifiers[2] += ROBOTICON_BASE_YIELD_INCREASE_PERCENTAGE;
 
 		if (roboticon.getCustomisation() != ResourceType.Unknown){
 			int index = resourceTypeToIndex(roboticon.getCustomisation());
 			if (roboticon.setInstalledLandplot(this)) {
-				productionModifiers[index] += 1;
+				productionModifiers[index] += ROBOTICON_SPECIALISED_YIELD_INCREASE_PERCENTAGE;
 				this.installedRoboticon = roboticon;
 				return true;
 			}
@@ -148,30 +158,15 @@ public class LandPlot {
 	}
 
 	/**
-	 * Calculate the amount of resources to be produced.
-	 *
-	 * @return The amount of resources to be produced in an 2D array.
-	 */
-	public int[] produceResources() {
-		int[] produced = new int[3];
-		for (int i = 0; i < 2; i++) {
-			produced[i] = productionAmounts[i] * productionModifiers[i];
-		}
-		return produced;
-	}
-
-	/**
 	 * Calculate the amount of resources to be produced for specific resource.
 	 * @param resource  The resource type to be calculated.
 	 * @return          Calculated amount of resource to be generated.
 	 */
 	public int produceResource(ResourceType resource) {
-		if (this.hasRoboticon){
 			int resIndex = resourceTypeToIndex(resource);
-			return productionAmounts[resIndex] * productionModifiers[resIndex];
-		}
-		else return 0;
-		
+			int productionAmount = productionAmounts[resIndex];
+
+			return productionAmount + (int)((float)productionAmount * ((float)productionModifiers[resIndex] / 100));
 	}
 
 	public int getResource(ResourceType resource) {
@@ -187,5 +182,8 @@ public class LandPlot {
 		this.hasRoboticon = roboticonInstalled;
 	}
 
-
+	@Override
+	public String toString(){
+		return name;
+	}
 }

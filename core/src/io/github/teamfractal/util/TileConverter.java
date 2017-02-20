@@ -9,7 +9,7 @@ import io.github.teamfractal.entity.enums.ResourceType;
 import io.github.teamfractal.entity.enums.RoboticonType;
 import io.github.teamfractal.exception.NotCommonResourceException;
 
-public class TileConverter {
+public class TileConverter { 
 	private static TiledMapTileSets tiles;
 	private static RoboticonQuest game;
 
@@ -34,6 +34,10 @@ public class TileConverter {
 			case ORE:
 				resourceIndex = 3;
 				break;
+				
+			case FOOD:
+				resourceIndex = 4;
+				break;
 
 			case NO_CUST:
 				resourceIndex = 1;
@@ -48,8 +52,6 @@ public class TileConverter {
 	}
 
 	public static TiledMapTile getRoboticonTile(ResourceType resource) {
-		System.out.println("WARN: getRoboticonTile(ResourceType) is old! Use getRoboticonTile(RoboticonType) instead.");
-
 		RoboticonType rt = RoboticonType.NONE;
 
 		switch(resource) {
@@ -62,6 +64,7 @@ public class TileConverter {
 				break;
 
 			case FOOD:
+				rt = RoboticonType.FOOD;
 				break;
 
 			case ROBOTICON:
