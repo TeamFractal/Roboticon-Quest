@@ -17,11 +17,7 @@ public class CasinoScreen implements Screen {
     final Table table;
     private final CasinoActors casinoActors;
 
-
     public CasinoScreen(final RoboticonQuest game, MarketScreen marketScreen) {
-
-        System.out.print(game.getPlayer() + "\n");
-
         this.game = game;
         this.stage = new Stage(new ScreenViewport());
         this.table = new Table();

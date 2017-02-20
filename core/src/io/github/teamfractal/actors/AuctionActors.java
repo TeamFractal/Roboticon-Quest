@@ -13,7 +13,6 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextField.TextFieldFilter;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.Align;
-
 import io.github.teamfractal.Auction;
 import io.github.teamfractal.RoboticonQuest;
 import io.github.teamfractal.exception.NotEnoughMoneyException;
@@ -24,7 +23,6 @@ import io.github.teamfractal.util.AuctionBid;
 import io.github.teamfractal.util.AuctionableItem;
 
 public class AuctionActors extends Table {
-
 	private Auction auction;
 	private RoboticonQuest game;
 	private Label auctionTitle;

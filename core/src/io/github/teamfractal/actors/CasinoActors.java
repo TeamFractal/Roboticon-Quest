@@ -56,9 +56,7 @@ public class CasinoActors extends Table {
 
         Label casinoTitleLbl = new Label("Casino", skin);
         Label instructionLblGuess = new Label("Guess a number between 1 and 3. A bet costs 300", skin);
-        TextButton placeBetBtn = new TextButton("Place Bet", skin);
         resultAmountText = new Label("Your winnings will appear here", skin);
-        TextField guessText = new TextField("Type your guess here", skin);
 
         TextButton button1 = new TextButton("1", skin);
         TextButton button2 = new TextButton("2", skin);
@@ -69,15 +67,6 @@ public class CasinoActors extends Table {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
                 game.setScreen(marketScreen);
-            }
-        });
-
-
-        placeBetBtn.addListener(new ChangeListener() {
-            @Override
-            public void changed(ChangeEvent event, Actor actor) {
-
-
             }
         });
 
@@ -129,8 +118,6 @@ public class CasinoActors extends Table {
         add().width(10);
         add(button3);
         row();
-        add(placeBetBtn).colspan(maxCols);
-        row();
         add(resultAmountText).colspan(maxCols);
         row();
         add(returnButton).colspan(maxCols);
@@ -141,7 +128,6 @@ public class CasinoActors extends Table {
     }
 
     public void widgetUpdate() {
-
         String statText = "Your resources:\n\n" +
                 " Ore: "    + game.getPlayer().getOre()    + "\n" +
                 " Energy: " + game.getPlayer().getEnergy() + "\n" +
@@ -149,7 +135,6 @@ public class CasinoActors extends Table {
                 " Money: "  + game.getPlayer().getMoney()  + "\n" ;
 
         playerStats.setText(statText);
-
     }
 
 }

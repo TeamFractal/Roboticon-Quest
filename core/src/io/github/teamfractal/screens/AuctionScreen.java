@@ -46,8 +46,6 @@ public class AuctionScreen implements Screen {
     @Override
     public void resize(int width, int height) {
         stage.getViewport().update(width, height, true);
-        //CasinoActors.screenResize(width, height); TODO does this need implementing??
-        //auctionActors.screenResize(width, height);
     }
 
     @Override
