@@ -142,7 +142,7 @@ public class PlayerTest {
 	public void testPlayerCanCustomiseOwnedRoboticons() {
 		Roboticon roboticon3 = new Roboticon(3); 
 		Roboticon roboticon4 = new Roboticon(4);
-		player.roboticonList = new Array<Roboticon>();
+		player.roboticonList = new ArrayList<Roboticon>();
 		player.roboticonList.add(roboticon3);
 		player.roboticonList.add(roboticon4);
 		player.customiseRoboticon(player.roboticonList.get(0), ResourceType.ORE);

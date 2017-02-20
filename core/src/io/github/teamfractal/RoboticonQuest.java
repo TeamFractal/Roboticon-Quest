@@ -13,6 +13,8 @@ import io.github.teamfractal.animation.AnimationPhaseTimeout;
 import io.github.teamfractal.animation.AnimationShowPlayer;
 import io.github.teamfractal.animation.IAnimationFinish;
 import io.github.teamfractal.screens.*;
+import io.github.teamfractal.entity.RandomEventFactory;
+import io.github.teamfractal.entity.RandomEvent;
 import io.github.teamfractal.entity.Market;
 import io.github.teamfractal.entity.Player;
 import io.github.teamfractal.util.PlotManager;
@@ -38,6 +40,8 @@ public class RoboticonQuest extends Game {
 	public ArrayList<Player> playerList;
 	public Market market;
 	private int landBoughtThisTurn;
+	private RandomEvent currentEvent;
+	private RandomEventFactory eventGenerator;
 
 	public int getPlayerIndex (Player player) {
 		return playerList.indexOf(player);
@@ -106,6 +110,7 @@ public class RoboticonQuest extends Game {
 		this.currentPlayer = 0;
 		this.market = new Market();
 		plotManager = new PlotManager();
+		eventGenerator = new RandomEventFactory();
 	}
 
 	public void nextPhase () {
@@ -151,6 +156,9 @@ public class RoboticonQuest extends Game {
 			case 6:
 				phase = newPhaseState = 1;
 				this.nextPlayer();
+				// Choose and implement random event for the new player
+				currentEvent = eventGenerator.chooseEvent();
+				currentEvent.activate(playerList.get(currentPlayer));
 				// No "break;" here!
 				// Let the game to do phase 1 preparation.
 

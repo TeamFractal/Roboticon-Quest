@@ -24,17 +24,18 @@ public class Player {
 	private int energy = 0;
 	private int food = 0;
 	ArrayList<LandPlot> landList = new ArrayList<LandPlot>();
-	Array<Roboticon> roboticonList;
+	ArrayList<Roboticon> roboticonList;
 	private RoboticonQuest game;
 
 	public int getMoney() { return money; }
 	public int getOre() { return ore; }
 	public int getEnergy() { return energy; }
 	public int getFood() { return food; }
+	public ArrayList<LandPlot> getLand() { return landList; }
 	
 	public Player(RoboticonQuest game){
 		this.game = game;
-		this.roboticonList = new Array<Roboticon>();
+		this.roboticonList = new ArrayList<Roboticon>();
 
 		
 	}
@@ -341,7 +342,7 @@ public class Player {
 		roboticonAmountList.add("Uncustomised x "    + uncustomised);
 		return roboticonAmountList;
 	}
-	public Array<Roboticon> getRoboticons(){
+	public ArrayList<Roboticon> getRoboticons(){
 		return this.roboticonList;
 	}
 
