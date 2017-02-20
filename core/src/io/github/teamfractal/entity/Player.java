@@ -19,7 +19,7 @@ import com.badlogic.gdx.utils.Array;
 
 public class Player {
 	//<editor-fold desc="Resource getter and setter">
-	private int money = 1000000;
+	private int money = 100;
 	private int ore = 0;
 	private int energy = 0;
 	private int food = 0;
@@ -425,10 +425,10 @@ public class Player {
 			return quantity <= ore;
 			
 		case ENERGY:
-			return quantity <= ore;
+			return quantity <= energy;
 			
 		case FOOD:
-			return quantity <= ore;
+			return quantity <= food;
 
 		default:
 			throw new NotEnoughResourceException();
