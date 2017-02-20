@@ -158,20 +158,6 @@ public class LandPlot {
 	}
 
 	/**
-	 * Calculate the amount of resources to be produced.
-	 *
-	 * @return The amount of resources to be produced in an 2D array.
-	 */
-	public int[] produceResources() {
-		int[] produced = new int[3];
-		for (int i = 0; i < 3; i++) {
-			int productionAmount = productionAmounts[i];
-			produced[i] = productionAmount + (int)((float)productionAmount * (float)(productionModifiers[i] / 100));
-		}
-		return produced;
-	}
-
-	/**
 	 * Calculate the amount of resources to be produced for specific resource.
 	 * @param resource  The resource type to be calculated.
 	 * @return          Calculated amount of resource to be generated.
