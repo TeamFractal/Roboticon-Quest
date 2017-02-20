@@ -19,22 +19,22 @@ public class LandPlotTest {
 
 		roboticon.setCustomisation(ResourceType.ORE);
 		assertTrue(plot.installRoboticon(roboticon));
-		assertArrayEquals(new int[] {1, 0, 0}, plot.productionModifiers);
+		assertArrayEquals(new int[] {150, 50, 50}, plot.productionModifiers);
 
 		Roboticon roboticon2 = new Roboticon(0);
 		roboticon2.setCustomisation(ResourceType.ENERGY);
 		assertTrue(plot.installRoboticon(roboticon2));
-		assertArrayEquals(new int[] {1, 1, 0}, plot.productionModifiers);
+		assertArrayEquals(new int[] {200, 200, 100}, plot.productionModifiers);
 
 		Roboticon roboticon3= new Roboticon(0);
 		roboticon3.setCustomisation(ResourceType.ORE);
 		assertTrue(plot.installRoboticon(roboticon3));
-		assertArrayEquals(new int[] {2, 1, 0}, plot.productionModifiers);
+		assertArrayEquals(new int[] {350, 250, 150}, plot.productionModifiers);
 
 		Roboticon roboticon4= new Roboticon(0);
 		roboticon4.setCustomisation(ResourceType.FOOD);
 		assertTrue(plot.installRoboticon(roboticon4));
-		assertArrayEquals(new int[] {2, 1, 1}, plot.productionModifiers);
+		assertArrayEquals(new int[] {400, 300, 300}, plot.productionModifiers);
 	}
 
 	@Test
@@ -43,22 +43,9 @@ public class LandPlotTest {
 
 		roboticon.setCustomisation(ResourceType.ORE);
 		assertTrue(plot.installRoboticon(roboticon));
-		assertArrayEquals(new int[] {1, 0, 0}, plot.productionModifiers);
+		assertArrayEquals(new int[] {150, 50, 50}, plot.productionModifiers);
 
 		assertFalse(plot.installRoboticon(roboticon));
-		assertArrayEquals(new int[] {1, 0, 0}, plot.productionModifiers);
+		assertArrayEquals(new int[] {150, 50, 50}, plot.productionModifiers);
 	}
-	
-	@Test
-	public void testProduceResources() throws Exception {
-		Roboticon roboticon = new Roboticon(0);
-		roboticon.setCustomisation(ResourceType.ORE);
-		plot.installRoboticon(roboticon);
-		assertArrayEquals(new int[] {3, 0, 0}, plot.produceResources());
-		Roboticon roboticon2 = new Roboticon(0);
-		roboticon2.setCustomisation(ResourceType.ORE);
-		plot.installRoboticon(roboticon2);
-		assertArrayEquals(new int[] {6, 0, 0}, plot.produceResources());
-	}
-
 }

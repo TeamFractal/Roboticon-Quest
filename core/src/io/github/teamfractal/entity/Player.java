@@ -19,7 +19,7 @@ import com.badlogic.gdx.utils.Array;
 
 public class Player {
 	//<editor-fold desc="Resource getter and setter">
-	private int money = 1000000;
+	private int money = 100;
 	private int ore = 0;
 	private int energy = 0;
 	private int food = 0;
@@ -290,15 +290,7 @@ public class Player {
 		plot.setOwner(this);
 		return true;
 	}
-	/**
-	 * Get a landplot to produce resources
-	 */
-	public void produceResources(){
-		for (LandPlot plot : landList) {
-			energy += plot.produceResource(ResourceType.ENERGY);
-			ore += plot.produceResource(ResourceType.ORE);
-		}
-	}
+	
 	/**
 	 * Apply roboticon customisation
 	 * @param roboticon  The roboticon to be customised
@@ -396,6 +388,7 @@ public class Player {
 		for (LandPlot land : landList) {
 			energy += land.produceResource(ResourceType.ENERGY);
 			ore += land.produceResource(ResourceType.ORE);
+			food += land.produceResource(ResourceType.FOOD);
 		}
 
 		setEnergy(getEnergy() + energy);
@@ -432,10 +425,10 @@ public class Player {
 			return quantity <= ore;
 			
 		case ENERGY:
-			return quantity <= ore;
+			return quantity <= energy;
 			
 		case FOOD:
-			return quantity <= ore;
+			return quantity <= food;
 
 		default:
 			throw new NotEnoughResourceException();
