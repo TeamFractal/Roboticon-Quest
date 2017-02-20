@@ -5,14 +5,31 @@ import io.github.teamfractal.exception.InvalidResourceTypeException;
 import io.github.teamfractal.exception.NotCommonResourceException;
 
 public class Market {
+	private static final int ORE_DEFAULT_PRICE = 10;
+	private static final int ENERGY_DEFAULT_PRICE = 20;
+	private static final int FOOD_DEFAULT_PRICE = 30;
+	private static final int ROBOTICON_DEFAULT_PRICE = 40;
+	private static final int CUSTOMISATION_DEFAULT_PRICE = 10;
+	private static final int ACCELERATOR_DEFAULT = 1;
+	private static final int ORE_DEFAULT_AMOUNT = 0;
+	private static final int ENERGY_DEFAULT_AMOUNT = 16;
+	private static final int FOOD_DEFAULT_AMOUNT = 16;
+	private static final int ROBOTICON_DEFAULT_AMOUNT = 12;
+	private static final int CUSTOMISATION_BUY_PRICE = 1000;
+	private static final int CUSTOMISATION_SELL_PRICE = 10;
+  
+	private final int ROBOTICON_ORE_COST = 2;
+	private final int MAX_NO_OF_ROBOTICONS_PER_TURN = 2;
+
 	/**
 	 * Initialise the market
 	 */
 	public Market() {
-		setFood(16);
-		setEnergy(16);
-		setOre(0);
-		setRoboticon(12);
+		setFood(FOOD_DEFAULT_AMOUNT);
+		setEnergy(ENERGY_DEFAULT_AMOUNT);
+		setOre(ORE_DEFAULT_AMOUNT);
+		setRoboticon(ROBOTICON_DEFAULT_AMOUNT);
+		setAccelerator(ACCELERATOR_DEFAULT);
 	}
 
 	//<editor-fold desc="Resource getters and setters">
@@ -20,6 +37,7 @@ public class Market {
 	private int energy;
 	private int ore;
 	private int roboticon;
+	private int accelerator;
 
 	/**
 	 * Get the amount of food in the market
@@ -57,6 +75,11 @@ public class Market {
 	 * Get the total amount of all available resources added together.
 	 * @return   The total amount.
 	 */
+
+	int getAccelerator() {
+		return accelerator; 
+	}
+
 	private synchronized int getTotalResourceCount() {
 		return food + energy + ore + roboticon;
 	}
@@ -112,6 +135,11 @@ public class Market {
 
 		roboticon = amount;
 	}
+
+	void setAccelerator(int accel) {
+		accelerator = accel;
+	}
+
 	//</editor-fold>
 
 	/**
@@ -134,7 +162,7 @@ public class Market {
 				return getFood();
 				
 			case CUSTOMISATION:
-				return 1000;
+				return CUSTOMISATION_SELL_PRICE;
 
 			default:
 				throw new NotCommonResourceException(type);
@@ -167,7 +195,7 @@ public class Market {
 				break;
 
 			case FOOD:
-				setFood(amount);;
+				setFood(amount);
 				break;
 				
 			case CUSTOMISATION:
@@ -198,11 +226,36 @@ public class Market {
 	 * @return           The buy in price.
 	 */
 	public int getBuyPrice(ResourceType resource) {
-		return (int)(getSellPrice(resource) * 0.9f);
+		int price;
+		switch (resource) {
+			case ORE:
+				price = getCurvePoint(resource, ORE_DEFAULT_AMOUNT, ORE_DEFAULT_PRICE, accelerator, 1);
+				return price;
+
+			case ENERGY:
+				price = getCurvePoint(resource, ENERGY_DEFAULT_AMOUNT, ENERGY_DEFAULT_PRICE, accelerator, 1);
+				return price;
+
+			case FOOD:
+				price = getCurvePoint(resource, FOOD_DEFAULT_AMOUNT, FOOD_DEFAULT_PRICE, accelerator,1 );
+				return price;
+
+			case ROBOTICON:
+				price = getCurvePoint(resource, ROBOTICON_DEFAULT_AMOUNT, ROBOTICON_DEFAULT_PRICE, accelerator,1 );
+				return price;
+
+			case CUSTOMISATION:
+				price = CUSTOMISATION_BUY_PRICE;
+				return price;
+
+			default:
+				throw new IllegalArgumentException("Error: Resource type is incorrect.");
+		}
 	}
 
 	/**
 	 * Get the single price for a resource type.
+	 * Selling prices will be dictated via exponential decay in getCurvePoint
 	 * @param resource   The {@link ResourceType}.
 	 * @return           The sell price.
 	 */
@@ -210,29 +263,65 @@ public class Market {
 		int price;
 		switch (resource) {
 			case ORE:
-				price = 10;
+				price = getCurvePoint(resource, ORE_DEFAULT_AMOUNT, ORE_DEFAULT_PRICE, accelerator, -1);
 				return price;
 
 			case ENERGY:
-				price = 20;
+				price = getCurvePoint(resource, ENERGY_DEFAULT_AMOUNT, ENERGY_DEFAULT_PRICE, accelerator, -1);
 				return price;
 
 			case FOOD:
-				price = 30;
+				price = getCurvePoint(resource, FOOD_DEFAULT_AMOUNT, FOOD_DEFAULT_PRICE, accelerator, -1);
 				return price;
 
 			case ROBOTICON:
-				price = 40;
+				price = getCurvePoint(resource, ROBOTICON_DEFAULT_AMOUNT, ROBOTICON_DEFAULT_PRICE, accelerator, -1);
 				return price;
 
 			case CUSTOMISATION:
-				price = 10;
+				price = CUSTOMISATION_BUY_PRICE;
 				return price;
 
 			default:
 				throw new IllegalArgumentException("Error: Resource type is incorrect.");
 		}
 	}
+
+	public void produceRoboticons(){
+		for(int i = 0; i < MAX_NO_OF_ROBOTICONS_PER_TURN; i++) {
+			if(this.ore >= ROBOTICON_ORE_COST) {
+				this.ore = this.ore - ROBOTICON_ORE_COST;
+				this.roboticon = this.roboticon + 1;
+			}
+		}
+	}
+
+	/**
+	 * Take the curve y=|x-defaultAmount| and adds it to the default value of the resource or takes it
+	 * away depending on if buying or selling. This value is multiplied by the accelerator which has the same purpose
+	 * as changing the graph gradient, a higher accelaeator meaning a steeper curve
+	 *
+	 * @param resource The ResourceType.
+	 * @param defaultAmount The initialisation amount of the resource
+	 * @param defaultPrice The initialisation price of the resource
+	 * @param accelerator Changes the gradient of the points
+	 * @param buying Integer representation of wether buying or selling, 1 for buying, -1 for selling
+	 * @return The point on the curve with the current amount of the resource parameter as its x value
+	 */
+	private int getCurvePoint(ResourceType resource, int defaultAmount,int defaultPrice, int accelerator, int buying){
+		double pointCurve;
+
+		if (getResource(resource) >= defaultAmount){
+			pointCurve = Math.max(0,(defaultPrice+((buying)*(accelerator*Math.abs(getResource(resource)-defaultAmount)))));
+		}
+		else{
+			pointCurve = Math.max(0,defaultPrice-(buying)*(accelerator*Math.abs(getResource(resource)-defaultAmount)));
+		}
+
+
+		return (int) (long) pointCurve;
+	}
+
 
 	/**
 	 * Buy Resource from the market, caller <i>must</i> be doing all the checks.

@@ -212,8 +212,10 @@ public class GameScreen extends AbstractAnimationScreen implements Screen  {
 			return tiles.getTile(68 + game.getPlayerIndex(player) + 4);
 		case ENERGY:
 			return tiles.getTile(68 + game.getPlayerIndex(player) + 8);
-		default:
+		case FOOD:
 			return tiles.getTile(68 + game.getPlayerIndex(player) + 12);
+		default:
+			return tiles.getTile(68 + game.getPlayerIndex(player) + 16);
 		}
 	}
 			
@@ -322,6 +324,9 @@ public class GameScreen extends AbstractAnimationScreen implements Screen  {
 	public TiledMap getTmx(){
 		return this.tmx;
 	}
+
+	public void hideNextButton(){ this.actors.hideNextButton(); }
+	public void showNextButton(){ this.actors.showNextButton(); }
 	
 	public GameScreenActors getActors(){
 		return this.actors;

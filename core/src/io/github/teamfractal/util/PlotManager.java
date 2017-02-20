@@ -15,18 +15,18 @@ public class PlotManager {
 	private TiledMapTileLayer roboticonOverlay;
 	private int width;
 	private int height;
-	private TiledMapTile cityTile;
-	private TiledMapTile waterTile;
-	private TiledMapTile forestTile;
-	private TiledMapTile hillTile1;
-	private TiledMapTile hillTile2;
-	private TiledMapTile hillTile3;
-	private TiledMapTile hillTile4;
 
-	public PlotManager() {
-
-	}
-
+	private final int PLAINS_TILE_INDEX  = 2;	//Defined in assets/tiles/city.tmx
+	private final int HILLS_TILE_1_INDEX = 4;
+	private final int HILLS_TILE_2_INDEX = 5;
+	private final int HILLS_TILE_3_INDEX = 6;
+	private final int HILLS_TILE_4_INDEX = 7;
+	private final int WATER_TILE_INDEX   = 10;
+	private final int CITY_TILE_INDEX    = 61;
+	private final int CS_TILE_INDEX      = 64;
+	private final int LMB_TILE_INDEX     = 65;
+	private final int RON_COOKE_INDEX    = 66;
+	
 	/**
 	 * Set up the plot manager.
 	 * @param tiles    Tiles.
@@ -38,17 +38,17 @@ public class PlotManager {
 		this.playerOverlay = (TiledMapTileLayer)layers.get("PlayerOverlay");
 		this.roboticonOverlay = (TiledMapTileLayer)layers.get("RoboticonOverlay");
 
-		this.cityTile = tiles.getTile(60);
-		this.waterTile = tiles.getTile(9);
-		this.forestTile = tiles.getTile(61);
-		this.hillTile1 = tiles.getTile(4);
-		this.hillTile2 = tiles.getTile(5);
-		this.hillTile3 = tiles.getTile(6);
-		this.hillTile4 = tiles.getTile(7);
-
 		width = mapLayer.getWidth();
 		height = mapLayer.getHeight();
 		plots = new LandPlot[width][height];
+
+		// This fills the plots array with empty plots so that when we check for unowned plots there is something to
+		// check against.
+		for(int x = 0; x < width; x++){
+			for(int y = 0; y < height; y++){
+				plots[x][y] = createLandPlot(x, y);
+			}
+		}
 	}
 
 	/**
@@ -61,14 +61,26 @@ public class PlotManager {
 		if (x < 0 || x >= width || y < 0 || y >= height)
 			return null;
 
-		// Lazy load
-		LandPlot p = plots[x][y];
-		if (p == null) {
-			p = createLandPlot(x, y);
+		return plots[x][y];
+	}
+
+	public int getNumUnownedTiles() {
+		int numUnownedTiles = 0;
+
+		for (LandPlot[] plotColumns : plots) {
+			for(LandPlot plot : plotColumns){
+				if(plot != null)
+				{
+					if(!plot.hasOwner()){
+						numUnownedTiles ++;
+					}
+				}
+			}
 		}
 
-		return p;
+		return numUnownedTiles;
 	}
+	
 	/**
 	 * Creates a landplot from a tile tile on the tiled map
 	 * @param x - x coordinate on tiled map
@@ -78,36 +90,62 @@ public class PlotManager {
 	private LandPlot createLandPlot(int x, int y) {
 		int ore, energy, food;
 		TiledMapTile tile = mapLayer.getCell(x, y).getTile();
+		String name;
 
-		if (tile == cityTile){
+		if (tile == tiles.getTile(CITY_TILE_INDEX)){
 			ore = 1;
 			energy = 2;
 			food = 3;
+			name = "City";
 		}
-		else if (tile == forestTile){
-			ore = 2;
-			energy = 3;
-			food = 1;
-		}
-		else if (tile == waterTile){
+		else if (tile == tiles.getTile(WATER_TILE_INDEX)){
 			ore = 3;
 			energy = 1;
 			food = 2;
+			name = "River";
 		}
-		else if (tile == hillTile1 || tile == hillTile2 ||tile == hillTile3 || tile == hillTile4 ){
+		else if (tile == tiles.getTile(HILLS_TILE_1_INDEX) 
+				|| tile == tiles.getTile(HILLS_TILE_2_INDEX)
+				|| tile == tiles.getTile(HILLS_TILE_3_INDEX)
+				|| tile == tiles.getTile(HILLS_TILE_4_INDEX)){
 			ore = 3;
 			energy = 2;
 			food = 1;
+			name = "Hills";
 		}
-		else{
+		else if (tile == tiles.getTile(CS_TILE_INDEX)){
+			ore = 5;
+			energy = 4;
+			food = 0;
+			name = "CS Department";
+		}
+		else if (tile == tiles.getTile(LMB_TILE_INDEX)){
+			ore = 3;
+			energy = 3;
+			food = 3;
+			name = "Law and Management";
+		}
+		else if (tile == tiles.getTile(RON_COOKE_INDEX)){
+			ore = 0;
+			energy = 2;
+			food = 7;
+			name = "Ron Cooke Hub";
+		}
+		else if (tile == tiles.getTile(PLAINS_TILE_INDEX)){
 			ore = 2;
 			energy = 2;
 			food = 2;
+			name = "Grassland";
+		}
+		else{
+			ore = 1;
+			energy = 1;
+			food = 0;
+			name = "Road";
 		}
 
-
 		LandPlot p = new LandPlot(ore, energy, food);
-		p.setupTile(this, x, y);
+		p.setupTile(this, x, y, name);
 		plots[x][y] = p;
 		return p;
 	}

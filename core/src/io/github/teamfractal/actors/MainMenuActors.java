@@ -13,18 +13,18 @@ import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import io.github.teamfractal.RoboticonQuest;
 
 
-public class HomeMainMenu extends Table {
+public class MainMenuActors extends Table {
 	private RoboticonQuest game;
 	private TextButton btnNewGame;
 	private TextButton btnExit;
-
-	private static Texture titleTexture = new Texture(Gdx.files.internal("roboticon_images/Roboticon_Quest_Title"));
+	private static final String TITLE_IMAGE_PATH = "roboticon_images/roboticon_quest_title.png";
+	private static Texture titleTexture = new Texture(Gdx.files.internal(TITLE_IMAGE_PATH));
 
 	/**
 	 * Initialise the Home Menu.
 	 * @param game    The game object.
 	 */
-	public HomeMainMenu(RoboticonQuest game) {
+	public MainMenuActors(RoboticonQuest game) {
 		this.game = game;
 
 		// Create UI Components
@@ -56,8 +56,7 @@ public class HomeMainMenu extends Table {
 		btnNewGame.addListener(new ClickListener() {
 			@Override
 			public void clicked (InputEvent event, float x, float y) {
-				game.setScreen(game.gameScreen);
-				game.gameScreen.newGame();
+				game.setScreen(game.gameCreateScreen);
 			}
 		});
 
