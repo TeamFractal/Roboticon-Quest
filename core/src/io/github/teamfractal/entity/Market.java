@@ -219,8 +219,6 @@ public class Market {
 
 	/**
 	 * Get the single price for a resource type.
-	 * Buying price dictated via exponential growth in getCurvePoint
-	 * THIS DOES NOT WORK AS OF YET
 	 * @param resource   The {@link ResourceType}.
 	 * @return           The buy in price.
 	 */
@@ -228,19 +226,19 @@ public class Market {
 		int price;
 		switch (resource) {
 			case ORE:
-				price = getCurvePoint(resource, ORE_DEFAULT_AMOUNT, ORE_DEFAULT_PRICE, accelerator);
+				price = getCurvePoint(resource, ORE_DEFAULT_AMOUNT, ORE_DEFAULT_PRICE, accelerator, 1);
 				return price;
 
 			case ENERGY:
-				price = getCurvePoint(resource, ENERGY_DEFAULT_AMOUNT, ENERGY_DEFAULT_PRICE, accelerator);
+				price = getCurvePoint(resource, ENERGY_DEFAULT_AMOUNT, ENERGY_DEFAULT_PRICE, accelerator, 1);
 				return price;
 
 			case FOOD:
-				price = getCurvePoint(resource, FOOD_DEFAULT_AMOUNT, FOOD_DEFAULT_PRICE, accelerator);
+				price = getCurvePoint(resource, FOOD_DEFAULT_AMOUNT, FOOD_DEFAULT_PRICE, accelerator,1 );
 				return price;
 
 			case ROBOTICON:
-				price = getCurvePoint(resource, ROBOTICON_DEFAULT_AMOUNT, ROBOTICON_DEFAULT_PRICE, accelerator);
+				price = getCurvePoint(resource, ROBOTICON_DEFAULT_AMOUNT, ROBOTICON_DEFAULT_PRICE, accelerator,1 );
 				return price;
 
 			case CUSTOMISATION:
@@ -262,19 +260,19 @@ public class Market {
 		int price;
 		switch (resource) {
 			case ORE:
-				price = getCurvePoint(resource, ORE_DEFAULT_AMOUNT, ORE_DEFAULT_PRICE, accelerator);
+				price = getCurvePoint(resource, ORE_DEFAULT_AMOUNT, ORE_DEFAULT_PRICE, accelerator, -1);
 				return price;
 
 			case ENERGY:
-				price = getCurvePoint(resource, ENERGY_DEFAULT_AMOUNT, ENERGY_DEFAULT_PRICE, accelerator);
+				price = getCurvePoint(resource, ENERGY_DEFAULT_AMOUNT, ENERGY_DEFAULT_PRICE, accelerator, -1);
 				return price;
 
 			case FOOD:
-				price = getCurvePoint(resource, FOOD_DEFAULT_AMOUNT, FOOD_DEFAULT_PRICE, accelerator);
+				price = getCurvePoint(resource, FOOD_DEFAULT_AMOUNT, FOOD_DEFAULT_PRICE, accelerator, -1);
 				return price;
 
 			case ROBOTICON:
-				price = getCurvePoint(resource, ROBOTICON_DEFAULT_AMOUNT, ROBOTICON_DEFAULT_PRICE, accelerator);
+				price = getCurvePoint(resource, ROBOTICON_DEFAULT_AMOUNT, ROBOTICON_DEFAULT_PRICE, accelerator, -1);
 				return price;
 
 			case CUSTOMISATION:
@@ -286,17 +284,30 @@ public class Market {
 		}
 	}
 
-	private int getCurvePoint(ResourceType resource, int defaultAmount,int defaultPrice, int accelerator){
-		float pointCurve;
+	/**
+	 * Take the curve y=|x-defaultAmount| and adds it to the default value of the resource or takes it
+	 * away depending on if buying or selling. This value is multiplied by the accelerator which has the same purpose
+	 * as changing the graph gradient, a higher accelaeator meaning a steeper curve
+	 *
+	 * @param resource The ResourceType.
+	 * @param defaultAmount The initialisation amount of the resource
+	 * @param defaultPrice The initialisation price of the resource
+	 * @param accelerator Changes the gradient of the points
+	 * @param buying Integer representation of wether buying or selling, 1 for buying, -1 for selling
+	 * @return The point on the curve with the current amount of the resource parameter as its x value
+	 */
+	private int getCurvePoint(ResourceType resource, int defaultAmount,int defaultPrice, int accelerator, int buying){
+		double pointCurve;
 
 		if (getResource(resource) >= defaultAmount){
-			pointCurve = defaultPrice-(accelerator*Math.abs(getResource(resource)-defaultAmount));
+			pointCurve = Math.max(0,(defaultPrice+((buying)*(accelerator*Math.abs(getResource(resource)-defaultAmount)))));
 		}
 		else{
-			pointCurve = defaultPrice+(accelerator*Math.abs(getResource(resource)-defaultAmount));
+			pointCurve = Math.max(0,defaultPrice-(buying)*(accelerator*Math.abs(getResource(resource)-defaultAmount)));
 		}
 
-		return Math.round(pointCurve);
+
+		return (int) (long) pointCurve;
 	}
 
 
